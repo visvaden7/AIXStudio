@@ -7,12 +7,7 @@ export const Header: FunctionComponent = () => {
   
   useEffect(() => {
     const handleScroll = () => {
-      console.log(window.scrollY, "test")
-      if (window.scrollY === 0) {
-        setIsTransparency(true);
-      } else {
-        setIsTransparency(false)
-      }
+      setIsTransparency(window.scrollY === 0);
     };
     window.addEventListener('scroll', handleScroll);
     return () => {
@@ -26,7 +21,12 @@ export const Header: FunctionComponent = () => {
     }
   }, [location]);
   
+  const isActiveTab = location.pathname;
   
+  const headerClass = `fixed w-screen transition-all duration-300 ${isTransparency ? 'bg-transparent' : 'bg-amber-100'}`;
+  const containerClass = 'container w-[70%] min-h-full flex justify-center bg-pink-400 mx-auto';
+  const navItemClass = 'nav-item flex flex-1 gap-2 justify-center items-center';
+  const loginClass = 'login w-[20%] py-10 border-l-black';
   const navItem = [
     {
       id: 1,
@@ -51,29 +51,24 @@ export const Header: FunctionComponent = () => {
   ]
   return (
     <header
-      className={`fixed w-screen transition-all duration-300 ${isTransparency ? 'bg-transparent' : 'bg-amber-100'}`}>
-      <div className={'container w-[70%] min-h-full flex justify-center bg-pink-400 mx-auto'}>
+      className={headerClass}>
+      <div className={containerClass}>
         <div className={'logo-wrap w-[25%] h-full py-10'}>
           <Link to={'/'}>로고</Link>
         </div>
-        <div className={'nav-item flex flex-1 gap-2 justify-center items-center'}>
-          {navItem.map(it => {
-            return (
-              <ol>
-                <li key={it.id}>
-                  <NavLink
-                    to={it.path}
-                    className={({isActive}) =>
-                      `p-5 ${isActive ? 'border-b-2 border-blue-500' : ''}`
-                    }>
-                    {it.label}
-                  </NavLink>
-                </li>
-              </ol>
-            )
-          })}
+        <div className={navItemClass}>
+          {navItem.map(it => (
+            <li key={it.id} className={'relative flex h-full items-center'}>
+              <NavLink to={it.path} className={`p-5`}>
+                {it.label}
+              </NavLink>
+              {isActiveTab === it.path && (
+                <div className={'absolute bg-blue-400 w-full h-1 z-10 bottom-0'}></div>
+              )}
+            </li>
+          ))}
         </div>
-        <div className={'login w-[20%] py-10 border-l-black'}>
+        <div className={loginClass}>
           <button>로그인</button>
         </div>
       </div>

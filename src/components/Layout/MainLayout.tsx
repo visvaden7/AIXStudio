@@ -5,7 +5,7 @@ import { Footer } from "./Footer.tsx";
 
 const MainLayout: FunctionComponent = () => {
   return (
-    <div className="flex flex-col w-full min-h-screen">
+    <div className="flex flex-col w-full min-h-screen no-scrollbar">
       <Header />
       <main className="flex-1 w-full mt-[120px]">
         <div className="container mx-auto px-4">

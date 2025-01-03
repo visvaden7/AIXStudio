@@ -20,3 +20,19 @@ html, body {
   min-height: 100vh;
   overflow-x: hidden; /* 가로 스크롤 방지 */
 }
+
+body::-webkit-scrollbar {
+  display: none; /* 스크롤바 숨기기 */
+}
+
+@layer utilities {
+  /* 웹킷 기반 스크롤바 숨기기 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox에서 스크롤바 숨기기 */
+  .no-scrollbar {
+    scrollbar-width: none; /* Firefox */
+  }
+}
