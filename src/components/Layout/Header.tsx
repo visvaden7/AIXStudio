@@ -23,7 +23,7 @@ export const Header: FunctionComponent = () => {
   
   const isActiveTab = location.pathname;
   
-  const headerClass = `fixed w-screen transition-all duration-300 ${isTransparency ? 'bg-transparent' : 'bg-amber-100'}`;
+  const headerClass = `fixed w-screen pretendard-extraBold transition-all duration-300 z-10 ${isTransparency ? 'bg-transparent' : 'bg-amber-100'}`;
   const containerClass = 'container w-[70%] min-h-full flex justify-center bg-pink-400 mx-auto';
   const navItemClass = 'nav-item flex flex-1 gap-2 justify-center items-center';
   const loginClass = 'login w-[20%] py-10 border-l-black';

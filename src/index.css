@@ -1,6 +1,39 @@
+@import url('../public/font/pretendard.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* TODO: 추후 폰트 사이즈 변경 및 적용*/
+
+@layer utilities {
+  .pretendard {
+    @apply font-pretendard
+  }
+
+  .pretendard-bold {
+    @apply font-pretendard font-bold;
+  }
+
+  .pretendard-extraBold {
+    @apply font-pretendard font-extrabold;
+  }
+
+  @screen sm {
+    .pretendard .pretendard-bold .pretendard-extraBold {
+      @apply text-sm;
+    }
+  }
+  @screen md {
+    .pretendard .pretendard-bold .pretendard-extraBold {
+      @apply text-base;
+    }
+  }
+  @screen lg {
+    .pretendard .pretendard-bold .pretendard-extraBold {
+      @apply text-lg;
+    }
+  }
+}
 
 :root {
   width: 100%;
@@ -10,6 +43,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+
 
 html, body {
   margin: 0;
