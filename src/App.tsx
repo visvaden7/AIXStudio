@@ -9,21 +9,26 @@ import {PortfolioPage} from "./pages/PortfolioPage.tsx";
 import {AIXLabPage} from "./pages/AIXLabPage.tsx";
 import {MyPage} from "./pages/MyPage.tsx";
 import {NoticePage} from "./pages/NoticePage.tsx";
+import {ScrollToTop} from "./components/ScrollToTop.tsx";
 
 function App() {
   return (
-    <Routes>
-      <Route element={<MainLayout/>}>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/register" element={<RegisterPage/>} />
-        <Route path="/about" element={<AboutPage/>} />
-        <Route path="/project" element={<ProjectPage/>} />
-        <Route path="/portfolio" element={<PortfolioPage/>} />
-        <Route path="/aixlab" element={<AIXLabPage/>} />
-        <Route path="/mypage" element={<MyPage/>} />
-        <Route path="/notice" element={<NoticePage/>} />
-      </Route>
-    </Routes>
+    <>
+      <ScrollToTop/>
+      <Routes>
+        <Route element={<MainLayout/>}>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/register" element={<RegisterPage/>} />
+          <Route path="/about" element={<AboutPage/>} />
+          <Route path="/project" element={<ProjectPage/>} />
+          <Route path="/portfolio" element={<PortfolioPage/>} />
+          <Route path="/aixlab" element={<AIXLabPage/>} />
+          <Route path="/mypage" element={<MyPage/>} />
+          <Route path="/notice" element={<NoticePage/>} />
+        </Route>
+      </Routes>
+    </>
+    
   );
 }
 
