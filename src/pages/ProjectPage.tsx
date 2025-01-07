@@ -4,6 +4,7 @@ import {IoArrowBack, IoArrowForward, IoReload, IoSearchOutline} from "react-icon
 import {projectList} from "../const/const.ts";
 import {Project} from "../@types/domain.ts";
 import {pageReducer} from "../const/reducer.ts";
+import {ProjectModal} from "../components/Modal/ProjectModal.tsx";
 
 export const ProjectPage: FunctionComponent = () => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
@@ -13,15 +14,17 @@ export const ProjectPage: FunctionComponent = () => {
   const [data] = useState<Project[]>(projectList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   
   const [input, setInput] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectProject, setSelectProject] = useState<Project>({idx: 0, title: '', subTitle: '', imgUrl: '', tag:'카드뉴스'})
   
   const sortedData = useMemo(() => {
-    if(input.length > 0) return data.filter(data => data.title.includes(input))
+    if (input.length > 0) return data.filter(data => data.title.includes(input))
     return data;
-  },[data, input])
+  }, [data, input])
   
   // pageNation
   const maxPage = useMemo(() => {
-    return Math.max(1,Math.ceil(sortedData.length / itemsPerPage))
+    return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
   }, [sortedData, itemsPerPage])
   
   const visiblePages = useMemo(() => {
@@ -37,14 +40,13 @@ export const ProjectPage: FunctionComponent = () => {
     return sortedData.slice(startIndex, endIndex);
   }, [sortedData, currentPage])
   
-  const filteredData = useMemo(() => {
-    return data.filter((data) =>
-      data.title.includes(input)
-    )
-  }, [data, input])
-  
   const onReset = () => {
     setInput('')
+  }
+  
+  const handleSelectProject = (project: Project) => {
+    setSelectProject(project)
+    setIsModalOpen(true)
   }
   
   const activeClass = "font-bold text-red-400";
@@ -73,7 +75,7 @@ export const ProjectPage: FunctionComponent = () => {
       <div className={'flex gap-10 flex-wrap justify-center'}>
         {pagedData.map(project => {
           return <Card size={"small"} key={project.idx}>
-            <div className={'flex flex-col text-left'}>
+            <div className={'flex flex-col text-left'} onClick={() => handleSelectProject(project)}>
               <div className={'w-full'}>
                 <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover'}/>
               </div>
@@ -90,7 +92,8 @@ export const ProjectPage: FunctionComponent = () => {
             </div>
           </Card>
         })}
-        {filteredData.length === 0 && <h1>{`${input} 프로젝트가 없습니다.`}</h1>}
+        {sortedData.length === 0 && <h1>{`${input} 프로젝트가 없습니다.`}</h1>}
+        <ProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} project={selectProject}/>
       </div>
       
       {/*페이지네이션*/}
