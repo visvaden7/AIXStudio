@@ -1,7 +1,7 @@
 import {FunctionComponent, useMemo, useReducer, useState} from "react";
-import {pageReducer} from "../const/reducer.ts";
+import {pageReducer} from "../reducer/reducer.ts";
 import {Options, Portfolio} from "../@types/domain.ts";
-import {filterBtnLabelForPortfolio, portfolioList} from "../const/const.ts";
+import {activeClass, filterBtnLabelForPortfolio, inactiveClass, portfolioList} from "../const/const.ts";
 import {IoArrowBack, IoArrowForward, IoHeartOutline, IoReload, IoSearchOutline} from "react-icons/io5";
 import {Card} from "../components/Card.tsx";
 
@@ -12,8 +12,8 @@ export const PortfolioPage: FunctionComponent = () => {
   const itemsPerPage = 12;
   const visiblePageCount = 5;
   
-  const options:Options[] = [
-    {id: 0, value: 'latest', label:'최신순'},
+  const options: Options[] = [
+    {id: 0, value: 'latest', label: '최신순'},
     {id: 1, value: 'popular', label: '인기도'}
   ]
   
@@ -54,7 +54,7 @@ export const PortfolioPage: FunctionComponent = () => {
   
   // pageNation
   const maxPage = useMemo(() => {
-    return Math.max(1,Math.ceil(sortedData.length / itemsPerPage))
+    return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
   }, [sortedData, itemsPerPage])
   
   const visiblePages = useMemo(() => {
@@ -73,12 +73,11 @@ export const PortfolioPage: FunctionComponent = () => {
     setInput('')
   }
   
-  const activeClass = "font-bold text-red-400";
-  const inactiveClass = "text-gray-600";
+  
   
   return (
     <div className={'w-full font-pretendard'}>
-      <div className={'flex text-left justify-between m-10'}>
+      <div className={'flex text-left justify-between my-10'}>
         <div className={'flex flex-col'}>
           <p className={'text-[50px]'}>Portfolio</p>
           <p className={'pretendard-extraBold text-[16px]'}>다른 친구들이 완성한 프로젝트의 결과물을 확인할 수 있어요.</p>
@@ -95,7 +94,7 @@ export const PortfolioPage: FunctionComponent = () => {
         </div>
       </div>
       <div className={'flex justify-between items-center'}>
-        <div className={'flex w-full gap-5 justify-start m-10'}>
+        <div className={'flex w-full gap-5 justify-start my-10'}>
           {filterBtnLabelForPortfolio.map((label, idx) => {
             return (
               <button
@@ -108,40 +107,36 @@ export const PortfolioPage: FunctionComponent = () => {
         </div>
         <div>
           <select name={'sort'} onChange={e => setSortedOrder(e.target.value as 'latest' | 'popular')}>
-            {options.map((option, idx) =>{
+            {options.map((option, idx) => {
               return <option value={option.value} key={idx}>{option.label}</option>
             })}
           </select>
         </div>
       </div>
       {/*컨텐츠*/}
-      <div className={'flex gap-10 flex-wrap justify-center'}>
-        {pagedData.map(project => {
-          return <Card size={"small"} key={project.idx}>
-            <div className={'flex flex-col text-left'}>
-              <div className={'w-full'}>
-                <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover'}/>
-              </div>
-              <div className={'card-tag flex gap-1 p-4 text-center'}>
-                <p className={'bg-pink-400 w-20 rounded-2xl font-pretendard'}>
-                  PROJECT
-                </p>
-                <p className={'bg-orange-950 text-white w-20 rounded-2xl font-pretendard'}>
-                  {/*{project.tag}*/}
-                </p>
-              </div>
-              <p>{project.title}</p>
-              <p>{project.subtitle}</p>
-              <div>
-                <p>{`${project.user} - ${project.timestamp}`}</p>
-                <div className={'flex'}>
-                  <IoHeartOutline/>
-                  {project.heartRate}
+      <div className={'flex w-full justify-center'}>
+        <div className={'flex flex-wrap gap-10 justify-start items-start'}>
+          {pagedData.map(project => {
+            return (
+              <Card className={'grow basis-1/5 min-w-[250px]'} key={project.idx}>
+                <div className={'flex flex-col text-left'}>
+                  <div className={'w-full overflow-hidden'}>
+                    <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
+                  </div>
+                  <p>{project.title}</p>
+                  <p>{project.subtitle}</p>
+                  <div>
+                    <p>{`${project.user} - ${project.timestamp}`}</p>
+                    <div className={'flex'}>
+                      <IoHeartOutline/>
+                      {project.heartRate}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </Card>
-        })}
+              </Card>
+            )
+          })}
+        </div>
         {pagedData.length === 0 && <h1>{`${input} 프로젝트가 없습니다.`}</h1>}
       </div>
       
