@@ -7,24 +7,27 @@ export const Header: FunctionComponent = () => {
   
   useEffect(() => {
     const handleScroll = () => {
-      setIsTransparency(window.scrollY === 0);
+      if(location.pathname === '/'){
+        setIsTransparency(window.scrollY === 0);
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+    
+    if(location.pathname != '/'){
+      setIsTransparency(false)
+      window.removeEventListener('scroll', handleScroll); // 스크롤 이벤트 해제
+    } else {
+      setIsTransparency(true)
+      window.addEventListener('scroll', handleScroll); // 스크롤 이벤트 등록
+    }
     return () => {
       window.removeEventListener('scroll', handleScroll); // 이벤트 리스너 정리
     };
-  }, []);
-  
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      setIsTransparency(false)
-    }
   }, [location]);
   
   const isActiveTab = location.pathname;
   
-  const headerClass = `fixed w-screen pretendard-extraBold transition-all duration-300 z-10 ${isTransparency ? 'bg-transparent' : 'bg-amber-100'}`;
-  const containerClass = 'container w-[70%] min-h-full flex justify-center bg-pink-400 mx-auto';
+  const headerClass = `fixed w-screen pretendard-extraBold transition-all duration-300 z-10 ${isTransparency ? 'bg-transparent' : 'bg-[#FFE552]'}`;
+  const containerClass = `container w-[70%] min-h-full flex justify-center bg-transparent mx-auto`;
   const navItemClass = 'nav-item flex flex-1 gap-2 justify-center items-center';
   const loginClass = 'login w-[20%] py-10 border-l-black';
   const navItem = [

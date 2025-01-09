@@ -21,7 +21,7 @@ export const ProjectModal:FunctionComponent<Props> = ({isOpen, onClose, project}
           </div>
         </div>
         <div>
-          {project?.tag}
+          {project?.type}
         </div>
         <img src={project?.imgUrl} alt={project?.title} className={'w-full'}/>
         <div>

@@ -26,7 +26,7 @@ export const PortfolioPage: FunctionComponent = () => {
     
     // Step 1: Filter by label
     if (filterLabel !== '전체') {
-      filtered = filtered.filter((item) => item.title.includes(filterLabel));
+      filtered = filtered.filter((item) => item.type.includes(filterLabel));
     }
     
     // Step 2: Sort by order (latest or popular)
@@ -98,7 +98,7 @@ export const PortfolioPage: FunctionComponent = () => {
           {filterBtnLabelForPortfolio.map((label, idx) => {
             return (
               <button
-                className={`w-[10%] h-[40px] ${currentIdx === idx ? 'bg-purple-600' : 'bg-gray-400'} text-white rounded-2xl`}
+                className={`w-[13%] h-[40px] ${currentIdx === idx ? 'bg-[#FFE552] text-black' : 'bg-gray-400 text-white'} text-white rounded-2xl`}
                 onClick={() => handleFiltering(idx, label)}
                 key={idx}
               >{label}</button>
@@ -115,11 +115,11 @@ export const PortfolioPage: FunctionComponent = () => {
       </div>
       {/*컨텐츠*/}
       <div className={'flex w-full justify-center'}>
-        <div className={'flex flex-wrap gap-10 justify-start items-start'}>
+        <div className={'portfolio flex flex-wrap gap-10 justify-start sm:justify-between items-start'}>
           {pagedData.map(project => {
             return (
-              <Card className={'grow basis-1/5 min-w-[250px]'} key={project.idx}>
-                <div className={'flex flex-col text-left'}>
+              <Card className={'flexible-card'} key={project.idx}>
+                <div className={'flex flex-col w-full text-left'}>
                   <div className={'w-full overflow-hidden'}>
                     <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
                   </div>

@@ -1,7 +1,7 @@
 import {FunctionComponent, useMemo, useReducer, useState} from "react";
 import {Card} from "../components/Card.tsx";
 import {IoArrowBack, IoArrowForward, IoReload, IoSearchOutline} from "react-icons/io5";
-import {projectList} from "../const/const.ts";
+import {activeClass, inactiveClass, projectList} from "../const/const.ts";
 import {Project} from "../@types/domain.ts";
 import {pageReducer} from "../reducer/reducer.ts";
 import {ProjectModal} from "../components/Modal/ProjectModal.tsx";
@@ -13,9 +13,9 @@ export const ProjectPage: FunctionComponent = () => {
   
   const [data] = useState<Project[]>(projectList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   
-  const [input, setInput] = useState('')
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectProject, setSelectProject] = useState<Project>({idx: 0, title: '', subTitle: '', imgUrl: '', tag:'카드뉴스'})
+  const [input, setInput] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectProject, setSelectProject] = useState<Project>({idx: 0, title: '', subTitle: '', imgUrl: '', type: ''});
   
   const sortedData = useMemo(() => {
     if (input.length > 0) return data.filter(data => data.title.includes(input))
@@ -49,9 +49,6 @@ export const ProjectPage: FunctionComponent = () => {
     setIsModalOpen(true)
   }
   
-  const activeClass = "font-bold text-red-400";
-  const inactiveClass = "text-gray-600";
-  
   return (
     <div className={'w-full font-pretendard'}>
       <div className={'flex text-left justify-between m-10'}>
@@ -72,19 +69,19 @@ export const ProjectPage: FunctionComponent = () => {
       </div>
       
       {/*컨텐츠*/}
-      <div className={'flex gap-10 flex-wrap justify-between items-start'}>
+      <div className={'project flex gap-10 flex-wrap justify-start sm:justify-between items-start'}>
         {pagedData.map(project => {
-          return <Card key={project.idx} className={'grow basis-1/4 min-w-[250px]'}>
-            <div className={'flex flex-col text-left'} onClick={() => handleSelectProject(project)}>
+          return <Card key={project.idx} className={'flexible-card'}>
+            <div className={'flex flex-col w-full text-left'} onClick={() => handleSelectProject(project)}>
               <div className={'w-full overflow-hidden'}>
                 <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
               </div>
               <div className={'card-tag flex gap-1 p-4 text-center'}>
-                <p className={'bg-pink-400 w-20 rounded-2xl font-pretendard'}>
+                <p className={'flex bg-[#FFE552] text-black w-[50%] p-2 rounded-2xl font-pretendard justify-center items-center '}>
                   PROJECT
                 </p>
-                <p className={'bg-orange-950 text-white w-20 rounded-2xl font-pretendard'}>
-                  {project.tag}
+                <p className={'flex bg-[#FFE552] text-black w-[50%] p-2 rounded-2xl font-pretendard justify-center items-center'}>
+                  {project.type}
                 </p>
               </div>
               <p>{project.title}</p>

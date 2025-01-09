@@ -6,6 +6,9 @@
 /* TODO: 추후 폰트 사이즈 변경 및 적용*/
 
 @layer utilities {
+  .flexible-card {
+    @apply flex basis-1/4 grow min-w-[250px] max-w-[25%];
+  }
   .pretendard {
     @apply font-pretendard
   }
@@ -22,15 +25,32 @@
     .pretendard .pretendard-bold .pretendard-extraBold {
       @apply text-sm;
     }
+    .flexible-card {
+      @apply flex basis-1 grow min-w-[250px];
+    }
   }
   @screen md {
     .pretendard .pretendard-bold .pretendard-extraBold {
       @apply text-base;
     }
+    .flexible-card {
+      @apply flex basis-[45%] grow min-w-[250px] max-w-[45%];
+    }
   }
   @screen lg {
     .pretendard .pretendard-bold .pretendard-extraBold {
       @apply text-lg;
+    }
+    .flexible-card {
+      @apply flex basis-[45%] grow min-w-[250px] max-w-[45%];
+    }
+  }
+  @screen xl {
+    .pretendard .pretendard-bold .pretendard-extraBold {
+      @apply text-lg;
+    }
+    .flexible-card {
+      @apply flex basis-[30%] grow min-w-[250px] max-w-[30%];
     }
   }
 }
@@ -53,7 +73,7 @@ html, body {
   height: 100%;
   min-width: 320px;
   min-height: 100vh;
-  overflow-x: hidden; /* 가로 스크롤 방지 */
+  /*overflow-x: hidden; !* 가로 스크롤 방지 *!*/
 }
 
 body::-webkit-scrollbar {
