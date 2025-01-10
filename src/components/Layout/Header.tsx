@@ -4,6 +4,7 @@ import {Link, NavLink, useLocation} from "react-router-dom";
 export const Header: FunctionComponent = () => {
   const location = useLocation()
   const [isTransparency, setIsTransparency] = useState(true)
+  const isRegisterPage = location.pathname !== '/register'
   
   useEffect(() => {
     const handleScroll = () => {
@@ -52,6 +53,7 @@ export const Header: FunctionComponent = () => {
       path: '/aixlab'
     },
   ]
+  
   return (
     <header
       className={headerClass}>
@@ -66,14 +68,15 @@ export const Header: FunctionComponent = () => {
                 {it.label}
               </NavLink>
               {isActiveTab === it.path && (
-                <div className={'absolute bg-blue-400 w-full h-1 z-10 bottom-0'}></div>
+                // <motion.div className={'absolute bottom-0 w-full h-1 bg-black z-10'} layoutId="underline"/>
+                <div className={'absolute bg-black w-full h-1 z-10 bottom-0'}></div>
               )}
             </li>
           ))}
         </div>
-        <div className={loginClass}>
-          <button>로그인</button>
-        </div>
+        {isRegisterPage && <div className={loginClass}>
+          <Link to={'/register'}>로그인</Link>
+        </div>}
       </div>
     </header>
   
