@@ -3,7 +3,9 @@ import {Portfolio, Project} from "../@types/domain.ts";
 export const filterBtnLabelForPortfolio = [
   '전체', '문제해결 체험', '상상 더하기 체험', '웹툰 생성 체험', 'AI 간편 체험'
 ]
-
+export const nowDeveloping =() => {
+  alert('기능 개발 중 입니다.')
+}
 export const portfolioList:Portfolio[] = [
   {
     idx: 1,
@@ -193,126 +195,144 @@ export const projectList: Project[] = [
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: 'AI 간편 체험'
+    type: 'AI 간편 체험',
+    timeStamp: '2024-10-25',
   },
   {
     idx: 2,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '문제해결 체험'
+    type: '문제해결 체험',
+    timeStamp: '2024-10-25',
   },
   {
     idx: 3,
-    title: '플래닛파크 문제해결 프로젝트',
-    subTitle: 'eco friendly project',
+    title: '우주도시 문제해결 프로젝트',
+    subTitle: 'build space city project',
     imgUrl: 'https://placehold.co/150',
-    type: '상상 더하기 체험'
+    type: '상상 더하기 체험',
+    timeStamp: '2024-10-23',
   },
   {
     idx: 4,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '상상 더하기 체험'
+    type: '상상 더하기 체험',
+    timeStamp: '2024-10-24',
   },
   {
     idx: 5,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '문제해결 체험'
+    type: '문제해결 체험',
+    timeStamp: '2024-10-22',
   },
   {
     idx: 6,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '상상 더하기 체험'
+    type: '상상 더하기 체험',
+    timeStamp: '2024-10-21',
   },
   {
     idx: 7,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-10-20',
   },
   {
     idx: 8,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '문제해결 체험'
+    type: '문제해결 체험',
+    timeStamp: '2024-10-20',
   },
   {
     idx: 9,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-10-25',
   },
   {
     idx: 10,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-10-25',
   },
   {
     idx: 11,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '문제해결 체험'
+    type: '문제해결 체험',
+    timeStamp: '2024-10-19',
   },
   {
     idx: 12,
     title: '우주도시 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-09-25',
   },
   {
     idx: 13,
     title: '플래닛공원 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-12-11',
   },
   {
     idx: 14,
     title: '플래닛공원 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '문제해결 체험'
+    type: '문제해결 체험',
+    timeStamp: '2024-10-25',
   },
   {
     idx: 15,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-10-23',
   },
   {
     idx: 16,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '웹툰 생성 체험'
+    type: '웹툰 생성 체험',
+    timeStamp: '2024-10-21',
   },
   {
     idx: 17,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: '문제해결 체험'
+    type: '문제해결 체험',
+    timeStamp: '2024-10-25',
   },
   {
     idx: 18,
     title: '플래닛파크 문제해결 프로젝트',
     subTitle: 'eco friendly project',
     imgUrl: 'https://placehold.co/150',
-    type: 'AI 간편 체험'
+    type: 'AI 간편 체험',
+    timeStamp: '2024-10-25',
   },
 ]
 

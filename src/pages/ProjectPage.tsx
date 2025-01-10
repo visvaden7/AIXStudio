@@ -1,4 +1,4 @@
-import {FunctionComponent, useMemo, useReducer, useState} from "react";
+import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
 import {Card} from "../components/Card.tsx";
 import {IoArrowBack, IoArrowForward, IoReload, IoSearchOutline} from "react-icons/io5";
 import {activeClass, inactiveClass, projectList} from "../const/const.ts";
@@ -15,11 +15,24 @@ export const ProjectPage: FunctionComponent = () => {
   
   const [input, setInput] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectProject, setSelectProject] = useState<Project>({idx: 0, title: '', subTitle: '', imgUrl: '', type: ''});
+  const [selectProject, setSelectProject] = useState<Project>({
+    idx: 0,
+    title: '',
+    subTitle: '',
+    imgUrl: '',
+    type: '',
+    timeStamp: ''
+  });
   
   const sortedData = useMemo(() => {
-    if (input.length > 0) return data.filter(data => data.title.includes(input))
-    return data;
+    let filtered = data
+    
+    // step 1 : sort by latest
+    filtered = filtered.sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
+    
+    // step 2: sort by input
+    if (input.length > 0) return filtered.filter(data => data.title.includes(input) || data.subTitle.includes(input))
+    return filtered;
   }, [data, input])
   
   // pageNation
@@ -39,6 +52,14 @@ export const ProjectPage: FunctionComponent = () => {
     const endIndex = startIndex + itemsPerPage
     return sortedData.slice(startIndex, endIndex);
   }, [sortedData, currentPage])
+  
+  useEffect(() =>{
+    dispatch({type: 'GOTOPAGE', page:0, maxPage: maxPage})
+  },[input, maxPage])
+  
+  useEffect(() =>{
+    if(currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page:maxPage-1, maxPage})
+  },[maxPage, currentPage])
   
   const onReset = () => {
     setInput('')
@@ -74,13 +95,16 @@ export const ProjectPage: FunctionComponent = () => {
           return <Card key={project.idx} className={'flexible-card'}>
             <div className={'flex flex-col w-full text-left'} onClick={() => handleSelectProject(project)}>
               <div className={'w-full overflow-hidden'}>
-                <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
+                <img src={project.imgUrl} alt={project.title}
+                     className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
               </div>
               <div className={'card-tag flex gap-1 p-4 text-center'}>
-                <p className={'flex bg-[#FFE552] text-black w-[50%] p-2 rounded-2xl font-pretendard justify-center items-center '}>
+                <p
+                  className={'flex bg-[#FFE552] text-black w-[50%] p-2 rounded-2xl font-pretendard justify-center items-center '}>
                   PROJECT
                 </p>
-                <p className={'flex bg-[#FFE552] text-black w-[50%] p-2 rounded-2xl font-pretendard justify-center items-center'}>
+                <p
+                  className={'flex bg-[#FFE552] text-black w-[50%] p-2 rounded-2xl font-pretendard justify-center items-center'}>
                   {project.type}
                 </p>
               </div>
@@ -89,7 +113,7 @@ export const ProjectPage: FunctionComponent = () => {
             </div>
           </Card>
         })}
-        {sortedData.length === 0 && <h1>{`${input} 프로젝트가 없습니다.`}</h1>}
+        {sortedData.length === 0 && <h1>{`검색한 ${input} 프로젝트가 없습니다.`}</h1>}
         <ProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} project={selectProject}/>
       </div>
       

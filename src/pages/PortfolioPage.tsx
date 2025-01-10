@@ -1,4 +1,4 @@
-import {FunctionComponent, useMemo, useReducer, useState} from "react";
+import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
 import {pageReducer} from "../reducer/reducer.ts";
 import {Options, Portfolio} from "../@types/domain.ts";
 import {activeClass, filterBtnLabelForPortfolio, inactiveClass, portfolioList} from "../const/const.ts";
@@ -23,6 +23,11 @@ export const PortfolioPage: FunctionComponent = () => {
   
   const sortedData = useMemo(() => {
     let filtered = data;
+    
+    //TODO: 학교 기관 닉네임 검색가능 추진
+    //TODO: 좋아요, 최신순, 가나다 순으로 정렬
+    //TODO: 본인의 것, 그리고 로그인 안된상태에서만 좋아요 비활성화
+    //TODO: 좋아요 시, 좋아요 수 바로 증가
     
     // Step 1: Filter by label
     if (filterLabel !== '전체') {
@@ -63,6 +68,14 @@ export const PortfolioPage: FunctionComponent = () => {
     const end = Math.min(maxPage, start + visiblePageCount);
     return [...Array(end - start).keys()].map(i => i + start)
   }, [currentPage, visiblePageCount, maxPage]);
+  
+  useEffect(() =>{
+    dispatch({type: 'GOTOPAGE', page:0, maxPage: maxPage})
+  },[input, maxPage])
+  
+  useEffect(() =>{
+    if(currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page:maxPage-1, maxPage})
+  },[maxPage, currentPage])
   
   const handleFiltering = (idx: number, label: string) => {
     setCurrentIdx(idx)
