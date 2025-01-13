@@ -2,10 +2,13 @@ export type ProjectType = '' | '문제해결 체험' | '상상 더하기 체험'
 
 export type Project = { //TODO: 타입정리 및 정리
   idx: number;
-  title: string;
+  titleKo: string;
+  titleEn: string;
   subTitle: string;
   imgUrl: string;
+  hash: string[];
   type?: ProjectType;
+  story:string
   timeStamp: string;
 }
 
