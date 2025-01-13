@@ -17,10 +17,13 @@ export const ProjectPage: FunctionComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectProject, setSelectProject] = useState<Project>({
     idx: 0,
-    title: '',
-    subTitle: '',
+    titleKo: '',
+    titleEn: '',
+    subTitle:'',
     imgUrl: '',
+    hash:[],
     type: '',
+    story:'',
     timeStamp: ''
   });
   
@@ -31,7 +34,7 @@ export const ProjectPage: FunctionComponent = () => {
     filtered = filtered.sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
     
     // step 2: sort by input
-    if (input.length > 0) return filtered.filter(data => data.title.includes(input) || data.subTitle.includes(input))
+    if (input.length > 0) return filtered.filter(data => data.titleKo.includes(input) || data.titleEn.includes(input))
     return filtered;
   }, [data, input])
   
@@ -66,6 +69,7 @@ export const ProjectPage: FunctionComponent = () => {
   }
   
   const handleSelectProject = (project: Project) => {
+    console.log(project)
     setSelectProject(project)
     setIsModalOpen(true)
   }
@@ -95,7 +99,7 @@ export const ProjectPage: FunctionComponent = () => {
           return <Card key={project.idx} className={'flexible-card'}>
             <div className={'flex flex-col w-full text-left'} onClick={() => handleSelectProject(project)}>
               <div className={'w-full overflow-hidden'}>
-                <img src={project.imgUrl} alt={project.title}
+                <img src={project.imgUrl} alt={project.titleKo}
                      className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
               </div>
               <div className={'card-tag flex gap-1 p-4 text-center'}>
@@ -108,8 +112,8 @@ export const ProjectPage: FunctionComponent = () => {
                   {project.type}
                 </p>
               </div>
-              <p>{project.title}</p>
-              <p>{project.subTitle}</p>
+              <p>{project.titleKo}</p>
+              <p>{project.titleEn}</p>
             </div>
           </Card>
         })}
