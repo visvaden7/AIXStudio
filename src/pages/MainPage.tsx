@@ -7,30 +7,15 @@ export const MainPage:FunctionComponent = () => {
   return (
     <div className={'min-h-full'}>
       <div>
-        배너
+        banner
         {/*  swiper 기능 참조 */}
       </div>
       <div>
-        포트폴리오 디스플레이
+        portfolio display
       </div>
       <div>
-        프로젝트 진행
+        project display
       </div>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
-      <p className={'w-full h-[100px]'}>Hello world, AIX</p>
     </div>
   )
 }
