@@ -75,8 +75,8 @@ export const ProjectPage: FunctionComponent = () => {
   }
   
   return (
-    <div className={'w-full font-pretendard'}>
-      <div className={'flex text-left justify-between m-10'}>
+    <div className={'w-full font-nanumSquareRound'}>
+      <div className={'flex text-left justify-between my-10'}>
         <div className={'flex flex-col'}>
           <p className={'text-[50px]'}>Project</p>
           <p className={'pretendard-extraBold text-[16px]'}>AiX STUDIO 에서 참여할 수 있는 다양한 프로젝트를 확인해보세요.</p>
