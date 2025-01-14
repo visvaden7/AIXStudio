@@ -1,3 +1,4 @@
+import {motion} from "motion/react";
 import {FunctionComponent, useEffect, useState} from "react";
 import {Link, NavLink, useLocation} from "react-router-dom";
 
@@ -8,12 +9,12 @@ export const Header: FunctionComponent = () => {
   
   useEffect(() => {
     const handleScroll = () => {
-      if(location.pathname === '/'){
+      if (location.pathname === '/') {
         setIsTransparency(window.scrollY === 0);
       }
     };
     
-    if(location.pathname != '/'){
+    if (location.pathname != '/') {
       setIsTransparency(false)
       window.removeEventListener('scroll', handleScroll); // 스크롤 이벤트 해제
     } else {
@@ -27,10 +28,10 @@ export const Header: FunctionComponent = () => {
   
   const isActiveTab = location.pathname;
   
-  const headerClass = `fixed w-screen pretendard-extraBold transition-all duration-300 z-10 ${isTransparency ? 'bg-transparent' : 'bg-[#FFE552]'}`;
-  const containerClass = `container w-[70%] min-h-full flex justify-center bg-transparent mx-auto`;
-  const navItemClass = 'nav-item flex flex-1 gap-2 justify-center items-center';
-  const loginClass = 'login w-[20%] py-10 border-l-black';
+  const headerClass = `fixed w-screen h-20 font-nanumSquareRound font-bold transition-all duration-300 z-10 ${isTransparency ? 'bg-transparent' : 'bg-[#FFF]'}`;
+  const containerClass = `container w-[70%] h-full flex items-center justify-center bg-transparent mx-auto`;
+  const navItemClass = 'nav-item flex flex-1 gap-5 justify-center items-center text-[20px] leading-[30px]';
+  const loginClass = 'login w-[10%] font-[16px] py-5';
   const navItem = [
     {
       id: 1,
@@ -58,24 +59,29 @@ export const Header: FunctionComponent = () => {
     <header
       className={headerClass}>
       <div className={containerClass}>
-        <div className={'logo-wrap w-[25%] h-full py-10'}>
-          <Link to={'/'}>로고</Link>
+        <div className={'flex logo-wrap w-[218px] h-full flex-shrink-0 items-center py-5'}>
+          <Link to={'/'}><img src={'/logo/header-logo.png'} alt={'AIX STUDIO logo'}/></Link>
         </div>
         <div className={navItemClass}>
           {navItem.map(it => (
             <li key={it.id} className={'relative flex h-full items-center'}>
-              <NavLink to={it.path} className={`p-5`}>
+              <NavLink to={it.path}
+                       className={`${isActiveTab === it.path ? 'text-[#EF4A60] font-extrabold' : 'font-bold'} py-5` }>
                 {it.label}
               </NavLink>
               {isActiveTab === it.path && (
-                // <motion.div className={'absolute bottom-0 w-full h-1 bg-black z-10'} layoutId="underline"/>
-                <div className={'absolute bg-black w-full h-1 z-10 bottom-0'}></div>
+                <motion.div className={'absolute -bottom-1 w-full h-1 bg-[#EF4A60] z-10'} layoutId="underline"/>
+                // <div className={'absolute bg-[#EF4A60] w-full h-1 z-10 bottom-0'}></div>
               )}
             </li>
           ))}
         </div>
         {isRegisterPage && <div className={loginClass}>
-          <Link to={'/register'}>로그인</Link>
+          <Link to={'/register'}>
+              <div className={'border border-gray-300 p-[2px] rounded-2xl'}>
+                  로그인
+              </div>
+          </Link>
         </div>}
       </div>
     </header>

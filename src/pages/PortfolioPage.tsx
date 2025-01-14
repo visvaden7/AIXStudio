@@ -86,14 +86,12 @@ export const PortfolioPage: FunctionComponent = () => {
     setInput('')
   }
   
-  
-  
   return (
-    <div className={'w-full font-pretendard'}>
+    <div className={'w-full font-nanumSquareRound'}>
       <div className={'flex text-left justify-between my-10'}>
         <div className={'flex flex-col'}>
           <p className={'text-[50px]'}>Portfolio</p>
-          <p className={'pretendard-extraBold text-[16px]'}>다른 친구들이 완성한 프로젝트의 결과물을 확인할 수 있어요.</p>
+          <p className={'text-[16px]'}>다른 친구들이 완성한 프로젝트의 결과물을 확인할 수 있어요.</p>
         </div>
         <div className={'flex w-[30%] gap-2 items-center'}>
           <div className={'relative w-full flex items-center'}>
@@ -111,7 +109,7 @@ export const PortfolioPage: FunctionComponent = () => {
           {filterBtnLabelForPortfolio.map((label, idx) => {
             return (
               <button
-                className={`w-[13%] h-[40px] ${currentIdx === idx ? 'bg-[#FFE552] text-black' : 'bg-gray-400 text-white'} text-white rounded-2xl`}
+                className={`px-6 h-[40px] ${currentIdx === idx ? 'bg-[#FFE552] shadow-lg font-extrabold text-black' : 'bg-[#EFEEF3] font-bold text-[#666]'}  leading-6 -tracking-[0.5px] rounded-2xl`}
                 onClick={() => handleFiltering(idx, label)}
                 key={idx}
               >{label}</button>

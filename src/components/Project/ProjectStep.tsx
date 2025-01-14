@@ -1,5 +1,5 @@
 import {ProgressBar} from "../ProgressBar.tsx";
-import {FunctionComponent} from "react";
+import {FunctionComponent, useState} from "react";
 import {RiErrorWarningLine} from "react-icons/ri";
 import {FaRegCircleQuestion} from "react-icons/fa6";
 
@@ -7,10 +7,10 @@ interface Step1Props {
   imgUrl: string;
   titleKo: string;
   currentStep: number;
+  story: string;
 }
 
-export const ProjectStep: FunctionComponent<Step1Props> = ({imgUrl, titleKo, currentStep}) => {
-  
+export const ProjectStep: FunctionComponent<Step1Props> = ({imgUrl, titleKo, currentStep, story}) => {
   return (
     <div>
       <div className={'flex-col text-left'}>
@@ -24,17 +24,61 @@ export const ProjectStep: FunctionComponent<Step1Props> = ({imgUrl, titleKo, cur
       <div className={'w-full h-full aspect-video p-5 bg-gray-200'}>
         <img src={imgUrl} alt={titleKo} className={'w-full h-full object-cover'}/>
       </div>
+      <div className={'my-5'}>
+        <p>{story}</p>
+      </div>
     </div>
   )
 }
 
 interface Step2Props {
-  category: string;
   currentStep: number;
-  onSelect: () => void
+  onSelect: (category: string) => void
 }
 
-export const ProjectStep2: FunctionComponent<Step2Props> = ({category, currentStep, onSelect}) => {
+const stepContents = {
+  imgUrl: 'https://mng.aixstudio.kr/images/uploads/project/project_main_.png',
+  keywords: [
+    {
+      name: '안전과 보안',
+      story: '안전과 보안을 위해서 무엇을 해야할까요? 알려주세요',
+      position: 'top-[10%] right-[0%]'
+    },
+    {
+      name: '교통과 이동',
+      story: '교통과 이동을 위해서 무엇을 해야할까요? 알려주세요',
+      position: 'top-[25%] left-[25%]'
+    },
+    {
+      name: '환경과 에너지',
+      story: '환경과 에너지를 위해서 무엇을 해야할까요? 알려주세요',
+      position: 'top-[55%] left-[20%]'
+    },
+    {
+      name: '기술과 편의',
+      story: '기술과 편의을 위해서 무엇을 해야할까요? 알려주세요',
+      position: 'top-[65%] right-[-20%]'
+    }
+  ]
+}
+export const ProjectStep2: FunctionComponent<Step2Props> = ({currentStep, onSelect}) => {
+  const [selectKeyword, setSelectKeyword] = useState<number>();
+  const [isHovering, setIsHovering] = useState(false)
+  const [isShowContents, setIsShowContents] = useState(false)
+  const handleMouseOver = (idx:number) => {
+    setIsHovering(true);
+    setSelectKeyword(idx)
+  };
+  
+  const handleMouseOut = (idx: number) => {
+    setIsHovering(false);
+    setSelectKeyword(idx)
+  };
+  
+  const handleShowContents = (name:string) => {
+    setIsShowContents(true)
+    onSelect(name)
+  }
   return (
     <div>
       <div className={'flex-col text-left'}>
@@ -49,19 +93,29 @@ export const ProjectStep2: FunctionComponent<Step2Props> = ({category, currentSt
         <div className={'flex justify-between bg-gray-200 p-4 rounded-xl text-black text-[40px]'}>
           <div className={'relative w-full h-full object-cover'}>
             <img src={'https://mng.aixstudio.kr/images/uploads/project/project_main_.png'} alt={'hello'}/>
-            {category}
-            {/*category selector 1*/}
-            <div
-              className={'absolute w-[20%] top-[7%] right-[30%] flex items-center justify-center'}
-            >
-              <div className={'flex items-center justify-center bg-yellow-300 gap-5 rounded-[20px] p-3'} onClick={onSelect}>
-                <FaRegCircleQuestion/>
-                <span className={'text-[20px]'}>안전과 보안</span>
+            {/*category selector*/}
+            {stepContents.keywords.map((keyword, idx) => {
+              return <div className={`block w-[50%] absolute ${keyword.position} break-keep`}
+                          onClick={() => handleShowContents(keyword.name)}
+                          onMouseLeave={() => handleMouseOut(idx)}
+                          onMouseOver={() => handleMouseOver(idx)}>
+                <div className={'flex gap-2'}>
+                  <div className={'flex gap-2 items-center bg-yellow-300 rounded-3xl p-2 h-10'}>
+                    <FaRegCircleQuestion className={'text-[32px]'}/>
+                    <div className={`category text-[20px] ${(isHovering || isShowContents) && selectKeyword === idx ? '' : 'hidden'}`}>
+                      {keyword.name}
+                    </div>
+                  </div>
+                  <div
+                    className={`w-[30%] text-[16px] font-normal bg-yellow-300 rounded-3xl p-2 ${selectKeyword === idx && isShowContents ? '' : 'hidden'}`}>
+                    {keyword.story}
+                  </div>
+                </div>
               </div>
-            </div>
+            })}
           </div>
         </div>
-        <div className={'flex items-center gap-2 p-4'}>
+        <div className={'flex items-center p-4'}>
           <RiErrorWarningLine/>
           <p>물음표를 모두 눌러 보세요. 다양한 미션 키워드를 확인할 수 있어요.</p>
         </div>

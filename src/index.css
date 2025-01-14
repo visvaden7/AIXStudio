@@ -1,4 +1,5 @@
 @import url('../public/font/pretendard.css');
+@import url('../public/font/nanumSquareRound.css');
 
 @tailwind base;
 @tailwind components;

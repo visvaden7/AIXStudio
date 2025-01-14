@@ -14,13 +14,12 @@ export const ProjectLayout:FunctionComponent<ProjectLayoutProps> = ({ children, 
         <div className={'flex gap-2'}>
           {tags.map(tag => {
             return (
-              <p className={'text-[14px] text-gray-500'}>
+              <p key={tag} className={'text-[14px] text-gray-500'}>
                 {tag}
               </p>
             )
           })}
         </div>
-        
       </div>
       {children}
     </div>
