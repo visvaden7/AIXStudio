@@ -14,8 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+        sans: ['ui-sans-serif', 'system-ui'],
         pretendard: ['Pretendard', 'ui-sans-serif', 'system-ui'],
+        nanumSquareRound: ['NanumSquareRound', 'ui-sans-serif', 'system-ui'],
       }
     },
   },
