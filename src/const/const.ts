@@ -390,7 +390,7 @@ export const projectList: Project[] = [
   },
 ]
 
-export const activeClass = "font-bold text-red-400";
+export const activeClass = "font-bold bg-[#FFE552] w-10 p-2 aspect-square rounded-full";
 export const inactiveClass = "text-gray-600";
 
 
