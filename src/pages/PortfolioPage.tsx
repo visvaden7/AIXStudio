@@ -2,8 +2,9 @@ import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react
 import {pageReducer} from "../reducer/reducer.ts";
 import {Options, Portfolio} from "../@types/domain.ts";
 import {activeClass, filterBtnLabelForPortfolio, inactiveClass, portfolioList} from "../const/const.ts";
-import {IoArrowBack, IoArrowForward, IoHeartOutline, IoReload, IoSearchOutline} from "react-icons/io5";
+import {IoChevronDown, IoHeart, IoHeartOutline, IoReload, IoSearchOutline} from "react-icons/io5";
 import {Card} from "../components/Card.tsx";
+import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 
 export const PortfolioPage: FunctionComponent = () => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
@@ -20,6 +21,8 @@ export const PortfolioPage: FunctionComponent = () => {
   const [data] = useState<Portfolio[]>(portfolioList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   const [input, setInput] = useState('')
   const [filterLabel, setFilterLabel] = useState('전체')
+  const [islike, setIsLike] = useState(false)
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   
   const sortedData = useMemo(() => {
     let filtered = data;
@@ -69,28 +72,52 @@ export const PortfolioPage: FunctionComponent = () => {
     return [...Array(end - start).keys()].map(i => i + start)
   }, [currentPage, visiblePageCount, maxPage]);
   
-  useEffect(() =>{
-    dispatch({type: 'GOTOPAGE', page:0, maxPage: maxPage})
-  },[input, maxPage])
+  useEffect(() => {
+    dispatch({type: 'GOTOPAGE', page: 0, maxPage: maxPage})
+  }, [input, maxPage])
   
-  useEffect(() =>{
-    if(currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page:maxPage-1, maxPage})
-  },[maxPage, currentPage])
+  useEffect(() => {
+    if (currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page: maxPage - 1, maxPage})
+  }, [maxPage, currentPage])
   
   const handleFiltering = (idx: number, label: string) => {
     setCurrentIdx(idx)
     setFilterLabel(label)
   }
   
+  const handleClickLikeBtn = () => {
+    setIsLike(!islike)
+  }
+  
+  const toggleDropDown = () => {
+    setIsDropDownOpen(!isDropDownOpen)
+  }
+  
+  const handleOutsideClick = (e: MouseEvent) => {
+    if (!(e.target as HTMLElement).closest(".dropdown-container")) {
+      setIsDropDownOpen(false)
+    }
+  };
+  
   const onReset = () => {
     setInput('')
   }
   
+  useEffect(() => {
+    // 외부 클릭 이벤트 추가
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      // 외부 클릭 이벤트 제거
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
+  
+  
   return (
     <div className={'w-full font-nanumSquareRound'}>
-      <div className={'flex text-left justify-between my-10'}>
+      <div className={'flex text-left justify-between mt-[60px] mb-[80px]'}>
         <div className={'flex flex-col'}>
-          <p className={'text-[50px]'}>Portfolio</p>
+          <p className={'text-[64px] font-extrabold'}>Portfolio</p>
           <p className={'text-[16px]'}>다른 친구들이 완성한 프로젝트의 결과물을 확인할 수 있어요.</p>
         </div>
         <div className={'flex w-[30%] gap-2 items-center'}>
@@ -116,31 +143,56 @@ export const PortfolioPage: FunctionComponent = () => {
             )
           })}
         </div>
-        <div>
-          <select name={'sort'} onChange={e => setSortedOrder(e.target.value as 'latest' | 'popular')}>
-            {options.map((option, idx) => {
-              return <option value={option.value} key={idx}>{option.label}</option>
-            })}
-          </select>
+        <div className={'relative dropdown-container'}>
+          <div className={' flex-1 w-[100px]'}>
+            <div className={'flex justify-center items-center'} onClick={toggleDropDown}>
+              <p>{sortedOrder === 'latest' ? '최신순' : '인기순'}</p>
+              <IoChevronDown/>
+            </div>
+            {isDropDownOpen &&
+                <div
+                    className={'absolute w-full -bottom-[110px] right-0 flex-col justify-start rounded-xl shadow-lg overflow-hidden z-10'}>
+                  {options.map(option => {
+                    return (
+                      <div
+                        className={` py-3 transition duration-300 ease-in-out ${sortedOrder === option.value ? 'bg-[#FFF5D9]' : 'bg-white'}`}
+                        onClick={() => setSortedOrder(option.value)}>
+                        {option.label}
+                      </div>
+                    )
+                  })}
+                </div>}
+          </div>
         </div>
       </div>
       {/*컨텐츠*/}
       <div className={'flex w-full justify-center'}>
-        <div className={'portfolio flex flex-wrap gap-10 justify-start sm:justify-between items-start'}>
+        <div className={'portfolio flex flex-wrap gap-5 justify-start sm:justify-between items-start'}>
           {pagedData.map(project => {
             return (
-              <Card className={'flexible-card'} key={project.idx}>
-                <div className={'flex flex-col w-full text-left'}>
-                  <div className={'w-full overflow-hidden'}>
-                    <img src={project.imgUrl} alt={project.title} className={'rounded w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
+              <Card className={'portfolio-card'} key={project.idx}>
+                <div className={'flex flex-col gap-5 w-full text-left'}>
+                  {/*TODO: 쌓임맥락 이슈 고치기*/}
+                  <div className={'relative w-full rounded-[16px] overflow-hidden'}>
+                    <img src={project.imgUrl} alt={project.title}
+                         className={'w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
+                    {/*TODO: 좋아요 로직 정리하기*/}
+                    {project.heartRate === 10 && islike
+                      ? <IoHeartOutline className={`absolute top-4 right-4 text-4xl text-white`}
+                                        onClick={handleClickLikeBtn}/>
+                      : <IoHeart className={`absolute top-4 right-4 text-4xl text-[#EF4A60]`}
+                                 onClick={handleClickLikeBtn}/>}
                   </div>
-                  <p>{project.title}</p>
-                  <p>{project.subtitle}</p>
-                  <div>
-                    <p>{`${project.user} - ${project.timestamp}`}</p>
+                  <div className={'flex flex-col gap-1'}>
+                    <p className={'text-[16px] text-black/60'}>{project.title}</p>
+                    <p className={'text-[24px] text-black font-bold'}>{project.subtitle}</p>
                     <div className={'flex'}>
-                      <IoHeartOutline/>
-                      {project.heartRate}
+                      <p className={'text-[#111] font-bold '}>{`${project.user} - `}</p>
+                      <p className={'text-[16px] text-[#666]'}>{`${project.timestamp}`}</p>
+                    </div>
+                    <div className={'flex gap-1 justify-start items-center'}>
+                      <IoHeartOutline className={'text-[16px] text-black/30 text-bold'}/>
+                      <p className={'text-[14px]'}>{project.heartRate}</p>
                     </div>
                   </div>
                 </div>
@@ -155,16 +207,16 @@ export const PortfolioPage: FunctionComponent = () => {
       <div className={'p-10'}>
         {/*페이지네이션 {currentPage + 1} / {maxPage}*/}
         <div className={'flex gap-3 justify-center items-center'}>
-          <IoArrowBack onClick={() => dispatch({type: 'PREVPAGE', maxPage})}/>
+          <FiChevronLeft onClick={() => dispatch({type: 'PREVPAGE', maxPage})}/>
           {visiblePages.map(it => {
             return (
               <div key={it} onClick={() => dispatch({type: 'GOTOPAGE', page: it, maxPage})}
-                   className={`cursor-pointer ${currentPage === it ? activeClass : inactiveClass}`}>
+                   className={`cursor-pointer transition duration-100 ease-in-out transform ${currentPage === it ? activeClass : inactiveClass}`}>
                 {it + 1}
               </div>
             )
           })}
-          <IoArrowForward onClick={() => dispatch({type: 'NEXTPAGE', maxPage})}/>
+          <FiChevronRight onClick={() => dispatch({type: 'NEXTPAGE', maxPage})}/>
         </div>
       </div>
     </div>
