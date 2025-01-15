@@ -115,12 +115,12 @@ export const PortfolioPage: FunctionComponent = () => {
   
   return (
     <div className={'w-full font-nanumSquareRound'}>
-      <div className={'flex text-left justify-between mt-[60px] mb-[80px]'}>
+      <div className={'flex md:flex-row flex-col text-left justify-between mt-[60px] mb-[80px]'}>
         <div className={'flex flex-col'}>
           <p className={'text-[64px] font-extrabold'}>Portfolio</p>
           <p className={'text-[16px]'}>다른 친구들이 완성한 프로젝트의 결과물을 확인할 수 있어요.</p>
         </div>
-        <div className={'flex w-[30%] gap-2 items-center'}>
+        <div className={'flex w-[350px] gap-2 items-center'}>
           <div className={'relative w-full flex items-center'}>
             <input type={"text"} className={'w-full rounded-2xl border-black border-2 p-2'}
                    placeholder={'프로젝트 명을 입력해주세요'} onChange={(e) => {
@@ -172,7 +172,6 @@ export const PortfolioPage: FunctionComponent = () => {
             return (
               <Card className={'portfolio-card'} key={project.idx}>
                 <div className={'flex flex-col gap-5 w-full text-left'}>
-                  {/*TODO: 쌓임맥락 이슈 고치기*/}
                   <div className={'relative w-full rounded-[16px] overflow-hidden'}>
                     <img src={project.imgUrl} alt={project.title}
                          className={'w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>

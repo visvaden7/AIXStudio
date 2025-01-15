@@ -77,12 +77,12 @@ export const ProjectPage: FunctionComponent = () => {
   
   return (
     <div className={'w-full font-nanumSquareRound'}>
-      <div className={'flex text-left justify-between mt-[60px] mb-[80px]'}>
+      <div className={'flex md:flex-row flex-col text-left justify-between mt-[60px] mb-[80px]'}>
         <div className={'flex flex-col'}>
           <p className={'text-[64px] font-extrabold leading-[96px] -tracking-[0.5px]'}>Project</p>
           <p className={'text-[16px] leading-[30px] -tracking-[0.5px] font-normal'}>AiX STUDIO 에서 참여할 수 있는 다양한 프로젝트를 확인해보세요.</p>
         </div>
-        <div className={'flex w-[30%] gap-2 items-center'}>
+        <div className={'flex w-[350px] gap-2 items-center'}>
           <div className={'relative w-full flex items-center'}>
             <input type={"text"} className={'w-full rounded-2xl border-black border-2 p-2'}
                    placeholder={'프로젝트 명을 입력해주세요'} onChange={(e) => {
