@@ -16,9 +16,9 @@ const MainLayout: FunctionComponent = () => {
         <div
           className="container relative w-[70%] mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
           {bgUrl && <div className={'absolute top-10 left-[50%]'}>
-              <img src={bgUrl} alt={'polygon 1'} className={''}/>
+              <img src={bgUrl} alt={'polygon'} className={''}/>
           </div>}
-          {bgColor && <div className={`absolute -top-[11%] right-[2%] w-[20%] aspect-square border-[80px] ${bgColor} rounded-full`}></div>}
+          {bgColor && <div className={`absolute -top-[12rem] right-[2%] w-[20%] aspect-square border-[80px] ${bgColor} rounded-full`}></div>}
           <Outlet/>
         </div>
       </main>
