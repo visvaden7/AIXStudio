@@ -14,7 +14,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-23',
+    timeStamp: '2024-10-23',
     heartRate: 10,
   },
   {
@@ -24,7 +24,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-22',
+    timeStamp: '2024-10-22',
     heartRate: 10,
   },
   {
@@ -34,7 +34,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-21',
+    timeStamp: '2024-10-21',
     heartRate: 10,
   },
   {
@@ -44,7 +44,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-20',
+    timeStamp: '2024-10-20',
     heartRate: 10,
   },
   {
@@ -54,7 +54,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 10,
   },
   {
@@ -64,7 +64,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 11,
   },
   {
@@ -74,7 +74,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 12,
   },
   {
@@ -84,7 +84,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 15,
   },
   {
@@ -94,7 +94,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 20,
   },
   {
@@ -104,7 +104,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '상상 더하기 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 32,
   },
   {
@@ -114,7 +114,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 1,
   },
   {
@@ -124,7 +124,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 0,
   },
   {
@@ -134,7 +134,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 10,
   },
   {
@@ -144,7 +144,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 10,
   },
   {
@@ -154,7 +154,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 10,
   },
   {
@@ -164,7 +164,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 2,
   },
   {
@@ -174,7 +174,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: 'AI 간편 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 11,
   },
   {
@@ -184,7 +184,7 @@ export const portfolioList:Portfolio[] = [
     subtitle: '안전한 나의 친구',
     type: '웹툰 생성 체험',
     user: 'ahnji1',
-    timestamp: '2024-10-25',
+    timeStamp: '2024-10-25',
     heartRate: 2,
   }
 ]

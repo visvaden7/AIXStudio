@@ -1,5 +1,5 @@
 import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
-import {Card} from "../components/Card.tsx";
+import {Card} from "../components/Card/Card.tsx";
 import {IoReload, IoSearchOutline} from "react-icons/io5";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {activeClass, inactiveClass, projectList} from "../const/const.ts";

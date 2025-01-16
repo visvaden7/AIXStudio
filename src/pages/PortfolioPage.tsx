@@ -3,7 +3,7 @@ import {pageReducer} from "../reducer/reducer.ts";
 import {Options, Portfolio} from "../@types/domain.ts";
 import {activeClass, filterBtnLabelForPortfolio, inactiveClass, portfolioList} from "../const/const.ts";
 import {IoChevronDown, IoHeart, IoHeartOutline, IoReload, IoSearchOutline} from "react-icons/io5";
-import {Card} from "../components/Card.tsx";
+import {Card} from "../components/Card/Card.tsx";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 
 export const PortfolioPage: FunctionComponent = () => {
@@ -39,7 +39,7 @@ export const PortfolioPage: FunctionComponent = () => {
     
     // Step 2: Sort by order (latest or popular)
     if (sortedOrder === 'latest') {
-      filtered = [...filtered].sort((a, b) => new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime());
+      filtered = [...filtered].sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime());
     } else if (sortedOrder === 'popular') {
       filtered = [...filtered].sort((a, b) => b.heartRate - a.heartRate);
     }
@@ -187,7 +187,7 @@ export const PortfolioPage: FunctionComponent = () => {
                     <p className={'text-[24px] text-black font-bold'}>{project.subtitle}</p>
                     <div className={'flex'}>
                       <p className={'text-[#111] font-bold '}>{`${project.user} - `}</p>
-                      <p className={'text-[16px] text-[#666]'}>{`${project.timestamp}`}</p>
+                      <p className={'text-[16px] text-[#666]'}>{`${project.timeStamp}`}</p>
                     </div>
                     <div className={'flex gap-1 justify-start items-center'}>
                       <IoHeartOutline className={'text-[16px] text-black/30 text-bold'}/>

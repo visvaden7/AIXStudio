@@ -19,7 +19,7 @@ export type Portfolio = {
   subtitle: string,
   type: ProjectType,
   user: string,
-  timestamp: string,
+  timeStamp: string,
   heartRate: number
 }
 
