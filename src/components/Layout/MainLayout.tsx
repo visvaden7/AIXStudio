@@ -18,7 +18,8 @@ const MainLayout: FunctionComponent = () => {
           {bgUrl && <div className={'absolute top-10 left-[50%]'}>
               <img src={bgUrl} alt={'polygon'} className={''}/>
           </div>}
-          {bgColor && <div className={`absolute -top-[12rem] right-[2%] w-[20%] aspect-square border-[80px] ${bgColor} rounded-full`}></div>}
+          {bgColor && <div
+              className={`absolute -top-[12rem] right-[2%] w-[20%] aspect-square border-[80px] ${bgColor} rounded-full`}></div>}
           <Outlet/>
         </div>
       </main>

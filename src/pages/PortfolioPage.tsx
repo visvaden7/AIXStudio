@@ -2,9 +2,9 @@ import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react
 import {pageReducer} from "../reducer/reducer.ts";
 import {Options, Portfolio} from "../@types/domain.ts";
 import {activeClass, filterBtnLabelForPortfolio, inactiveClass, portfolioList} from "../const/const.ts";
-import {IoChevronDown, IoHeart, IoHeartOutline, IoReload, IoSearchOutline} from "react-icons/io5";
-import {Card} from "../components/Card/Card.tsx";
+import {IoChevronDown, IoReload, IoSearchOutline} from "react-icons/io5";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
+import {PortfolioCard} from "../components/Card/PortfolioCard.tsx";
 
 export const PortfolioPage: FunctionComponent = () => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
@@ -21,7 +21,6 @@ export const PortfolioPage: FunctionComponent = () => {
   const [data] = useState<Portfolio[]>(portfolioList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   const [input, setInput] = useState('')
   const [filterLabel, setFilterLabel] = useState('전체')
-  const [islike, setIsLike] = useState(false)
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   
   const sortedData = useMemo(() => {
@@ -83,10 +82,6 @@ export const PortfolioPage: FunctionComponent = () => {
   const handleFiltering = (idx: number, label: string) => {
     setCurrentIdx(idx)
     setFilterLabel(label)
-  }
-  
-  const handleClickLikeBtn = () => {
-    setIsLike(!islike)
   }
   
   const toggleDropDown = () => {
@@ -168,34 +163,9 @@ export const PortfolioPage: FunctionComponent = () => {
       {/*컨텐츠*/}
       <div className={'flex w-full justify-center'}>
         <div className={'portfolio flex flex-wrap gap-5 justify-start sm:justify-between items-start'}>
-          {pagedData.map(project => {
+          {pagedData.map(portfolio => {
             return (
-              <Card className={'portfolio-card'} key={project.idx}>
-                <div className={'flex flex-col gap-5 w-full text-left'}>
-                  <div className={'relative w-full rounded-[16px] overflow-hidden'}>
-                    <img src={project.imgUrl} alt={project.title}
-                         className={'w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
-                    {/*TODO: 좋아요 로직 정리하기*/}
-                    {project.heartRate === 10 && islike
-                      ? <IoHeartOutline className={`absolute top-4 right-4 text-4xl text-white`}
-                                        onClick={handleClickLikeBtn}/>
-                      : <IoHeart className={`absolute top-4 right-4 text-4xl text-[#EF4A60]`}
-                                 onClick={handleClickLikeBtn}/>}
-                  </div>
-                  <div className={'flex flex-col gap-1'}>
-                    <p className={'text-[16px] text-black/60'}>{project.title}</p>
-                    <p className={'text-[24px] text-black font-bold'}>{project.subtitle}</p>
-                    <div className={'flex'}>
-                      <p className={'text-[#111] font-bold '}>{`${project.user} - `}</p>
-                      <p className={'text-[16px] text-[#666]'}>{`${project.timeStamp}`}</p>
-                    </div>
-                    <div className={'flex gap-1 justify-start items-center'}>
-                      <IoHeartOutline className={'text-[16px] text-black/30 text-bold'}/>
-                      <p className={'text-[14px]'}>{project.heartRate}</p>
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              <PortfolioCard portfolio={portfolio}/>
             )
           })}
         </div>

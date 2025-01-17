@@ -29,6 +29,8 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
     hash: [],
     type: '',
     story: '',
+    isSurvey: false,
+    surveyUrl:'',
     timeStamp: ''
   });
   
@@ -99,9 +101,9 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
           <div className={'relative flex gap-5 flex-wrap justify-start sm:justify-between items-start'}>
             {pagedData.map(project => {
               if (isProject(project)) {
-                return <ProjectCard project={project} onClick={() => handleSelectProject(project)}/>
+                return <ProjectCard project={project} onClick={() => handleSelectProject(project)} hasSurvey={true}/>
               } else if (isPortfolio(project)) {
-                return <PortfolioCard portfolio={project} isLike={true}/>
+                return <PortfolioCard portfolio={project}/>
               }
             })}
             {selectProject &&

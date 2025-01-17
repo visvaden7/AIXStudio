@@ -1,11 +1,11 @@
 import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
-import {Card} from "../components/Card/Card.tsx";
 import {IoReload, IoSearchOutline} from "react-icons/io5";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {activeClass, inactiveClass, projectList} from "../const/const.ts";
 import {Project} from "../@types/domain.ts";
 import {pageReducer} from "../reducer/reducer.ts";
 import {ProjectModal} from "../components/Modal/ProjectModal.tsx";
+import {ProjectCard} from "../components/Card/ProjectCard.tsx";
 
 export const ProjectPage: FunctionComponent = () => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
@@ -25,6 +25,8 @@ export const ProjectPage: FunctionComponent = () => {
     hash:[],
     type: '',
     story:'',
+    isSurvey: false,
+    surveyUrl: '',
     timeStamp: ''
   });
   
@@ -97,26 +99,7 @@ export const ProjectPage: FunctionComponent = () => {
       {/*컨텐츠*/}
       <div className={'project flex gap-10 flex-wrap justify-start sm:justify-between items-start'}>
         {pagedData.map(project => {
-          return <Card key={project.idx} className={'flexible-card'}>
-            <div className={'flex flex-col w-full text-left'} onClick={() => handleSelectProject(project)}>
-              <div className={'relative w-full rounded-[16px] overflow-hidden'}>
-                <img src={project.imgUrl} alt={project.titleKo}
-                     className={'w-full h-[250px] object-cover transform transition-transform duration-300 ease-in-out hover:scale-110'}/>
-              </div>
-              <div className={'card-tag flex gap-1 py-4 justify-start text-[14px] font-bold -tracking-[0.5px]'}>
-                <p
-                  className={'flex bg-[#EDEDED] text-black py-1 px-2 rounded-lg justify-center items-center leading-[21px]'}>
-                  PROJECT
-                </p>
-                <p
-                  className={'flex bg-[#FFE552] text-black py-1 px-2 rounded-lg justify-center items-center leading-[21px]'}>
-                  {project.type}
-                </p>
-              </div>
-              <p className={'text-[24px] leading-[36px] -tracking-[0.5px] font-extrabold'}>{project.titleKo}</p>
-              <p className={'text-[16px] leading-[24px]'}>{project.titleEn}</p>
-            </div>
-          </Card>
+          return <ProjectCard project={project} onClick={() => handleSelectProject(project)}/>
         })}
         {sortedData.length === 0 && <h1>{`검색한 ${input} 프로젝트가 없습니다.`}</h1>}
         <ProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} project={selectProject}/>
