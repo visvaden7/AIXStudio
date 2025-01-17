@@ -10,14 +10,16 @@ export default {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
-      '2xl': '19200px',
+      '2xl': '1920px',
     },
     extend: {
       fontFamily: {
         sans: ['ui-sans-serif', 'system-ui'],
-        pretendard: ['Pretendard', 'ui-sans-serif', 'system-ui'],
         nanumSquareRound: ['NanumSquareRound', 'ui-sans-serif', 'system-ui'],
-      }
+      },
+      aspectRatio: {
+        '4/3': '4 / 3',
+      },
     },
   },
   plugins: [],
