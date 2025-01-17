@@ -20,6 +20,16 @@ export default {
       aspectRatio: {
         '4/3': '4 / 3',
       },
+      keyframes: {
+        'float-robot': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-20px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'float-robot': 'float-robot 3s ease-in-out infinite',
+      },
     },
   },
   plugins: [],
