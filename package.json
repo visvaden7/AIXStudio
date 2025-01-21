@@ -10,13 +10,19 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@langchain/core": "^0.3.32",
+    "@langchain/langgraph": "^0.2.41",
+    "@langchain/openai": "^0.3.17",
     "@reduxjs/toolkit": "^2.5.0",
     "axios": "^1.7.9",
+    "langchain": "^0.3.12",
     "motion": "^11.15.0",
+    "openai": "^4.79.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
     "react-router-dom": "^7.1.1",
+    "uuid": "^11.0.5",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
