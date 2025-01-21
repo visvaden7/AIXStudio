@@ -9,7 +9,7 @@ export const ProgressBar:FunctionComponent<Props> = ({currentStep, totalStep}) =
     <div className="progress-bar">
       <div className="progress-bar-inner flex w-full h-1 mb-5">
         {Array.from({length:totalStep}).map((_, idx) => {
-          return <div key={idx} className={`flex-1 h-full ${currentStep > idx ? 'bg-yellow-500': 'bg-gray-300'}`}></div>
+          return <div key={idx} className={`flex-1 h-full ${currentStep > idx ? 'bg-[#EF4A60]': 'bg-[#E5E7EA]'}`}></div>
         })}
       </div>
     </div>

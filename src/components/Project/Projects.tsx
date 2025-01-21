@@ -19,7 +19,6 @@ export const Projects:FunctionComponent = () => {
   //서버에 진행상황 업데이트
   const handleNextStep = () => {
     const nextStep = currentStep + 1;
-    console.log(currentStep)
     if(nextStep <= totalStep) setCurrentStep(nextStep)
   }
   
@@ -28,19 +27,20 @@ export const Projects:FunctionComponent = () => {
     if(prevStep > 0) setCurrentStep(prevStep)
   }
   
-  const handleSelectCategory = (category: string) => {
-    setCategory(category)
+  const handleSelectCategory = (selectedCategory: string) => {
+    setCategory(selectedCategory)
   }
   return (
     <ProjectLayout titleKo={titleKo} tags={tags}>
       {/*컨텐츠*/}
+      {category}
       {/*해당 내용 진행 정도에 따라 변경*/}
       {currentStep === 1 && <ProjectStep imgUrl={imgUrl} titleKo={titleKo} currentStep={currentStep} story={story}/>}
-      {currentStep === 2 && <ProjectStep2 currentStep={currentStep} onSelect={() => handleSelectCategory(category)}/>}
+      {currentStep === 2 && <ProjectStep2 currentStep={currentStep} onSelect={handleSelectCategory}/>}
       {currentStep === 3 && <ProjectStep3 category={category} currentStep={currentStep}/>}
-      <div className={'flex w-full gap-5 justify-center'}>
-        {currentStep > 1 && <button className={'w-[20%] border border-[#FFE552] p-4 my-4 rounded-xl'} onClick={handlePrevStep}>이전</button>}
-        <button className={'w-[20%] bg-[#FFE552] p-4 my-4 rounded-xl'} onClick={handleNextStep}>다음</button>
+      <div className={`flex w-full gap-5 mt-5 mb-20 ${currentStep === 1 ? 'justify-end': 'justify-between'} `}>
+        {currentStep > 1 && <button className={'w-[20%] bg-[#E9E9E9] p-4 my-4 rounded-xl'} onClick={handlePrevStep}>이전</button>}
+        <button className={`w-[20%] bg-[#FFE552] p-4 my-4 rounded-xl`} onClick={handleNextStep}>다음</button>
       </div>
     </ProjectLayout>
   )
