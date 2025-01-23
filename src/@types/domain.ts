@@ -38,3 +38,29 @@ export type Options = {
   value: 'latest' | 'popular';
   label: string;
 }
+export type Keywords = {
+  idx?: number;
+  name: string;
+  showStory: boolean;
+}
+
+export type ProjectData = {
+  message: { role: string, content: string}[]
+}
+
+export interface TextFormat {
+  id: string;
+  text: string;
+  start: number;
+  end: number;
+}
+
+export interface MessageHighlight {
+  id: string; // 메시지 ID
+  highlights: TextFormat[]; // 해당 메시지의 하이라이트 데이터
+}
+
+export interface MessageStrikeThrough {
+  id: string;
+  strikeThrough: TextFormat[];
+}
