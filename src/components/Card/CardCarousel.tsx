@@ -3,14 +3,15 @@ import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react
 import {pageReducer} from "../../reducer/reducer.ts";
 import {ProjectModal} from "../Modal/ProjectModal.tsx";
 import {ProjectCard} from "./ProjectCard.tsx";
-import {isPortfolio, isProject} from "../../utils/typeGuard.ts";
+import {isPortfolio, isProject, isValidText} from "../../utils/typeGuard.ts";
 import {PortfolioCard} from "./PortfolioCard.tsx";
 import upArrow_black from '../../assets/pages/aixLab/arrow_black.svg'
 import bang from '../../assets/pages/aixLab/bang.gif'
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
+import {ValidCard, ValidText} from "./ValidCard.tsx";
 
 interface Props {
-  cardList: Project[] | Portfolio[];
+  cardList: Project[] | Portfolio[] | ValidText[];
   itemsPerPage: number;
   label: string;
   
@@ -104,6 +105,8 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
                 return <ProjectCard project={project} onClick={() => handleSelectProject(project)} hasSurvey={true}/>
               } else if (isPortfolio(project)) {
                 return <PortfolioCard portfolio={project}/>
+              } else if (isValidText(project)) {
+                return <ValidCard validText={project} isValid={false}/>
               }
             })}
             {selectProject &&
