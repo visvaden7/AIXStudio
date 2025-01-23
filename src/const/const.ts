@@ -430,4 +430,5 @@ export const activeClass = "font-bold bg-[#FFE552] w-10 p-2 aspect-square rounde
 export const inactiveClass = "text-gray-600";
 
 
-
+export const titleClass = 'text-[40px] text-[#EF4A60] font-extrabold leading-[60px] -tracking-[0.5px]'
+export const subjectClass = 'text-[18px] mb-[15px] text-[#666] leading-7 -tracking-[0.5px]'

@@ -8,7 +8,6 @@ export const pageReducer = (state: number, action: PageReducerType): number => {
     case "PREVPAGE":
       return Math.max(state - 1, 0)
     case 'GOTOPAGE':
-      console.log('')
       return page !== undefined && page >= 0 && page < maxPage ? page : state;
     default:
       return state
