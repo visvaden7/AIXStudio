@@ -48,14 +48,12 @@ export const PortfolioPage: FunctionComponent = () => {
       filtered = filtered.filter((item) => item.title.includes(input));
     }
     
-    console.log('test', filtered)
     return filtered
   }, [data, filterLabel, sortedOrder, input]);
   
   const pagedData = useMemo(() => {
     const startIndex = itemsPerPage * currentPage
     const endIndex = startIndex + itemsPerPage
-    console.log(sortedData.slice(startIndex, endIndex))
     return sortedData.slice(startIndex, endIndex);
   }, [sortedData, currentPage, itemsPerPage])
   
@@ -163,9 +161,9 @@ export const PortfolioPage: FunctionComponent = () => {
       {/*컨텐츠*/}
       <div className={'flex w-full justify-center'}>
         <div className={'portfolio flex flex-wrap gap-5 justify-start sm:justify-between items-start'}>
-          {pagedData.map(portfolio => {
+          {pagedData.map((portfolio,idx) => {
             return (
-              <PortfolioCard portfolio={portfolio}/>
+              <PortfolioCard key={idx} portfolio={portfolio}/>
             )
           })}
         </div>
