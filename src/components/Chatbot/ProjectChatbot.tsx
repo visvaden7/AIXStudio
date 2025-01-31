@@ -7,12 +7,14 @@ import {IoClose} from "react-icons/io5";
 
 const tooltips = [
   {
+    tooltipType: 'highlight',
     tooltipTitle: '중요한 부분에 밑줄을 쳐 주세요',
     tooltipContents: `태블릿 : 중요한 문장의 맨 앞을 꾹 눌러준 후, 밑줄치기가 나오면 드래그해주세요`
       + <br/> + 'PC : 중요한 문장을 마우스로 클릭한 상태로 드래그해주세요.'
       + <br/> + '밑줄치기를 취소하려면 이미 밑줄이 쳐진 곳을 다시 드래그해주세요.'
   },
   {
+    tooltipType: 'strikeThrough',
     tooltipTitle: '필요없는 부분을 지워 주세요.',
     tooltipContents: `태블릿 : 중요한 문장의 맨 앞을 꾹 눌러준 후, 밑줄치기가 나오면 드래그해주세요`
       + <br/> + 'PC : 중요한 문장을 마우스로 클릭한 상태로 드래그해주세요.'
@@ -27,20 +29,20 @@ interface Props {
 
 export const ProjectChatbot: FunctionComponent<Props> = ({category}) => {
   const [questionCount, setQuestionCount] = useState(0)
-  const [selectToolTip, setSelectToolTip] = useState({idx: 0, isShow: false})
+  const [selectToolTip, setSelectToolTip] = useState({type: '', isShow: false})
   const [formatMode, setFormatMode] = useState<'highlight' | 'strikeThrough' | 'normal'>('normal')
   const CountNumberOfQuestion = (num: number) => {
     setQuestionCount(num)
   }
   
-  const handleCloseTooltip = (idx: number) => {
-    setSelectToolTip({idx: idx, isShow: false})
+  const handleCloseTooltip = (type: string) => {
+    setSelectToolTip({type: type, isShow: false})
     setFormatMode('normal')
   }
   
-  const handleOpenTooltip = (idx: number) => {
-    setSelectToolTip({idx: idx, isShow: true})
-    if(idx === 0){
+  const handleOpenTooltip = (type: string) => {
+    setSelectToolTip({type: type, isShow: true})
+    if(type === 'highlight'){
       setFormatMode('highlight')
     } else {
       setFormatMode('strikeThrough')
@@ -58,21 +60,21 @@ export const ProjectChatbot: FunctionComponent<Props> = ({category}) => {
         </div>
       </div>
       <div className={'relative flex gap-3 py-4'}>
-        <button className={'flex gap-2 items-center border border-black bg-[#F3F4F6] rounded-lg py-1 px-2'} onClick={() => handleOpenTooltip(0)}>
+        <button className={'flex gap-2 items-center border border-black bg-[#F3F4F6] rounded-lg py-1 px-2'} onClick={() => handleOpenTooltip('highlight')}>
           <LuPenLine/>밑줄치기
         </button>
-        <button className={'flex gap-2 items-center border border-black bg-[#F3F4F6] rounded-lg py-1 px-2'} onClick={() => handleOpenTooltip(1)}>
+        <button className={'flex gap-2 items-center border border-black bg-[#F3F4F6] rounded-lg py-1 px-2'} onClick={() => handleOpenTooltip('strikeThrough')}>
           <LuEraser/>지우기
         </button>
         <div className={'absolute flex gap-2 -top-[200px] text-[14px] text-left leading-5 -tracking-[0.5px]'}>
-          {tooltips.map((tooltip, idx) => {
+          {tooltips.map(tooltip => {
             return <div key={tooltip.tooltipTitle}>
-              <div className={`relative flex-col w-[20%] p-5 bg-black text-white rounded-2xl ${selectToolTip.idx === idx && selectToolTip.isShow ? '' : 'hidden'}`}>
+              <div className={`relative flex-col w-[20%] p-5 bg-black text-white rounded-2xl ${selectToolTip.type === tooltip.tooltipType  && selectToolTip.isShow ? '' : 'hidden'}`}>
                 <div>
                   <p className={'font-extrabold mb-2'}>{tooltip.tooltipTitle}</p>
                   <p>{tooltip.tooltipContents}</p>
                 </div>
-                <div className={'absolute top-4 right-4'} onClick={() => handleCloseTooltip(idx)}>
+                <div className={'absolute top-4 right-4'} onClick={() => handleCloseTooltip(tooltip.tooltipType)}>
                   <IoClose className={'w-5 h-5'}/>
                 </div>
               </div>

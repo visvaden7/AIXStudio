@@ -44,23 +44,20 @@ export type Keywords = {
   showStory: boolean;
 }
 
-export type ProjectData = {
-  message: { role: string, content: string}[]
-}
-
 export interface TextFormat {
   id: string;
   text: string;
   start: number;
   end: number;
+  type: "highlight" | "strikeThrough";
 }
 
-export interface MessageHighlight {
-  id: string; // 메시지 ID
-  highlights: TextFormat[]; // 해당 메시지의 하이라이트 데이터
-}
-
-export interface MessageStrikeThrough {
+export interface MessageFormat {
   id: string;
-  strikeThrough: TextFormat[];
+  formats: TextFormat[];
+}
+
+export interface ChatMessage {
+  role: string;
+  content: string;
 }
