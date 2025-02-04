@@ -1,0 +1,7 @@
+export {default as sparkle} from './bg_y.png'
+export {default as robot1} from './robot1.png'
+export {default as spring} from './spring.png'
+export {default as bgY} from './Vector.svg'
+export {default as aiBubble} from './ai_img.png'
+export {default as WormThinkBoxY} from './shape_y.svg'
+export {default as sparkleSmall} from './f_shape_pk.svg'
