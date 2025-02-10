@@ -13,7 +13,7 @@ interface Props {
 export const ExperienceRobot:FunctionComponent<Props> = ({isHovering, onHover, outHover, openImageModal, openChatModal}) => {
   return (
     <>
-      <div className={`fixed flex flex-col bottom-1/4 right-5 ${isHovering ? '' : 'animate-float-robot'}`}
+      <div className={`fixed flex flex-col bottom-1/4 right-5 ${isHovering ? '' : 'animate-float-robot-5s'}`}
            onMouseOver={onHover} onMouseLeave={outHover}>
         {isHovering
           ? (

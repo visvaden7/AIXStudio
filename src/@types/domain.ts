@@ -61,3 +61,21 @@ export interface ChatMessage {
   role: string;
   content: string;
 }
+
+export type ValidText = {
+  id: number;
+  role: string;
+  content: string
+}
+
+export interface CopyType {
+  title: string[];
+  content: string[];
+  color: string;
+}
+
+export interface IntroductionText {
+  title: string;
+  content: string;
+  videoUrl: string;
+}
