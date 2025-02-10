@@ -1,5 +1,4 @@
-import {Portfolio, Project} from "../@types/domain.ts";
-import {ValidText} from "../components/Card/ValidCard.tsx";
+import {Portfolio, Project, ValidText} from "../@types/domain.ts";
 
 const isOfType = <T>(value: unknown, keys: (keyof T)[]): value is T => {
   if (typeof value !== 'object' || value === null) {

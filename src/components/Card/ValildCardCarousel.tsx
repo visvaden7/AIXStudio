@@ -2,22 +2,22 @@ import {FunctionComponent, useEffect, useMemo, useReducer} from "react";
 import {pageReducer} from "../../reducer/reducer.ts";
 import {isValidText} from "../../utils/typeGuard.ts";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
-import {ValidCard, ValidText} from "./ValidCard.tsx";
+import {ValidCard} from "./ValidCard.tsx";
+import {ValidText} from "../../@types/domain.ts";
 
 interface Props {
   cardList: ValidText[];
   itemsPerPage: number;
   label: string;
+  onClick?: (idx: number) => void;
 }
 
-export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPerPage}) => {
+export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPerPage, onClick}) => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
   const visiblePageCount = 3;
   const arrowStyle = 'absolute top-1/4 rounded-full p-4 transition duration-100 ease-in-out transform'
   const sortedData = useMemo(() => {
-    let filtered = cardList;
-    filtered = filtered.sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
-    return filtered;
+    return cardList;
   }, [cardList])
   
   const maxPage = useMemo(() => {
@@ -56,10 +56,6 @@ export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, it
     if (currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page: maxPage - 1, maxPage})
   }, [maxPage, currentPage])
   
-  // const handleSelectProject = (validText: ValidText) => {
-  //   console.log(validText)
-  // }
-  
   return (
     <div className={'w-full p-10 font-nanumSquareRound'}>
       <div className={'text-left mb-10 flex justify-between'}>
@@ -68,9 +64,10 @@ export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, it
       {/*컨텐츠*/}
       <div className={'project'}>
         <div className={'relative flex gap-5 flex-wrap justify-start sm:justify-between items-start'}>
-          {pagedData.map((validText,idx) => {
+          {pagedData.map(validText => {
+            console.log(validText)
             if (isValidText(validText)) {
-              return <ValidCard key={idx} validText={validText} isValid={false}/>
+              return <ValidCard key={validText.id} validText={validText} isValid={false} onClick={() => onClick?.(validText.id)}/>
             }
           })}
           {/*추후 모달 설정시 할 자리*/}

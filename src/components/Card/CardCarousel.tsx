@@ -1,4 +1,4 @@
-import {Portfolio, Project} from "../../@types/domain.ts";
+import {Portfolio, Project, ValidText} from "../../@types/domain.ts";
 import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
 import {pageReducer} from "../../reducer/reducer.ts";
 import {ProjectModal} from "../Modal/ProjectModal.tsx";
@@ -8,7 +8,7 @@ import {PortfolioCard} from "./PortfolioCard.tsx";
 import upArrow_black from '../../assets/pages/aixLab/arrow_black.svg'
 import bang from '../../assets/pages/aixLab/bang.gif'
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
-import {ValidCard, ValidText} from "./ValidCard.tsx";
+import {ValidCard} from "./ValidCard.tsx";
 
 interface Props {
   cardList: Project[] | Portfolio[] | ValidText[];
@@ -37,8 +37,11 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
   
   const arrowStyle = 'absolute top-1/4 rounded-full p-4 transition duration-100 ease-in-out transform'
   const sortedData = useMemo(() => {
-    let filtered = cardList;
-    filtered = filtered.sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
+    let filtered = [...cardList];
+    console.log(!isValidText(cardList[0]))
+    if(cardList.length > 0 && !isValidText(cardList[0])){
+      filtered = (filtered as (Project | Portfolio)[]).sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
+    }
     return filtered;
   }, [cardList])
   

@@ -1,10 +1,6 @@
 import {Card} from "./Card.tsx";
 import {FunctionComponent} from "react";
-
-export type ValidText = {
-  answer: string;
-  timeStamp: string
-}
+import {ValidText} from "../../@types/domain.ts";
 
 interface Props {
   validText: ValidText;
@@ -23,7 +19,7 @@ export const ValidCard: FunctionComponent<Props> = ({validText, onClick, classNa
           className={`flex flex-col w-full h-[250px] ${isValid ? '': 'border'} border-black rounded-2xl overflow-hidden p-4`}
           onClick={onClick}>
           <p className={'text-[24px] leading-[36px] -tracking-[0.5px] font-normal line-clamp-6'}>
-            {validText.answer}
+            {validText.content}
           </p>
         </div>
       </div>

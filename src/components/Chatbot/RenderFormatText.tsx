@@ -21,8 +21,8 @@ export const RenderFormatText: FunctionComponent<Props> = ({text, textFormats, m
   ).sort((a, b) => a.start - b.start); // 포맷 데이터 정렬
 
 
-  sortedTextFormats.forEach((highlights, idx) => {
-    const {start, end} = highlights
+  sortedTextFormats.forEach((textFormat, idx) => {
+    const {start, end} = textFormat
 
     // 일반 텍스트 추가
     if (lastIndex < start) {
@@ -34,7 +34,7 @@ export const RenderFormatText: FunctionComponent<Props> = ({text, textFormats, m
     }
     // 하이라이트된 텍스트 추가
     elements.push(
-      <span key={`highlight-${idx}`} className={`${highlights.type === 'highlight' ? 'bg-amber-200' : 'line-through'}`  }>
+      <span key={`highlight-${idx}`} className={`${textFormat.type === 'highlight' ? 'bg-amber-200' : 'line-through'}`  }>
         {text.slice(start, end)}
       </span>
     );
