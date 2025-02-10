@@ -28,10 +28,11 @@ export default {
         },
       },
       animation: {
-        'float-robot': 'float-robot 3s ease-in-out infinite',
+        'float-robot-3s': 'float-robot 3s ease-in-out infinite',
+        'float-robot-5s': 'float-robot 5s ease-in-out infinite',
       },
     },
   },
-  plugins: [],
+  plugins: [('@tailwindcss/line-clamp')],
 }
 

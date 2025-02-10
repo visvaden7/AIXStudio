@@ -1,11 +1,10 @@
-import {Portfolio, Project} from "../@types/domain.ts";
+import {CopyType, IntroductionText, Portfolio, Project} from "../@types/domain.ts";
+import * as step3video from '../assets/pages/main/section3/video'
 
 export const filterBtnLabelForPortfolio = [
   '전체', '문제해결 체험', '상상 더하기 체험', '웹툰 생성 체험', 'AI 간편 체험'
 ]
-export const nowDeveloping =() => {
-  alert('기능 개발 중 입니다.')
-}
+
 export const portfolioList:Portfolio[] = [
   {
     idx: 1,
@@ -426,8 +425,47 @@ export const projectList: Project[] = [
   },
 ]
 
+// page indicator active / inactive
 export const activeClass = "font-bold bg-[#FFE552] w-10 p-2 aspect-square rounded-full";
 export const inactiveClass = "text-gray-600";
 
 
+// project indicator title / subject
+export const titleClass = 'text-[40px] text-[#EF4A60] font-extrabold leading-[60px] -tracking-[0.5px]'
+export const subjectClass = 'text-[18px] mb-[15px] text-[#666] leading-7 -tracking-[0.5px]'
 
+export const copies: CopyType[] = [
+  {
+    title: ["AI 탐험대에", "합류하세요"],
+    content: ["우리가 앞으로 만나게 될 문제들을 찾아보며", "상상력을 발휘해 멋진 해결책을 떠올려봐요"],
+    color: "#F96800",
+  },
+  {
+    title: ["AI 친구가", "되어봐요"],
+    content: ["AI와 함께 문제를 풀어가는 방법을 배우고", "직접 AI를 다루는 재미를 느껴봐요"],
+    color: "#3654EA",
+  },
+  {
+    title: ["내가 꿈꾸는", "세상을 만들기"],
+    content: ["내가 상상한 아이디어를 통해 더 밝은 세상으로", "함께 멋진 변화를 만들어가요!"],
+    color: "#FF455E",
+  },
+];
+
+export const introductionTexts: IntroductionText[] = [
+  {
+    title: '상상 더하기 체험',
+    content: '제시된 이미지를 바탕으로 창의적인 아이디어를 더해 문제를 해결하고, 상상한 이미지를 직접 만들어보며 재미있는 변화를 경험해요!',
+    videoUrl: step3video.step1
+  },
+  {
+    title: '웹툰 생성 체험',
+    content: 'AI를 통해 주인공과 이야기를 설정하고 멋진장면들을 그려보며 창작의 재미를 느껴봐요! 나만의 이야기로 특별한 웹툰을 완성해보세요!',
+    videoUrl: step3video.step2
+  },
+  {
+    title: 'AI 간편 체험',
+    content: 'AI와 함께 쉽게 만들어가는 재미있는 시간! 체험 과정을 재미있고 쉽게 커스터마이징 할 수 있어요. 무엇을 만들지 고민할 필요 없이 AI가 도와줄 거예요!',
+    videoUrl: step3video.step3
+  }
+]

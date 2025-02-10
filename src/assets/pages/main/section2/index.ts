@@ -1,0 +1,12 @@
+export { default as Earth } from "./earth.png";
+export { default as FlyingBoy1 } from "./people1.png";
+export { default as stars1 } from "./circle1.png";
+export { default as Robot } from "./robot.png";
+export { default as planet } from "./planet.svg";
+export { default as FlyingBoy2 } from "./people2.png";
+export { default as FlyingGirl3 } from "./people3.png";
+export { default as whale } from "./whale.svg";
+export { default as stars2 } from "./circle2.png";
+export { default as Rabbit } from "./rabbit.png";
+export { default as Flower } from "./flower_shape.svg";
+export { default as WormThinkBoxGr } from "./worm_shape_gr.svg";

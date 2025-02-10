@@ -1,8 +1,9 @@
 import {FunctionComponent, useState} from "react";
-// import {useParams} from "react-router-dom";
-// import {Project} from "../../@types/domain.ts";
-import {ProjectStep, ProjectStep2, ProjectStep3} from "./ProjectStep.tsx";
+import {ProjectStep} from "./ProjectStep.tsx";
+import {ProjectStep2} from "./ProjectStep2.tsx";
+import {ProjectStep3} from "./ProjectStep3.tsx";
 import {ProjectLayout} from "../Layout/ProjectLayout.tsx";
+import {ProjectStep4} from "./ProjectStep4.tsx";
 
 
 export const Projects:FunctionComponent = () => {
@@ -19,7 +20,6 @@ export const Projects:FunctionComponent = () => {
   //서버에 진행상황 업데이트
   const handleNextStep = () => {
     const nextStep = currentStep + 1;
-    console.log(currentStep)
     if(nextStep <= totalStep) setCurrentStep(nextStep)
   }
   
@@ -28,19 +28,20 @@ export const Projects:FunctionComponent = () => {
     if(prevStep > 0) setCurrentStep(prevStep)
   }
   
-  const handleSelectCategory = (category: string) => {
-    setCategory(category)
+  const handleSelectCategory = (selectedCategory: string) => {
+    setCategory(selectedCategory)
   }
   return (
     <ProjectLayout titleKo={titleKo} tags={tags}>
       {/*컨텐츠*/}
       {/*해당 내용 진행 정도에 따라 변경*/}
       {currentStep === 1 && <ProjectStep imgUrl={imgUrl} titleKo={titleKo} currentStep={currentStep} story={story}/>}
-      {currentStep === 2 && <ProjectStep2 currentStep={currentStep} onSelect={() => handleSelectCategory(category)}/>}
+      {currentStep === 2 && <ProjectStep2 currentStep={currentStep} onSelect={handleSelectCategory}/>}
       {currentStep === 3 && <ProjectStep3 category={category} currentStep={currentStep}/>}
-      <div className={'flex w-full gap-5 justify-center'}>
-        {currentStep > 1 && <button className={'w-[20%] border border-[#FFE552] p-4 my-4 rounded-xl'} onClick={handlePrevStep}>이전</button>}
-        <button className={'w-[20%] bg-[#FFE552] p-4 my-4 rounded-xl'} onClick={handleNextStep}>다음</button>
+      {currentStep === 4 && <ProjectStep4 currentStep={currentStep}/>}
+      <div className={`flex w-full gap-5 mt-5 mb-20 ${currentStep === 1 ? 'justify-end': 'justify-between'} `}>
+        {currentStep > 1 && <button className={'w-[20%] bg-[#E9E9E9] p-4 my-4 rounded-xl'} onClick={handlePrevStep}>이전</button>}
+        <button className={`w-[20%] bg-[#FFE552] p-4 my-4 rounded-xl`} onClick={handleNextStep}>다음</button>
       </div>
     </ProjectLayout>
   )

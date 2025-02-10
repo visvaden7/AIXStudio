@@ -1,4 +1,4 @@
-import {Portfolio, Project} from "../@types/domain.ts";
+import {Portfolio, Project, ValidText} from "../@types/domain.ts";
 
 const isOfType = <T>(value: unknown, keys: (keyof T)[]): value is T => {
   if (typeof value !== 'object' || value === null) {
@@ -24,4 +24,11 @@ export const isPortfolio = (value: unknown): value is Portfolio => {
     'idx', "imgUrl", "title", "subtitle", "type", 'user', "timeStamp", 'heartRate'
   ];
   return isOfType<Portfolio>(value, keys)
+}
+
+export const isValidText = (value: unknown): value is ValidText => {
+  const keys:(keyof ValidText)[] = [
+    'id', 'role', 'content'
+  ];
+  return isOfType<ValidText>(value, keys)
 }

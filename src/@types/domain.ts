@@ -38,3 +38,44 @@ export type Options = {
   value: 'latest' | 'popular';
   label: string;
 }
+export type Keywords = {
+  idx?: number;
+  name: string;
+  showStory: boolean;
+}
+
+export interface TextFormat {
+  id: string;
+  text: string;
+  start: number;
+  end: number;
+  type: "highlight" | "strikeThrough";
+}
+
+export interface MessageFormat {
+  id: string;
+  formats: TextFormat[];
+}
+
+export interface ChatMessage {
+  role: string;
+  content: string;
+}
+
+export type ValidText = {
+  id: number;
+  role: string;
+  content: string
+}
+
+export interface CopyType {
+  title: string[];
+  content: string[];
+  color: string;
+}
+
+export interface IntroductionText {
+  title: string;
+  content: string;
+  videoUrl: string;
+}

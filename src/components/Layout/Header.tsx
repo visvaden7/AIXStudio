@@ -1,34 +1,29 @@
 import {motion} from "motion/react";
-import {FunctionComponent, useEffect, useState} from "react";
+import {FunctionComponent, useEffect, useRef, useState} from "react";
 import {Link, NavLink, useLocation} from "react-router-dom";
 
 export const Header: FunctionComponent = () => {
   const location = useLocation()
-  const [isTransparency, setIsTransparency] = useState(true)
+  const [isTransparency, setIsTransparency] = useState(false)
   const isRegisterPage = location.pathname !== '/register'
+  const prevScrollY = useRef(window.scrollY)
+  //TODO: scroll 기능이 정상적으로 작동하지 않아, 처음 들어왔을 때 메뉴가 안 보임
   
   useEffect(() => {
     const handleScroll = () => {
-      if (location.pathname === '/') {
-        setIsTransparency(window.scrollY === 0);
-      }
-    };
-    
-    if (location.pathname != '/') {
-      setIsTransparency(false)
-      window.removeEventListener('scroll', handleScroll); // 스크롤 이벤트 해제
-    } else {
-      setIsTransparency(true)
-      window.addEventListener('scroll', handleScroll); // 스크롤 이벤트 등록
+      const currentScrollY = window.scrollY
+      setIsTransparency(currentScrollY > prevScrollY.current);
+      prevScrollY.current = currentScrollY;
     }
+    window.addEventListener('scroll', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll); // 이벤트 리스너 정리
-    };
-  }, [location]);
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, []);
   
   const isActiveTab = location.pathname;
   
-  const headerClass = `fixed w-screen h-20 font-nanumSquareRound font-bold transition-all duration-300 z-10 ${isTransparency ? 'bg-transparent' : 'bg-[#FFF]'}`;
+  const headerClass = `fixed w-screen h-20 font-nanumSquareRound font-bold transition-all duration-300 z-20 ${isTransparency ? 'opacity-0 pointer-events-none' : 'opacity-100 bg-[#FFF]'}`;
   const containerClass = `container w-[70%] h-full flex items-center justify-center bg-transparent mx-auto`;
   const navItemClass = 'nav-item flex flex-1 gap-5 justify-center items-center text-[20px] leading-[30px]';
   const loginClass = 'login w-[10%] font-[16px] py-5';
