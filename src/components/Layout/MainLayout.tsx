@@ -1,4 +1,4 @@
-import {FunctionComponent} from 'react';
+import {FunctionComponent, useEffect, useState} from 'react';
 import {Outlet, useLocation} from "react-router-dom";
 import {Header} from "./Header.tsx";
 import {Footer} from "./Footer.tsx";
@@ -9,8 +9,19 @@ const MainLayout: FunctionComponent = () => {
   const bgClass = backgroundColor[location.pathname] || 'bg-transparent';
   const bgUrl = backgroundImg[location.pathname]
   const bgColor = backgroundAssetColor[location.pathname]
+  const [vh, setVh] = useState(window.innerHeight * 0.01);
+  useEffect(() => {
+    // 브라우저 리사이즈 시 vh 값을 업데이트
+    const handleResize = () => {
+      setVh(window.innerHeight * 0.01);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  
   return (
-    <div className="flex flex-col w-full min-h-screen no-scrollbar">
+    <div className={`flex flex-col w-full min-h-[${vh * 100}px] no-scrollbar`}>
       <Header/>
       <main className={`font-nanumSquareRound flex-1 w-full ${bgClass} pt-20`}>
         <div
