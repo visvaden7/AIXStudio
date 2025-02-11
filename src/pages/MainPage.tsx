@@ -8,7 +8,7 @@ export const MainPage: FunctionComponent = () => {
     
     <div className="relative flex flex-col justify-center items-center">
       {/*section1*/}
-      <div className="relative w-screen h-[800vh] bg-[#D9D9D9]">
+      <div className="relative w-screen h-[1000vh] bg-[#D9D9D9]">
         <div className="sticky top-0 h-screen flex flex-col justify-center items-center z-10">
           <div>
             {/*TODO: 영상 주소 받아오는 api 혹은 내장 영상 체크*/}
