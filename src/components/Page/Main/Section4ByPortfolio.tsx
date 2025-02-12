@@ -1,12 +1,11 @@
 import {FunctionComponent, useRef} from "react";
 import {MainPortPolioCard} from "../../Card/MainPortPolioCard.tsx";
 import {portfolioList} from "../../../const/const.ts";
-// import {useRelativeScrollIndex} from "../../../hook/useScrollIndex.ts";
 import {motion, useScroll, useTransform} from "motion/react";
 import {IoArrowForwardSharp} from "react-icons/io5";
 import * as section4Img from '../../../assets/pages/main/section4'
 
-export const Section4ByMain: FunctionComponent = () => {
+export const Section4ByPortfolio: FunctionComponent = () => {
   const containerRef = useRef<HTMLDivElement>(null)
   const sortedList = portfolioList.slice(0, 5)
   const {scrollYProgress} = useScroll({target: containerRef, offset: ['start start', 'end start']})
@@ -31,8 +30,7 @@ export const Section4ByMain: FunctionComponent = () => {
         </div>
         <div className={'relative w-[170%] h-screen flex items-center overflow-hidden'}>
           <motion.div className={'flex gap-5 w-[115vw] h-[572px] no-scrollbar'}
-                      initial={{x:'-100%'}}
-                      animate={{ x: 0 }}
+                      animate={{ x: '-100%' }}
                       transition={{duration: 0.5, ease: 'easeInOut'}}
                       style={{x: xTransform, opacity: opacityTransform}}>
             {sortedList.map((portfolio, idx) => {
@@ -45,10 +43,11 @@ export const Section4ByMain: FunctionComponent = () => {
         </div>
         {/* 네비게이션 메뉴*/}
         <div className={'w-full h-screen flex-col mt-[30%]'}>
-          <div>
+          <div className={'relative'}>
             <p className={'w-1/2 font-nanumSquareRound font-extrabold text-[48px] leading-[140%] break-keep text-left'}>
               다른 친구들이 완성한 결과물을 살펴보세요
             </p>
+            <img src={section4Img.highlight} alt={'highlight'} className={'absolute top-[62%] '}/>
           </div>
           <div className={'flex justify-around items-center p-5 rounded-3xl w-[30%] bg-[#FFE552] mt-20'}>
             <span className={'text-xl leading-[150%] -tracking-[0.5px]'} onClick={() => alert('개발 중입니다.')}>바로가기</span>

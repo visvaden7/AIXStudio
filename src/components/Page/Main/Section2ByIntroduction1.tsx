@@ -4,7 +4,7 @@ import {motion} from "motion/react";
 import {FunctionComponent, useRef} from "react";
 import {useRelativeScrollIndex} from "../../../hook/useScrollIndex.ts";
 
-export const Section2ByMain: FunctionComponent = () => {
+export const Section2ByIntroduction1: FunctionComponent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const currentIndex = useRelativeScrollIndex({
     containerRef,
