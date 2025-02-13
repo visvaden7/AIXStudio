@@ -7,7 +7,6 @@ export const Header: FunctionComponent = () => {
   const [isTransparency, setIsTransparency] = useState(false)
   const isRegisterPage = location.pathname !== '/register'
   const prevScrollY = useRef(window.scrollY)
-  //TODO: scroll 기능이 정상적으로 작동하지 않아, 처음 들어왔을 때 메뉴가 안 보임
   
   useEffect(() => {
     const handleScroll = () => {
