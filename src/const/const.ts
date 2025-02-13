@@ -1,5 +1,6 @@
 import {CopyType, IntroductionText, Portfolio, Project} from "../@types/domain.ts";
 import * as step3video from '../assets/pages/main/section3/video'
+import * as section2 from "../assets/pages/about/section2";
 
 export const filterBtnLabelForPortfolio = [
   '전체', '문제해결 체험', '상상 더하기 체험', '웹툰 생성 체험', 'AI 간편 체험'
@@ -468,4 +469,19 @@ export const introductionTexts: IntroductionText[] = [
     content: 'AI와 함께 쉽게 만들어가는 재미있는 시간! 체험 과정을 재미있고 쉽게 커스터마이징 할 수 있어요. 무엇을 만들지 고민할 필요 없이 AI가 도와줄 거예요!',
     videoUrl: step3video.step3
   }
+]
+
+export const salesPoint = [
+  {
+    imgUrl: section2.understadingAI, title: 'Ai 이해', content: 'Ai 시대에 범용 Ai 발전을 수용하고,\n' +
+      'Ai 기능을 이해하며 활용하는 사람'
+  },
+  {
+    imgUrl: section2.coworkAi, title: 'Ai 협력', content: '자기 분야의 다양한 문제를 Ai와\n' +
+      '협력하여 창의적으로 해결하는 사람'
+  },
+  {
+    imgUrl: section2.valueOfAI, title: 'Ai 가치', content: '공동체를 위해 Ai를 적용하여\n' +
+      '더 나은 세상으로 변화시키는 사람'
+  },
 ]
