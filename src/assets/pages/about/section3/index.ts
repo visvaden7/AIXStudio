@@ -1,0 +1,6 @@
+export {default as blueStar} from './obj1.svg'
+export {default as redSun} from './obj2.svg'
+export {default as yellowFlower} from './obj3.svg'
+export {default as blockYellow} from './blockYellow.png'
+export {default as blockBlue} from './blockBlue.png'
+export {default as smileGirl} from './smileGirl.png'
