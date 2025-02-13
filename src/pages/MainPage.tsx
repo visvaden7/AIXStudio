@@ -1,27 +1,31 @@
 import {FunctionComponent} from "react";
-import {Section2ByMain} from "../components/Page/Main/Section2ByMain.tsx";
-import {Section3ByMain} from "../components/Page/Main/Section3ByMain.tsx";
-import {Section4ByMain} from "../components/Page/Main/Section4ByMain.tsx";
+import {Section2ByIntroduction1} from "../components/Page/Main/Section2ByIntroduction1.tsx";
+import {Section3ByIntroduction2} from "../components/Page/Main/Section3ByIntroduction2.tsx";
+import {Section4ByPortfolio} from "../components/Page/Main/Section4ByPortfolio.tsx";
+import {Section5ByProject} from "../components/Page/Main/Section5ByProject.tsx";
+import exampleVideo from '../assets/pages/main/example_video.mp4'
 
 export const MainPage: FunctionComponent = () => {
   return (
     
     <div className="relative flex flex-col justify-center items-center">
       {/*section1*/}
-      <div className="relative w-screen h-[1000vh] bg-[#D9D9D9]">
+      <div className="relative w-screen h-[1100vh] bg-[#D9D9D9]">
         <div className="sticky top-0 h-screen flex flex-col justify-center items-center z-10">
-          <div>
+          <div className={'w-full'}>
             {/*TODO: 영상 주소 받아오는 api 혹은 내장 영상 체크*/}
-            <iframe width={1920}
-                    height={1080}
-                    src="https://www.youtube.com/embed/aRmpaq9sbLA?autoplay=1&mute=1"
-                    title="🛑4K 서울 한강공원 올림픽대로 분수쇼 Seoul Han River Park Olympic Expressway Fountain Show LoFi Music🛑실시간 로파이 라이브"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    className={'w-screen h-screen border-0'}
-                    allowFullScreen></iframe>
+            <video src={exampleVideo} className={'w-full h-screen border-0 object-cover'} autoPlay muted loop playsInline/>
+            {/*"https://mgn50.aixstudio.kr:8443/aix_main_mov.mp4"*/}
+            {/*<iframe width={1920}*/}
+            {/*        height={1080}*/}
+            {/*        src="https://mgn50.aixstudio.kr:8443/aix_main_mov.mp4"*/}
+            {/*        title="aixstudio"*/}
+            {/*        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"*/}
+            {/*        referrerPolicy="strict-origin-when-cross-origin"*/}
+            {/*        className={'w-full h-screen border-0'}*/}
+            {/*        allowFullScreen></iframe>*/}
           </div>
-          <div className="absolute text-center">
+          <div className="absolute text-center hidden">
             <div className="font-nanumSquareRound font-extrabold text-[60px]">
               <p>AiX STUDIO</p>
               <p>미래기술을 쉽고 재미있게</p>
@@ -34,11 +38,13 @@ export const MainPage: FunctionComponent = () => {
           </div>
         </div>
         {/*section2*/}
-        <Section2ByMain/>
+        <Section2ByIntroduction1/>
         {/*section3*/}
-        <Section3ByMain/>
+        <Section3ByIntroduction2/>
         {/*section4*/}
-        <Section4ByMain/>
+        <Section4ByPortfolio/>
+        {/*section5*/}
+        <Section5ByProject/>
       </div>
     </div>
   );

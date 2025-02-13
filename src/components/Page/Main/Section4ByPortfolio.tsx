@@ -4,6 +4,7 @@ import {portfolioList} from "../../../const/const.ts";
 import {motion, useScroll, useTransform} from "motion/react";
 import {IoArrowForwardSharp} from "react-icons/io5";
 import * as section4Img from '../../../assets/pages/main/section4'
+import {Link} from "react-router-dom";
 
 export const Section4ByPortfolio: FunctionComponent = () => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -24,13 +25,16 @@ export const Section4ByPortfolio: FunctionComponent = () => {
           <img src={section4Img.asterisk} alt={'asteriskBg'} className={'absolute bottom-0 left-[5%]'}/>
           <img src={section4Img.idea} alt={'idea character'} className={'absolute bottom-[11%] right-[7%]'}/>
           <img src={section4Img.people} alt={'people'} className={'absolute bottom-[10%] right-[19.5%]'}/>
-          <img src={section4Img.chatRobot} alt={'chatRobot'} className={'absolute bottom-[20%] right-[31.5%] animate-float-robot-3s'}/>
-          <img src={section4Img.cloud} alt={'cloud1'} className={'absolute top-[5%] right-[40%] animate-float-robot-5s'}/>
-          <img src={section4Img.cloud} alt={'cloud2'} className={'absolute bottom-[43%] right-[3%] animate-float-robot-5s'}/>
+          <img src={section4Img.chatRobot} alt={'chatRobot'}
+               className={'absolute bottom-[20%] right-[31.5%] animate-float-robot-3s'}/>
+          <img src={section4Img.cloud} alt={'cloud1'}
+               className={'absolute top-[5%] right-[40%] animate-float-robot-5s'}/>
+          <img src={section4Img.cloud} alt={'cloud2'}
+               className={'absolute bottom-[43%] right-[3%] animate-float-robot-5s'}/>
         </div>
         <div className={'relative w-[170%] h-screen flex items-center overflow-hidden'}>
           <motion.div className={'flex gap-5 w-[115vw] h-[572px] no-scrollbar'}
-                      animate={{ x: '-100%' }}
+                      animate={{x: '-100%'}}
                       transition={{duration: 0.5, ease: 'easeInOut'}}
                       style={{x: xTransform, opacity: opacityTransform}}>
             {sortedList.map((portfolio, idx) => {
@@ -49,10 +53,13 @@ export const Section4ByPortfolio: FunctionComponent = () => {
             </p>
             <img src={section4Img.highlight} alt={'highlight'} className={'absolute top-[62%] '}/>
           </div>
-          <div className={'flex justify-around items-center p-5 rounded-3xl w-[30%] bg-[#FFE552] mt-20'}>
-            <span className={'text-xl leading-[150%] -tracking-[0.5px]'} onClick={() => alert('개발 중입니다.')}>바로가기</span>
+          <Link to={'/portfolio'}
+                className={'flex justify-around items-center p-5 rounded-3xl w-[30%] bg-[#FFE552] mt-20'}>
+            <span className={'text-xl leading-[150%] -tracking-[0.5px]'}>
+              바로가기
+            </span>
             <IoArrowForwardSharp/>
-          </div>
+          </Link>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ interface Props {
 
 export const MainPortPolioCard: FunctionComponent<Props> = ({portfolio}) => {
   return (
-    <Card className={'flex grow min-w-[250px] w-[424px] h-full rounded-[30px] bg-white'}>
+    <Card className={'flex grow min-w-[250px] w-[424px] h-full rounded-[64px] bg-white '}>
       <div className={'relative w-full'}>
         <div className={'w-full'}>
           <img src={portfolio.imgUrl} alt={portfolio.title} className={'w-full aspect-4/3 rounded-[30px] object-cover'}/>

@@ -56,12 +56,10 @@ export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
             </div>
             <div className={'border border-black rounded-2xl p-4 mt-3'}>
             <p className={'flex-wrap'}>
-              {/*TODO: 수정작업 예정*/}
               {formattedText.map((_, idx) => {
                 console.log("test, idx", idx, ((idx+1)*2).toString())
                 return <RenderFormatText text={selectChatMsg.content} messageId={((idx+1)*2).toString()} textFormats={formattedText}/>
               })}
-              
             </p>
             </div>
           </div>

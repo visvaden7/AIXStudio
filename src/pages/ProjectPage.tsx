@@ -6,8 +6,19 @@ import {Project} from "../@types/domain.ts";
 import {pageReducer} from "../reducer/reducer.ts";
 import {ProjectModal} from "../components/Modal/ProjectModal.tsx";
 import {ProjectCard} from "../components/Card/ProjectCard.tsx";
+import {useLocation} from "react-router-dom";
 
 export const ProjectPage: FunctionComponent = () => {
+  const location = useLocation();
+  const project = location.state?.project;
+  
+  useEffect(() => {
+    if(project){
+      setIsModalOpen(true)
+      setSelectProject(project)
+    }
+  },[location, project])
+  
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
   const itemsPerPage = 9;
   const visiblePageCount = 5;
@@ -98,8 +109,9 @@ export const ProjectPage: FunctionComponent = () => {
       
       {/*컨텐츠*/}
       <div className={'project flex gap-10 flex-wrap justify-start sm:justify-between items-start'}>
-        {pagedData.map(project => {
-          return <ProjectCard project={project} onClick={() => handleSelectProject(project)}/>
+        {pagedData.map((project, idx) => {
+          return <ProjectCard key={`project-${idx}`}
+                              project={project} onClick={() => handleSelectProject(project)}/>
         })}
         {sortedData.length === 0 && <h1>{`검색한 ${input} 프로젝트가 없습니다.`}</h1>}
         <ProjectModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} project={selectProject}/>
