@@ -21,7 +21,7 @@ export const isProject = (value: unknown): value is Project => {
 
 export const isPortfolio = (value: unknown): value is Portfolio => {
   const keys:(keyof Portfolio)[] = [
-    'idx', "imgUrl", "title", "subtitle", "type", 'user', "timeStamp", 'heartRate'
+    'idx', "imgUrl", "projectTitle", "title", "type", 'user', "timeStamp", 'heartRate'
   ];
   return isOfType<Portfolio>(value, keys)
 }

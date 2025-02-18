@@ -19,12 +19,13 @@ export type Project = { //TODO: 타입정리 및 정리
 export type Portfolio = {
   idx: number,
   imgUrl: string,
+  projectTitle: string,
   title: string,
-  subtitle: string,
   type: ProjectType,
   user: string,
   timeStamp: string,
   heartRate: number
+  isShow?: boolean;
 }
 
 export type PageReducerType = {
@@ -78,4 +79,12 @@ export interface IntroductionText {
   title: string;
   content: string;
   videoUrl: string;
+}
+
+export interface FormData {
+  name: string;
+  school: string;
+  phone: string;
+  email: string;
+  agree: false;
 }

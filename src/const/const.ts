@@ -1,6 +1,7 @@
-import {CopyType, IntroductionText, Portfolio, Project} from "../@types/domain.ts";
+import {CopyType, IntroductionText, Options, Portfolio, Project} from "../@types/domain.ts";
 import * as step3video from '../assets/pages/main/section3/video'
 import * as section2 from "../assets/pages/about/section2";
+import * as section3 from "../assets/pages/about/section3";
 
 export const filterBtnLabelForPortfolio = [
   '전체', '문제해결 체험', '상상 더하기 체험', '웹툰 생성 체험', 'AI 간편 체험'
@@ -10,8 +11,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 1,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-23',
@@ -20,8 +21,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 2,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-22',
@@ -30,8 +31,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 3,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-21',
@@ -40,8 +41,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 4,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-20',
@@ -50,8 +51,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 5,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -60,8 +61,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 6,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -70,8 +71,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 7,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -80,8 +81,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 8,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -90,8 +91,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 9,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -100,8 +101,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 10,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '상상 더하기 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -110,8 +111,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 11,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -120,8 +121,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 12,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -130,8 +131,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 13,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -140,8 +141,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 14,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -150,8 +151,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 15,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -160,8 +161,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 16,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '문제해결 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -170,8 +171,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 17,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: 'AI 간편 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -180,8 +181,8 @@ export const portfolioList:Portfolio[] = [
   {
     idx: 18,
     imgUrl: 'https://placehold.co/150',
-    title: '강남구 미래인재 스마트시티',
-    subtitle: '안전한 나의 친구',
+    projectTitle: '강남구 미래인재 스마트시티',
+    title: '안전한 나의 친구',
     type: '웹툰 생성 체험',
     user: 'ahnji1',
     timeStamp: '2024-10-25',
@@ -484,4 +485,30 @@ export const salesPoint = [
     imgUrl: section2.valueOfAI, title: 'Ai 가치', content: '공동체를 위해 Ai를 적용하여\n' +
       '더 나은 세상으로 변화시키는 사람'
   },
+]
+export const section3Icons = [
+  section3.blueStar, section3.redSun, section3.yellowFlower
+]
+export const competenciesList = [
+  {key: "CA", title: "변화 적용력", content: '시대의 범용기술인 Ai 기술 수용에 대한 자신감을 바탕으로 새로운 지식과 기술을 능동적으로 수용할 수 있는 능력'},
+  {key: "CT", title: "AI·컴퓨팅 사고력", content: '컴퓨터과학의 원리를 바탕으로 인공지능 및 컴퓨팅 시스템을 이용하여 복잡한 문제를 다양한 방식으로 해결할 수 있는 능력'},
+  {key: "AI", title: "인공지능 소양", content: '인공지능의 개념과 작동 원리를 이해하고 삶 속에서 간단한 인공지능 기술을 활용할 수 있는 능력'},
+  {
+    key: "CST",
+    title: "창의융합적 문제 해결역량",
+    content: '인공지능 기술과 다양한 지식을 융합하여, 새로운 관점으로 창의적인 아이디어를 창출하여 다양한 문제를 해결하고 혁신할 수 있는 능력'
+  },
+  {key: "AHC", title: "AI·협업 역량", content: '사람과 인공지능이 서로 소통하여, 복잡한 문제를 협력하여 해결할 수 있는 능력'},
+  {
+    key: "PIC",
+    title: "공익적 사고",
+    content: '인공지능 기술로 인해 발생하는 사회적, 윤리적 변화를 이해하고, 공공의 이익에 도움이 되는 가치 판단과 포용적 행동을 실천할 수 있는 능력'
+  }
+];
+
+export const apiUrl = 'https://newmng.aixstudio.kr/elementary_api'
+
+export const options: Options[] = [
+  {id: 0, value: 'latest', label: '최신순'},
+  {id: 1, value: 'popular', label: '인기도'}
 ]

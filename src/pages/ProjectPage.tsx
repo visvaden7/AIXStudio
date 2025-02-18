@@ -7,23 +7,17 @@ import {pageReducer} from "../reducer/reducer.ts";
 import {ProjectModal} from "../components/Modal/ProjectModal.tsx";
 import {ProjectCard} from "../components/Card/ProjectCard.tsx";
 import {useLocation} from "react-router-dom";
+import {getProjectList} from "../api/projectApi.ts";
 
 export const ProjectPage: FunctionComponent = () => {
   const location = useLocation();
   const project = location.state?.project;
   
-  useEffect(() => {
-    if(project){
-      setIsModalOpen(true)
-      setSelectProject(project)
-    }
-  },[location, project])
-  
+  const [data, setData] = useState<Project[]>(projectList)
+  const [maxPage, setMaxPage] = useState(0)
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
   const itemsPerPage = 9;
   const visiblePageCount = 5;
-  
-  const [data] = useState<Project[]>(projectList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   
   const [input, setInput] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,11 +25,11 @@ export const ProjectPage: FunctionComponent = () => {
     idx: 0,
     titleKo: '',
     titleEn: '',
-    subTitle:'',
+    subTitle: '',
     imgUrl: '',
-    hash:[],
+    hash: [],
     type: '',
-    story:'',
+    story: '',
     isSurvey: false,
     surveyUrl: '',
     timeStamp: ''
@@ -53,9 +47,9 @@ export const ProjectPage: FunctionComponent = () => {
   }, [data, input])
   
   // pageNation
-  const maxPage = useMemo(() => {
-    return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
-  }, [sortedData, itemsPerPage])
+  // const maxPage = useMemo(() => {
+  //   return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
+  // }, [sortedData, itemsPerPage])
   
   const visiblePages = useMemo(() => {
     const half = Math.floor(visiblePageCount / 2);
@@ -65,25 +59,56 @@ export const ProjectPage: FunctionComponent = () => {
   }, [currentPage, visiblePageCount, maxPage]);
   
   const pagedData = useMemo(() => {
-    const startIndex = itemsPerPage * currentPage
-    const endIndex = startIndex + itemsPerPage
-    return sortedData.slice(startIndex, endIndex);
-  }, [sortedData, currentPage])
+    // const startIndex = itemsPerPage * currentPage
+    // const endIndex = startIndex + itemsPerPage
+    // console.log('rendering test', sortedData, startIndex, endIndex)
+    // return sortedData.slice(startIndex, endIndex);
+    return data
+  }, [data])
   
-  useEffect(() =>{
-    dispatch({type: 'GOTOPAGE', page:0, maxPage: maxPage})
-  },[input, maxPage])
+  useEffect(() => {
+    if (project) {
+      setIsModalOpen(true)
+      setSelectProject(project)
+    }
+  }, [location, project])
   
-  useEffect(() =>{
-    if(currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page:maxPage-1, maxPage})
-  },[maxPage, currentPage])
+  useEffect(() => {
+    if(currentPage + 1 < maxPage) {
+      getProjectList('', currentPage + 1).then(project => {
+        if (project) {
+          setMaxPage(Math.ceil(project.totalCount / itemsPerPage))
+          setData(project.formatedData)
+        }
+      })
+    }
+  }, [currentPage, maxPage]);
+  
+  useEffect(() => {
+    getProjectList(input, 1).then(project => {
+      if (project) {
+        setMaxPage(Math.ceil(project.totalCount / itemsPerPage));
+        setData(project.formatedData);
+        dispatch({ type: "GOTOPAGE", page: 0, maxPage: Math.ceil(project.totalCount / itemsPerPage) });
+      }
+    });
+  }, [input]);
+  
+  useEffect(() => {
+    dispatch({type: 'GOTOPAGE', page: 0, maxPage: maxPage})
+  }, [input, maxPage])
+  
+  useEffect(() => {
+    if (currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page: maxPage - 1, maxPage})
+  }, [maxPage, currentPage])
+  
+  
   
   const onReset = () => {
     setInput('')
   }
   
   const handleSelectProject = (project: Project) => {
-    console.log(project)
     setSelectProject(project)
     setIsModalOpen(true)
   }
@@ -93,7 +118,8 @@ export const ProjectPage: FunctionComponent = () => {
       <div className={'flex md:flex-row flex-col text-left justify-between mt-[60px] mb-[80px]'}>
         <div className={'flex flex-col'}>
           <p className={'text-[64px] font-extrabold leading-[96px] -tracking-[0.5px]'}>Project</p>
-          <p className={'text-[16px] leading-[30px] -tracking-[0.5px] font-normal'}>AiX STUDIO 에서 참여할 수 있는 다양한 프로젝트를 확인해보세요.</p>
+          <p className={'text-[16px] leading-[30px] -tracking-[0.5px] font-normal'}>AiX STUDIO 에서 참여할 수 있는 다양한 프로젝트를
+            확인해보세요.</p>
         </div>
         <div className={'flex w-[350px] gap-2 items-center'}>
           <div className={'relative w-full flex items-center'}>

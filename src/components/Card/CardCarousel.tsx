@@ -103,13 +103,13 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
       {pagedData.length !== 0 ?
         <div className={'project'}>
           <div className={'relative flex gap-5 flex-wrap justify-start sm:justify-between items-start'}>
-            {pagedData.map(project => {
+            {pagedData.map((project,idx) => {
               if (isProject(project)) {
-                return <ProjectCard project={project} onClick={() => handleSelectProject(project)} hasSurvey={true}/>
+                return <ProjectCard key={`project-${idx}`} project={project} onClick={() => handleSelectProject(project)} hasSurvey={true}/>
               } else if (isPortfolio(project)) {
-                return <PortfolioCard portfolio={project}/>
+                return <PortfolioCard key={`portfolio-${idx}`} portfolio={project}/>
               } else if (isValidText(project)) {
-                return <ValidCard validText={project} isValid={false}/>
+                return <ValidCard key={`valid-${idx}`} validText={project} isValid={false}/>
               }
             })}
             {selectProject &&

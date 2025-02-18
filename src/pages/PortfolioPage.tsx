@@ -1,24 +1,21 @@
 import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
 import {pageReducer} from "../reducer/reducer.ts";
-import {Options, Portfolio} from "../@types/domain.ts";
-import {activeClass, filterBtnLabelForPortfolio, inactiveClass, portfolioList} from "../const/const.ts";
+import {Portfolio} from "../@types/domain.ts";
+import {activeClass, filterBtnLabelForPortfolio, inactiveClass, options, portfolioList} from "../const/const.ts";
 import {IoChevronDown, IoReload, IoSearchOutline} from "react-icons/io5";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {PortfolioCard} from "../components/Card/PortfolioCard.tsx";
+import {getPortfolioList} from "../api/portfolioApi.ts";
 
 export const PortfolioPage: FunctionComponent = () => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
   const [currentIdx, setCurrentIdx] = useState(0)
   const [sortedOrder, setSortedOrder] = useState<'latest' | 'popular'>('latest')
+  const [maxPage, setMaxPage] = useState(0)
   const itemsPerPage = 12;
   const visiblePageCount = 5;
   
-  const options: Options[] = [
-    {id: 0, value: 'latest', label: '최신순'},
-    {id: 1, value: 'popular', label: '인기도'}
-  ]
-  
-  const [data] = useState<Portfolio[]>(portfolioList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
+  const [data, setData] = useState<Portfolio[]>(portfolioList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   const [input, setInput] = useState('')
   const [filterLabel, setFilterLabel] = useState('전체')
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
@@ -34,6 +31,7 @@ export const PortfolioPage: FunctionComponent = () => {
     // Step 1: Filter by label
     if (filterLabel !== '전체') {
       filtered = filtered.filter((item) => item.type.includes(filterLabel));
+      console.log('test', filtered)
     }
     
     // Step 2: Sort by order (latest or popular)
@@ -42,25 +40,27 @@ export const PortfolioPage: FunctionComponent = () => {
     } else if (sortedOrder === 'popular') {
       filtered = [...filtered].sort((a, b) => b.heartRate - a.heartRate);
     }
-    
+
     // Step 3: Search by input
     if (input.length > 0) {
       filtered = filtered.filter((item) => item.title.includes(input));
     }
     
     return filtered
-  }, [data, filterLabel, sortedOrder, input]);
+  }, [data, filterLabel, input, sortedOrder]);
   
   const pagedData = useMemo(() => {
-    const startIndex = itemsPerPage * currentPage
-    const endIndex = startIndex + itemsPerPage
-    return sortedData.slice(startIndex, endIndex);
-  }, [sortedData, currentPage, itemsPerPage])
+    // const startIndex = itemsPerPage * currentPage
+    // const endIndex = startIndex + itemsPerPage
+    // return sortedData.slice(startIndex, endIndex);
+    return sortedData
+  }, [sortedData])
   
   // pageNation
-  const maxPage = useMemo(() => {
-    return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
-  }, [sortedData, itemsPerPage])
+  // const maxPage = useMemo(() => {
+  //
+  //   return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
+  // }, [sortedData, itemsPerPage])
   
   const visiblePages = useMemo(() => {
     const half = Math.floor(visiblePageCount / 2);
@@ -68,6 +68,15 @@ export const PortfolioPage: FunctionComponent = () => {
     const end = Math.min(maxPage, start + visiblePageCount);
     return [...Array(end - start).keys()].map(i => i + start)
   }, [currentPage, visiblePageCount, maxPage]);
+  
+  useEffect(() => {
+    getPortfolioList('',currentPage + 1, 0, sortedOrder).then(portfolio => {
+      if(portfolio){
+        setMaxPage(Math.ceil(parseInt(portfolio.totalCount) / itemsPerPage))
+        setData(portfolio.formatedData as Portfolio[])
+      }
+    })
+  }, [currentPage, sortedOrder]);
   
   useEffect(() => {
     dispatch({type: 'GOTOPAGE', page: 0, maxPage: maxPage})
@@ -145,9 +154,10 @@ export const PortfolioPage: FunctionComponent = () => {
             {isDropDownOpen &&
                 <div
                     className={'absolute w-full -bottom-[110px] right-0 flex-col justify-start rounded-xl shadow-lg overflow-hidden z-10'}>
-                  {options.map(option => {
+                  {options.map((option,idx) => {
                     return (
                       <div
+                        key={`option-${idx}`}
                         className={` py-3 transition duration-300 ease-in-out ${sortedOrder === option.value ? 'bg-[#FFF5D9]' : 'bg-white'}`}
                         onClick={() => setSortedOrder(option.value)}>
                         {option.label}

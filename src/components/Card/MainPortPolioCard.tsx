@@ -13,15 +13,15 @@ export const MainPortPolioCard: FunctionComponent<Props> = ({portfolio}) => {
     <Card className={'flex grow min-w-[250px] w-[424px] h-full rounded-[64px] bg-white '}>
       <div className={'relative w-full'}>
         <div className={'w-full'}>
-          <img src={portfolio.imgUrl} alt={portfolio.title} className={'w-full aspect-4/3 rounded-[30px] object-cover'}/>
+          <img src={portfolio.imgUrl} alt={portfolio.projectTitle} className={'w-full aspect-4/3 rounded-[30px] object-cover'}/>
         </div>
         <div className={'text-left p-10'}>
           <div>
             <span
               className={`text-[16px] font-normal leading-[150%] -tracking-[0.5px] bg-[#EDEDED] text-[#111] px-2 py-1 rounded-3xl`}>
-              {portfolio.title}
+              {portfolio.projectTitle}
             </span>
-            <p className={'text-[28px] font-bold leading-[150%] -tracking-[0.5px]'}>{portfolio.subtitle}</p>
+            <p className={'text-[28px] font-bold leading-[150%] -tracking-[0.5px]'}>{portfolio.title}</p>
           </div>
           <div className={'flex-col py-1'}>
             <div className={'flex gap-2'}>
