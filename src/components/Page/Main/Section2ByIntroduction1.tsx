@@ -21,21 +21,21 @@ export const Section2ByIntroduction1: FunctionComponent = () => {
       {/* 고정된 배경 */}
       <div className="sticky top-0 left-0 w-full h-screen flex justify-center">
         <img src={section2Img.Earth} alt="earth"
-             className="absolute bottom-[10%] left-1/2 transform -translate-x-1/2"/>
+             className="mainSection2-img-earth"/>
         <img src={section2Img.FlyingBoy1} alt="flying boy 1"
-             className="absolute bottom-[25%] left-[15%] animate-float-robot-5s"/>
-        <img src={section2Img.stars1} alt="stars 1" className="absolute top-[40%] left-[25%]"/>
+             className="mainSection2-img-FlyingBoy1"/>
+        <img src={section2Img.stars1} alt="stars 1" className="mainSection2-img-star1"/>
         <img src={section2Img.Robot} alt="flying robot"
-             className="absolute top-[20%] left-[20%] animate-float-robot-3s"/>
-        <img src={section2Img.planet} alt="planet" className="absolute top-[0%] right-[26%]"/>
+             className="mainSection2-img-robot"/>
+        <img src={section2Img.planet} alt="planet" className="mainSection2-img-planet"/>
         <img src={section2Img.FlyingBoy2} alt="flying boy 2"
-             className="absolute bottom-[8%] right-[35%] animate-float-robot-3s"/>
+             className="mainSection2-img-FlyingBoy2"/>
         <img src={section2Img.FlyingGirl3} alt="flying girl 3"
-             className="absolute top-[14%] right-[5%] animate-float-robot-3s"/>
+             className="mainSection2-img-FlyingGirl3"/>
         <img src={section2Img.whale} alt="blue whale"
-             className="absolute top-[50%] right-[15%] animate-float-robot-5s"/>
-        <img src={section2Img.stars2} alt="star2" className="absolute bottom-[20%] right-[20%]"/>
-        <img src={section2Img.Rabbit} alt="rabbit" className="absolute bottom-[5%] right-0"/>
+             className="mainSection2-img-whale"/>
+        <img src={section2Img.stars2} alt="star2" className="mainSection2-img-star2"/>
+        <img src={section2Img.Rabbit} alt="rabbit" className="mainSection2-img-rabbit"/>
         <div className={'relative w-full flex-col justify-center'}>
           {copies.map((section, idx) => {
             if (currentIndex === idx) {
@@ -46,7 +46,7 @@ export const Section2ByIntroduction1: FunctionComponent = () => {
                   animate={currentIndex === idx ? {opacity: 1} : {opacity: 0}}
                   transition={{duration: 0.5, ease: 'easeInOut'}}
                   exit={{opacity: 0}}
-                  className="absolute top-[15%] left-1/2 flex-col gap-10 transfrom -translate-x-1/2 w-full text-center"
+                  className="absolute top-[15%] left-[52%] flex-col gap-10 transfrom -translate-x-1/2 w-full text-center"
                   style={{color: section.color, height: '100vh'}}
                 >
                   <div className={'flex gap-2 justify-center items-center mb-[4%]'}>

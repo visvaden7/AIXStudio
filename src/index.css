@@ -6,21 +6,180 @@
 /* TODO: 추후 폰트 사이즈 변경 및 적용*/
 
 @layer utilities {
+    /*main*/
+    /*--section1*/
+    .mainSection1 {
+        @apply sticky top-0 h-screen flex flex-col justify-center items-center z-10
+    }
+
+    .mainSection1-title {
+        @apply font-nanumSquareRound font-extrabold text-[60px] leading-[140%] -tracking-[1px]
+    }
+
+    .mainSection1-subtitle {
+        @apply font-nanumSquareRound font-normal text-[24px] text-black/50
+    }
+
+    /*--section2*/
+    .mainSection2-img-robot {
+        @apply absolute top-[20%] left-[20%] animate-float-robot-3s
+    }
+    .mainSection2-img-earth {
+        @apply absolute bottom-[10%] left-[53%] transform -translate-x-1/2
+    }
+    .mainSection2-img-FlyingBoy1 {
+        @apply absolute bottom-[25%] left-[15%] animate-float-robot-5s
+    }
+    .mainSection2-img-FlyingBoy2 {
+        @apply absolute bottom-[8%] right-[45%] animate-float-robot-3s
+    }
+
+    .mainSection2-img-FlyingGirl3 {
+        @apply absolute top-[14%] right-[5%] animate-float-robot-3s
+    }
+
+    .mainSection2-img-whale {
+        @apply absolute top-[50%] right-[15%] animate-float-robot-5s
+    }
+
+    .mainSection2-img-star1 {
+        @apply absolute top-[40%] left-[25%]
+    }
+
+    .mainSection2-img-planet {
+        @apply absolute top-[0%] right-[26%]
+    }
+    .mainSection2-img-star2 {
+        @apply absolute bottom-[20%] right-[20%]
+    }
+    .mainSection2-img-rabbit {
+        @apply absolute bottom-[5%] right-0
+    }
+    /*about*/
+    /*--section1*/
+    .aboutSection1 {
+        @apply flex justify-center items-center w-full h-[10%] bg-local  bg-black/20 z-10 overflow-hidden
+    }
+
+    .aboutSection1-line-plum {
+        @apply absolute top-[37%] left-[20%]
+    }
+
+    .aboutSection1-line-yellow {
+        @apply absolute top-[15%] right-[17.5%]
+    }
+
+    .aboutSection1-title {
+        @apply text-[68px] font-extrabold leading-[150%] -tracking-[0.5px]
+    }
+
+    .aboutSection1-subtitle {
+        @apply text-[30px] font-bold leading-[150%] -tracking-[0.5px]
+    }
+
+    /*project*/
     .flexible-card {
         @apply flex grow min-w-[250px];
     }
 
+    /*portfolio*/
     .portfolio-card {
         @apply flex grow min-w-[250px];
     }
 
+    /*320px*/
     @screen sm {
-        .flexible-card, .portfolio-card {
+        /*main*/
+        /*--section1*/
+        .mainSection1-title {
+            @apply font-nanumSquareRound font-extrabold text-[24px]
+        }
+        .mainSection1-subtitle {
+            @apply font-nanumSquareRound font-normal text-[14px] text-black/50
+        }
+        /*--section2*/
+        /*---img*/
+        /*about*/
+        /*--section1*/
+        /*--img*/
+        .aboutSection1-line-plum {
+            @apply top-[55%] -left-[10%] scale-[40%]
+        }
+
+        .aboutSection1-line-yellow {
+            @apply -top-5 -right-10 scale-[40%]
+        }
+
+        .aboutSection1-title {
+            @apply text-[24px]
+        }
+
+        .aboutSection1-subtitle {
+            @apply text-[14px] w-[60%]
+        }
+        /*--section2*/
+        /*---img*/
+
+
+
+        /*--section2*/
+        /*--section3*/
+        /*--section4*/
+        /*--section5*/
+
+        /*project*/
+        .flexible-card {
+            @apply basis-1;
+        }
+
+        /*portfolio*/
+        .portfolio-card {
             @apply basis-1;
         }
     }
+    /*728px*/
     @screen md {
-        .flexible-card, .portfolio-card {
+        /*main*/
+        /*--section1*/
+        .mainSection1-title {
+            @apply font-nanumSquareRound font-extrabold text-[56px]
+        }
+        .mainSection1-subtitle {
+            @apply font-nanumSquareRound font-normal text-[20px] text-black/50
+        }
+        /*--section2*/
+        /*--section3*/
+        /*--section4*/
+        /*--section5*/
+        /*about*/
+        /*--section1*/
+        .aboutSection1-line-plum {
+            @apply top-[60%] left-[5%] scale-75
+        }
+
+        .aboutSection1-line-yellow {
+            @apply top-[10%] right-[5%] scale-75
+        }
+
+        .aboutSection1-title {
+            @apply text-[56px]
+        }
+
+        .aboutSection1-subtitle {
+            @apply text-[24px] w-[58%]
+        }
+
+        /*--section2*/
+        /*--section3*/
+        /*--section4*/
+        /*--section5*/
+        /*project*/
+        .flexible-card {
+            @apply basis-[45%] max-w-[45%];
+        }
+
+        /*portfolio*/
+        .portfolio-card {
             @apply basis-[45%] max-w-[45%];
         }
     }
@@ -29,18 +188,115 @@
             @apply basis-[30%] max-w-[33%];
         }
     }
+    /*1280px*/
     @screen xl {
-        .flexible-card {
-            @apply basis-[30%] max-w-[33.3%];
+        /*main*/
+        /*--section1*/
+        /*--section2*/
+        /*--section3*/
+        /*--section4*/
+        /*--section5*/
+        /*about*/
+        /*--section1*/
+        .aboutSection1-line-plum {
+            @apply top-[37%] left-[5%]
         }
-    }
 
-    @screen 2xl {
+        .aboutSection1-line-yellow {
+            @apply absolute top-[15%] right-[5%]
+        }
+
+        .aboutSection1-subtitle {
+            @apply text-[30px] w-[100%] font-bold leading-[150%] -tracking-[0.5px]
+        }
+
+        /*--section2*/
+        /*--section3*/
+        /*--section4*/
+        /*--section5*/
+        /*project*/
         .flexible-card {
             @apply basis-[30%] max-w-[33.3%];
         }
+
+        /*portfolio*/
+
     }
+    /*1920px*/
     @screen 2xl {
+        /*main*/
+        /*--section1*/
+        .mainSection1 {
+            @apply sticky top-0 h-screen flex flex-col justify-center items-center z-10
+        }
+
+        .mainSection1-title {
+            @apply font-nanumSquareRound font-extrabold text-[60px]
+        }
+
+        .mainSection1-subtitle {
+            @apply font-nanumSquareRound font-normal text-[24px] text-black/50
+        }
+        /*--section2*/
+        .mainSection2-img-robot {
+            @apply absolute top-[20%] left-[20%]
+        }
+        .mainSection2-img-earth {
+            @apply absolute bottom-[10%]
+        }
+        .mainSection2-img-FlyingBoy1 {
+            @apply absolute bottom-[25%] left-[15%]
+        }
+        .mainSection2-img-FlyingBoy2 {
+            @apply absolute bottom-[8%] right-[35%]
+        }
+
+        .mainSection2-img-FlyingGirl3 {
+            @apply absolute top-[14%] right-[5%]
+        }
+
+        .mainSection2-img-whale {
+            @apply absolute top-[50%] right-[15%]
+        }
+
+        .mainSection2-img-star1 {
+            @apply absolute top-[40%] left-[25%]
+        }
+
+        .mainSection2-img-planet {
+            @apply absolute top-[0%] right-[26%]
+        }
+        .mainSection2-img-star2 {
+            @apply absolute bottom-[20%] right-[20%]
+        }
+        .mainSection2-img-rabbit {
+            @apply absolute bottom-[5%] right-0
+        }
+
+        /*about*/
+        /*--section1*/
+        .aboutSection1 {
+            @apply flex justify-center items-center w-full h-[10%] bg-local bg-black/20 z-10 overflow-hidden
+        }
+        .aboutSection1-line-plum {
+            @apply absolute top-[37%] left-[20%] scale-100
+        }
+        .aboutSection1-line-yellow {
+            @apply absolute top-[15%] right-[17.5%] scale-100
+        }
+        .aboutSection1-title {
+            @apply text-[68px] font-extrabold leading-[150%] -tracking-[0.5px]
+        }
+        .aboutSection1-subtitle {
+            @apply text-[30px] font-bold leading-[150%] -tracking-[0.5px]
+        }
+
+        /*project*/
+        .flexible-card {
+            @apply basis-[30%] max-w-[33.3%];
+        }
+
+        /*portfolio*/
         .portfolio-card {
             @apply basis-[23%] max-w-[23%];
         }
