@@ -1,6 +1,6 @@
 export type Nullable<T> = T | null;
 
-export type ProjectType = '' | '문제해결 체험' | '상상 더하기 체험' | '웹툰 생성 체험' | 'AI 간편 체험'
+export type ProjectType = '' | '문제해결 체험' | '상상 더하기 체험' | '웹툰 생성 체험' | 'AI 간편 체험' | '카드뉴스'
 
 export type Project = { //TODO: 타입정리 및 정리
   idx: number;
@@ -24,8 +24,8 @@ export type Portfolio = {
   type: ProjectType,
   user: string,
   timeStamp: string,
-  heartRate: number
-  isShow?: boolean;
+  heartRate: number,
+  showRate: number,
 }
 
 export type PageReducerType = {

@@ -4,7 +4,7 @@ import * as section2 from "../assets/pages/about/section2";
 import * as section3 from "../assets/pages/about/section3";
 
 export const filterBtnLabelForPortfolio = [
-  '전체', '문제해결 체험', '상상 더하기 체험', '웹툰 생성 체험', 'AI 간편 체험'
+  {label:'전체', idx:0}, {label:'문제해결 체험',idx: 1}, {label:'상상 더하기 체험',idx: 2}, {label:'웹툰 생성 체험',idx: 3}, {label:'AI 간편 체험', idx: 4}
 ]
 
 export const portfolioList:Portfolio[] = [
@@ -17,6 +17,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-23',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 2,
@@ -27,6 +28,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-22',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 3,
@@ -37,6 +39,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-21',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 4,
@@ -47,6 +50,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-20',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 5,
@@ -57,6 +61,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 6,
@@ -67,6 +72,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 11,
+    showRate: 0
   },
   {
     idx: 7,
@@ -77,6 +83,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 12,
+    showRate: 0
   },
   {
     idx: 8,
@@ -87,6 +94,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 15,
+    showRate: 0
   },
   {
     idx: 9,
@@ -97,6 +105,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 20,
+    showRate: 0
   },
   {
     idx: 10,
@@ -107,6 +116,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 32,
+    showRate: 0
   },
   {
     idx: 11,
@@ -117,6 +127,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 1,
+    showRate: 0
   },
   {
     idx: 12,
@@ -127,6 +138,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 0,
+    showRate: 0
   },
   {
     idx: 13,
@@ -137,6 +149,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 14,
@@ -147,6 +160,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 15,
@@ -157,6 +171,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 10,
+    showRate: 0
   },
   {
     idx: 16,
@@ -167,6 +182,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 2,
+    showRate: 0
   },
   {
     idx: 17,
@@ -177,6 +193,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 11,
+    showRate: 0
   },
   {
     idx: 18,
@@ -187,6 +204,7 @@ export const portfolioList:Portfolio[] = [
     user: 'ahnji1',
     timeStamp: '2024-10-25',
     heartRate: 2,
+    showRate: 0
   }
 ]
 

@@ -46,7 +46,7 @@ export const RegisterPage: FunctionComponent = () => {
             )
             navigate('/')
           } else {
-            console.log('로그인 실패 : ', status!.code)
+            console.error('로그인 실패 : ', status!.code)
           }
         })
       }}>

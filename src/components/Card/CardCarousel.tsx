@@ -38,7 +38,6 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
   const arrowStyle = 'absolute top-1/4 rounded-full p-4 transition duration-100 ease-in-out transform'
   const sortedData = useMemo(() => {
     let filtered = [...cardList];
-    console.log(!isValidText(cardList[0]))
     if(cardList.length > 0 && !isValidText(cardList[0])){
       filtered = (filtered as (Project | Portfolio)[]).sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
     }
@@ -60,7 +59,6 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
   }, [currentPage, visiblePageCount, maxPage]);
   
   const getArrowBgColor = (direction: 'left' | 'right'): string => {
-    console.log(currentPage, maxPage)
     if (direction === 'left') {
       return currentPage === 0 ? 'bg-[#EDEDED]' : 'bg-[#FFE552]';
     }
