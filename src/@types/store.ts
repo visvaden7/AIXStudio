@@ -3,12 +3,13 @@ import {ChatMessage, MessageFormat} from "./domain.ts";
 export interface User {
   id: string;
   name: string;
-  gender: string;
-  age: number;
+  email: string;
+  memberType: string;
 }
 
 export interface UserStore {
   user: User;
+  loginMember: (userId: string, memberType: string) => void;
   increaseAge: () => void;
   removeAge: () => void;
 }

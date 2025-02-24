@@ -32,3 +32,9 @@ export interface  AxiosResponseByPortfolio {
     total_count: string;
   }
 }
+
+export interface  AxiosResponseLogin {
+  success: {
+    code: string;
+  }
+}

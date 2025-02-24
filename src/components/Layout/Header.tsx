@@ -1,12 +1,18 @@
 import {motion} from "motion/react";
 import {FunctionComponent, useEffect, useRef, useState} from "react";
 import {Link, NavLink, useLocation} from "react-router-dom";
+import {useUserStore} from "../../store/useUserStore.ts";
 
 export const Header: FunctionComponent = () => {
   const location = useLocation()
   const [isTransparency, setIsTransparency] = useState(false)
-  const isRegisterPage = location.pathname !== '/register'
+  const [isRegisterPage, setIsRegisterPage] = useState(location.pathname !== '/register')
   const prevScrollY = useRef(window.scrollY)
+  const {user} = useUserStore()
+  
+  useEffect(() => {
+    setIsRegisterPage(location.pathname === '/register')
+  }, [location.pathname]);
   
   useEffect(() => {
     const handleScroll = () => {
@@ -60,7 +66,7 @@ export const Header: FunctionComponent = () => {
           {navItem.map(it => (
             <li key={it.id} className={'relative flex h-full items-center'}>
               <NavLink to={it.path}
-                       className={`${isActiveTab === it.path ? 'text-[#EF4A60] font-extrabold' : 'font-bold'} py-5` }>
+                       className={`${isActiveTab === it.path ? 'text-[#EF4A60] font-extrabold' : 'font-bold'} py-5`}>
                 {it.label}
               </NavLink>
               {isActiveTab === it.path && (
@@ -70,13 +76,23 @@ export const Header: FunctionComponent = () => {
             </li>
           ))}
         </div>
-        {isRegisterPage && <div className={loginClass}>
-          <Link to={'/register'}>
-              <div className={'border border-gray-300 p-[2px] rounded-2xl'}>
-                  로그인
+        {user.id
+          ? <div className={'flex gap-5 items-center'}>
+            {`${user.id}님`}
+            <Link to={'/'}>
+              <div className={'border border-gray-300 px-4 py-2 rounded-3xl'}>
+                로그아웃
               </div>
-          </Link>
-        </div>}
+            </Link>
+          </div>
+          : !isRegisterPage && <div className={loginClass}>
+            <Link to={'/register'}>
+                <div className={'border border-gray-300 p-[2px] rounded-2xl'}>
+                    로그인
+                </div>
+            </Link>
+        </div>
+        }
       </div>
     </header>
   

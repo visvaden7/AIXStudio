@@ -13,6 +13,11 @@ export default defineConfig({
         target: 'https://newmng.aixstudio.kr/elementary_api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      "/api-ai": {
+        target: 'https://new.aixstudio.kr/api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       }
     }
   }
