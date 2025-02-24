@@ -14,7 +14,8 @@ export const MakeImageModal: FunctionComponent<Props> = ({isOpen, onClose}) => {
   const [imgUrl, setImgUrl] = useState('')
   const makeImageApi = async (prompt: string) => {
     try {
-      const response = await axios.post('/api/generate_image.php', {prompt: prompt})
+      //TODO: 이미지 생성 url 체크하기
+      const response = await axios.post('/api-ai/generate_image.php', {prompt: prompt})
       setImgUrl(response.data.url)
     } catch (err) {
       console.log(err)

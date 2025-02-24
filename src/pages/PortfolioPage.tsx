@@ -17,11 +17,12 @@ export const PortfolioPage: FunctionComponent = () => {
   
   const [data, setData] = useState<Portfolio[]>(portfolioList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
   const [input, setInput] = useState('')
-  const [filterLabel, setFilterLabel] = useState('전체')
+  // const [debouncedInput, setDebouncedInput] = useState('')
+  const [filterLabel, setFilterLabel] = useState(filterBtnLabelForPortfolio[0])
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
   
   const sortedData = useMemo(() => {
-    let filtered = data;
+    let filtered = [...data];
     
     //TODO: 학교 기관 닉네임 검색가능 추진
     //TODO: 좋아요, 최신순, 가나다 순으로 정렬
@@ -29,9 +30,8 @@ export const PortfolioPage: FunctionComponent = () => {
     //TODO: 좋아요 시, 좋아요 수 바로 증가
     
     // Step 1: Filter by label
-    if (filterLabel !== '전체') {
-      filtered = filtered.filter((item) => item.type.includes(filterLabel));
-      console.log('test', filtered)
+    if (filterLabel.label !== '전체') {
+      filtered = filtered.filter((item) => item.type.includes(filterLabel.label));
     }
     
     // Step 2: Sort by order (latest or popular)
@@ -43,7 +43,7 @@ export const PortfolioPage: FunctionComponent = () => {
 
     // Step 3: Search by input
     if (input.length > 0) {
-      filtered = filtered.filter((item) => item.title.includes(input));
+      filtered = filtered.filter((item) => item.projectTitle.includes(input));
     }
     
     return filtered
@@ -70,23 +70,24 @@ export const PortfolioPage: FunctionComponent = () => {
   }, [currentPage, visiblePageCount, maxPage]);
   
   useEffect(() => {
-    getPortfolioList('',currentPage + 1, 0, sortedOrder).then(portfolio => {
+    getPortfolioList(input,currentPage + 1, filterLabel.idx, sortedOrder).then(portfolio => {
       if(portfolio){
-        setMaxPage(Math.ceil(parseInt(portfolio.totalCount) / itemsPerPage))
+        const totalPage = Math.ceil(Number(portfolio.totalCount) / itemsPerPage)
+        setMaxPage(totalPage)
         setData(portfolio.formatedData as Portfolio[])
       }
     })
-  }, [currentPage, sortedOrder]);
+  }, [currentPage, filterLabel.idx, input, sortedOrder]);
   
   useEffect(() => {
     dispatch({type: 'GOTOPAGE', page: 0, maxPage: maxPage})
-  }, [input, maxPage])
+  }, [input, maxPage, filterLabel])
   
   useEffect(() => {
     if (currentPage >= maxPage) dispatch({type: 'GOTOPAGE', page: maxPage - 1, maxPage})
   }, [maxPage, currentPage])
   
-  const handleFiltering = (idx: number, label: string) => {
+  const handleFiltering = (idx: number, label: {label: string, idx: number}) => {
     setCurrentIdx(idx)
     setFilterLabel(label)
   }
@@ -112,6 +113,10 @@ export const PortfolioPage: FunctionComponent = () => {
       // 외부 클릭 이벤트 제거
       document.removeEventListener("click", handleOutsideClick);
     };
+  }, []);
+  
+  useEffect(() => {
+  
   }, []);
   
   
@@ -141,7 +146,7 @@ export const PortfolioPage: FunctionComponent = () => {
                 className={`px-6 h-[40px] ${currentIdx === idx ? 'bg-[#FFE552] shadow-lg font-extrabold text-black' : 'bg-[#EFEEF3] font-bold text-[#666]'}  leading-6 -tracking-[0.5px] rounded-2xl`}
                 onClick={() => handleFiltering(idx, label)}
                 key={idx}
-              >{label}</button>
+              >{label.label}</button>
             )
           })}
         </div>

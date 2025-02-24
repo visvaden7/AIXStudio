@@ -61,10 +61,9 @@ export const ProjectPage: FunctionComponent = () => {
   const pagedData = useMemo(() => {
     // const startIndex = itemsPerPage * currentPage
     // const endIndex = startIndex + itemsPerPage
-    // console.log('rendering test', sortedData, startIndex, endIndex)
     // return sortedData.slice(startIndex, endIndex);
-    return data
-  }, [data])
+    return sortedData
+  }, [sortedData])
   
   useEffect(() => {
     if (project) {
@@ -74,7 +73,7 @@ export const ProjectPage: FunctionComponent = () => {
   }, [location, project])
   
   useEffect(() => {
-    if(currentPage + 1 < maxPage) {
+    if(currentPage < maxPage) {
       getProjectList('', currentPage + 1).then(project => {
         if (project) {
           setMaxPage(Math.ceil(project.totalCount / itemsPerPage))
