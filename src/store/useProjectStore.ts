@@ -7,8 +7,12 @@ export const useProjectStore = create<ProjectStore>((set) => ({
   currentStep: 0,
   chatMessage: [],
   updateChatMessage: (messages: ChatMessage[]) => set(state => {
+    console.log(state.chatMessage, messages)
+    console.log(state.chatMessage.length !== messages.length && JSON.stringify(state.chatMessage) !== JSON.stringify(messages))
+    console.log(state.chatMessage.length !== messages.length )
+    console.log(JSON.stringify(state.chatMessage) !== JSON.stringify(messages))
     if (state.chatMessage.length !== messages.length && JSON.stringify(state.chatMessage) !== JSON.stringify(messages)) {
-      console.log("message : ", messages, "chatMessage : ",state.chatMessage);
+      console.log("message : ", messages, "chatMessage : ", state.chatMessage);
       return {...state, chatMessage: messages};
     }
     return state;

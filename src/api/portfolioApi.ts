@@ -21,13 +21,13 @@ export const getPortfolioList = async (pt_name_ko:string, page:number, projectTy
           imgUrl: portfolio.cp_main_img || '',
           projectTitle: portfolio.pt_name_ko || '',
           title: portfolio.cp_main_title || '',
-          type: portfolio.cp_type === 0
+          type: portfolio.cp_type == 0
             ? ''
-            : portfolio.cp_type === 1
+            : portfolio.cp_type == 1
               ? '문제해결 체험'
-              : portfolio.cp_type === 2
+              : portfolio.cp_type == 2
                 ? '상상 더하기 체험'
-                : portfolio.cp_type === 3
+                : portfolio.cp_type == 3
                   ? '웹툰 생성 체험'
                   : 'AI 간편 체험',
           user: portfolio.mt_name,

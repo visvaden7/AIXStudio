@@ -38,7 +38,6 @@ export const RenderFormatText: FunctionComponent<Props> = ({text, textFormats, m
         {text.slice(start, end)}
       </span>
     );
-
     lastIndex = end; // 마지막 처리된 위치 업데이트
   });
 

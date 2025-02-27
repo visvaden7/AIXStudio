@@ -1,7 +1,7 @@
 import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
 import {pageReducer} from "../reducer/reducer.ts";
 import {Portfolio} from "../@types/domain.ts";
-import {activeClass, filterBtnLabelForPortfolio, inactiveClass, options, portfolioList} from "../const/const.ts";
+import {activeClass, filterBtnLabelForPortfolio, inactiveClass, options} from "../const/const.ts";
 import {IoChevronDown, IoReload, IoSearchOutline} from "react-icons/io5";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {PortfolioCard} from "../components/Card/PortfolioCard.tsx";
@@ -15,7 +15,7 @@ export const PortfolioPage: FunctionComponent = () => {
   const itemsPerPage = 12;
   const visiblePageCount = 5;
   
-  const [data, setData] = useState<Portfolio[]>(portfolioList) //TODO: 추후 API 로 데이터 연결예정 / 현재 더미데이터
+  const [data, setData] = useState<Portfolio[]>([])
   const [input, setInput] = useState('')
   // const [debouncedInput, setDebouncedInput] = useState('')
   const [filterLabel, setFilterLabel] = useState(filterBtnLabelForPortfolio[0])
@@ -75,6 +75,8 @@ export const PortfolioPage: FunctionComponent = () => {
         const totalPage = Math.ceil(Number(portfolio.totalCount) / itemsPerPage)
         setMaxPage(totalPage)
         setData(portfolio.formatedData as Portfolio[])
+      } else {
+        setMaxPage(1)
       }
     })
   }, [currentPage, filterLabel.idx, input, sortedOrder]);
@@ -114,11 +116,6 @@ export const PortfolioPage: FunctionComponent = () => {
       document.removeEventListener("click", handleOutsideClick);
     };
   }, []);
-  
-  useEffect(() => {
-  
-  }, []);
-  
   
   return (
     <div className={'w-full font-nanumSquareRound'}>
