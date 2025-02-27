@@ -9,13 +9,42 @@ import {ChatbotModal} from "../components/Modal/ChatbotModal.tsx";
 import axios from "axios";
 import {AxiosResponseAixLab, AxiosResponseAixLabTransformed, ListPortfolio, ListProject} from "../@types/api.ts";
 import {Portfolio, Project, ProjectType} from "../@types/domain.ts";
+import {DashBord} from "../components/Page/AixLab/Dashbord.tsx";
+import {portfolioList} from "../const/const.ts";
+
+interface DetailState {
+  list1: boolean,
+  list2: boolean,
+  list3: boolean,
+  list4: boolean,
+}
+
+interface ListConfig {
+  key: keyof DetailState;
+  label: string;
+  carouselItems: number;
+  dashboardItems: number;
+  type: 'project' | 'portfolio'
+}
+
+const LIST_CONFIGS: ListConfig[] = [
+  {key: 'list1', label: '진행중인 체험', carouselItems: 3, dashboardItems: 9, type: 'project'},
+  {key: 'list2', label: '참여가능한 체험', carouselItems: 3, dashboardItems: 9, type: 'project'},
+  {key: 'list3', label: '완료한 체험', carouselItems: 4, dashboardItems: 16, type: 'portfolio'},
+  {key: 'list4', label: '좋아요 누른 체험', carouselItems: 4, dashboardItems: 16, type: 'portfolio'}
+];
 
 export const AIXLabPage: FunctionComponent = () => {
+  const [activeList, setActiveList] = useState<keyof DetailState | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isOpenImageAiModal, setIsOpenImageAiModal] = useState(false)
-  const [isOpenChatbotModal, setIsChatbotAiModal] = useState(false)
-  const [data, setData] = useState<AxiosResponseAixLabTransformed>({list1:[], list2:[], list3: [], list4: []})
+  const [isOpenChatbotModal, setIsOpenChatbotModal] = useState(false)
+  const [data, setData] = useState<AxiosResponseAixLabTransformed>({list1: [], list2: [], list3: [], list4: []})
+  
+  const handleToggleDetail = (listKey: keyof DetailState) => {
+    setActiveList(prevActive => prevActive === listKey ? null : listKey);
+  };
   
   const transformListsToArray = (data: AxiosResponseAixLab["success"]["data"]): AxiosResponseAixLabTransformed => {
     return {
@@ -26,9 +55,9 @@ export const AIXLabPage: FunctionComponent = () => {
     };
   };
   
-  const transformDataType = (dataList:ListProject[] | ListPortfolio[] | [], type: 'project'|'portfolio') => {
+  const transformDataType = (dataList: ListProject[] | ListPortfolio[] | [], type: 'project' | 'portfolio') => {
     return (dataList || []).map((data) => {
-      if(type === 'project') {
+      if (type === 'project') {
         const projectData = data as ListProject;
         const project: Project = {
           idx: Number(projectData.idx),
@@ -64,26 +93,26 @@ export const AIXLabPage: FunctionComponent = () => {
   
   useEffect(() => {
     const getAixLabData = async () => {
-      try{
+      try {
         const response = await axios.get<AxiosResponseAixLab>('/api/lab_list.php', {
-          params:{
-            mt_idx:2175
+          params: {
+            mt_idx: 2175
           }
         })
         const transformedData = transformListsToArray(response.data.success.data)
         setData(transformedData)
-      } catch (err){
+      } catch (err) {
         console.error("error 발생 ", err)
       }
     }
-    getAixLabData()
+    void getAixLabData()
   }, []);
   return (
     <div className={'relative w-full font-nanumSquareRound'}>
       <div className={'flex md:flex-row flex-col text-left justify-between mt-[60px] mb-[80px]'}>
         <div className={'flex flex-col'}>
           <p className={'text-[64px] font-extrabold leading-[96px] -tracking-[0.5px]'}>AiX LAB</p>
-          <p className={'text-[16px] leading-[30px] -tracking-[0.5px] font-normal'}>직접 체험하여 배우는 진짜 Ai, AiX Lab에서
+          <p className={'text-[16px] leading-[30px] -tracking-[0.5px] font-normal'}>직접 체험하여 배우는 진짜 Ai, AiX Lab 에서
             만나보세요.</p>
         </div>
         <div className={'w-[350px]'}>
@@ -104,18 +133,32 @@ export const AIXLabPage: FunctionComponent = () => {
       </div>
       <ClassCodeModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} className={'w-[450px]'}/>
       <div className={'flex flex-col gap-20 mb-20'}>
-        {/*  진행중인 체험*/}
-        <CardCarousel cardList={transformDataType(data.list1, "project")} itemsPerPage={3} label={'진행중인 체험'}/>
-        {/*  참여가능한 체험*/}
-        <CardCarousel cardList={transformDataType(data.list2, "project")} itemsPerPage={3} label={'참여가능한 체험'}/>
-        {/*  완료한 체험*/}
-        <CardCarousel cardList={transformDataType(data.list3, "portfolio")} itemsPerPage={4} label={'완료한 체험'}/>
-        {/*  좋아요 누른 체험*/}
-        <CardCarousel cardList={transformDataType(data.list4, "portfolio")} itemsPerPage={4} label={'좋아요 누른 체험'}/>
+        {LIST_CONFIGS.map((config) => {
+          if (activeList) {
+            return activeList === config.key
+              ? (<div key={config.key}>
+                <DashBord cardList={portfolioList} itemsPerPage={config.dashboardItems} label={config.label}/>
+              </div>)
+              : null
+          } else {
+            return (
+              <div key={config.key}>
+                <CardCarousel
+                  cardList={transformDataType(data[config.key], config.type)}
+                  itemsPerPage={config.carouselItems}
+                  label={config.label}
+                  onClick={() => handleToggleDetail(config.key)}
+                />
+              </div>
+            );
+          }
+        })}
       </div>
-      <ExperienceRobot isHovering={isHovering} onHover={() => setIsHovering(true)} outHover={() => setIsHovering(false)} openChatModal={() => setIsChatbotAiModal(true)} openImageModal={() => setIsOpenImageAiModal(true)}/>
+      <ExperienceRobot isHovering={isHovering} onHover={() => setIsHovering(true)} outHover={() => setIsHovering(false)}
+                       openChatModal={() => setIsOpenChatbotModal(true)}
+                       openImageModal={() => setIsOpenImageAiModal(true)}/>
       <MakeImageModal isOpen={isOpenImageAiModal} onClose={() => setIsOpenImageAiModal(false)}/>
-      <ChatbotModal isOpen={isOpenChatbotModal} onClose={() => setIsChatbotAiModal(false)}/>
+      <ChatbotModal isOpen={isOpenChatbotModal} onClose={() => setIsOpenChatbotModal(false)}/>
     </div>
   )
 }
