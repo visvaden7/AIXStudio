@@ -1,4 +1,4 @@
-import {ChangeEvent, FormEvent, FunctionComponent, useCallback, useEffect, useMemo, useState} from "react";
+import {ChangeEvent, FormEvent, FunctionComponent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {RunnableSequence} from "@langchain/core/runnables";
 import {model} from "./OpenAIModel";
 import {AIMessage, HumanMessage} from "@langchain/core/messages";
@@ -22,9 +22,7 @@ interface Props {
 }
 
 export const Chatbot: FunctionComponent<Props> = ({data, onCount, questionCount, formatMode}) => {
-  
   const {updateChatMessage, updateChatFormattedTexts} = useProjectStore()
-  
   const defaultMessage = [{
     role: "ai",
     content: `안녕 반가워, ${data}을 전공한 프로젝트 매니저야~~ 궁금한 거 있으면 알려줄게`
@@ -99,9 +97,18 @@ export const Chatbot: FunctionComponent<Props> = ({data, onCount, questionCount,
     updateChatFormattedTexts(formattedTexts)
   }, [formattedTexts, updateChatFormattedTexts])
   
+  
+  const chatbotContainer = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if(chatbotContainer.current){
+      // chatbotContainer.current.scrollTop = chatbotContainer.current.scrollHeight
+      chatbotContainer.current.scrollIntoView({behavior: "smooth"})
+    }
+  }, [messages]);
+  
   return (
     <div className={'h-full'}>
-      <div className={'w-full h-[430px] py-10 overflow-y-scroll no-scrollbar'}>
+      <div className={'w-full h-[430px] py-10 overflow-y-scroll no-scrollbar'} ref={chatbotContainer}>
         {messages.map((msg, index) => (
           <div key={index}>
             <div className={`flex items-center gap-2 mb-3 ${msg.role === 'ai' ? 'justify-start' : 'justify-end'}`}>

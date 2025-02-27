@@ -28,7 +28,7 @@ export const isPortfolio = (value: unknown): value is Portfolio => {
 
 export const isValidText = (value: unknown): value is ValidText => {
   const keys:(keyof ValidText)[] = [
-    'id', 'role', 'content'
+    'id', 'role', 'content', "isValid"
   ];
   return isOfType<ValidText>(value, keys)
 }

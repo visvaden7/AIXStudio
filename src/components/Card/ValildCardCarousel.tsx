@@ -65,8 +65,9 @@ export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, it
       <div className={'project'}>
         <div className={'relative flex gap-5 flex-wrap justify-start sm:justify-between items-start'}>
           {pagedData.map(validText => {
+            console.log(validText, validText.isValid)
             if (isValidText(validText)) {
-              return <ValidCard key={validText.id} validText={validText} isValid={false} onClick={() => onClick?.(validText.id)}/>
+              return <ValidCard key={validText.id} validText={validText} isValid={validText.isValid} onClick={() => onClick?.(validText.id)}/>
             }
           })}
           {/*추후 모달 설정시 할 자리*/}

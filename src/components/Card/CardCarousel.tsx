@@ -14,10 +14,10 @@ interface Props {
   cardList: Project[] | Portfolio[] | ValidText[];
   itemsPerPage: number;
   label: string;
-  
+  onClick?: () => void;
 }
 
-export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPerPage}) => {
+export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPerPage, onClick}) => {
   const [currentPage, dispatch] = useReducer(pageReducer, 0)
   const visiblePageCount = 3;
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -90,7 +90,7 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
     <div className={'w-full font-nanumSquareRound'}>
       <div className={'text-left mb-10 flex justify-between'}>
         <p className={'text-[28px] font-extrabold leading-10 -tracking-[0.5px]'}>{label}</p>
-        {pagedData.length !== 0 && <div className={'flex gap-2 items-center'} onClick={() => alert("개발 중입니다.")}>
+        {pagedData.length !== 0 && <div className={'flex gap-2 items-center'} onClick={onClick}>
             <p className={'text-[18px] font-bold'}>더보기</p>
             <div>
                 <img src={upArrow_black} alt={'more contents'}/>
@@ -107,7 +107,7 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
               } else if (isPortfolio(project)) {
                 return <PortfolioCard key={`portfolio-${idx}`} portfolio={project}/>
               } else if (isValidText(project)) {
-                return <ValidCard key={`valid-${idx}`} validText={project} isValid={false}/>
+                return <ValidCard key={`valid-${idx}`} validText={project} isValid={false} onClick={() => {}}/>
               }
             })}
             {selectProject &&

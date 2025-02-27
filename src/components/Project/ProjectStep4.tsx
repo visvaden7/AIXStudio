@@ -5,6 +5,7 @@ import {ValidCardCarousel} from "../Card/ValildCardCarousel.tsx";
 import {useProjectStore} from "../../store/useProjectStore.ts";
 import {ChatMessage} from "../../@types/domain.ts";
 import {RenderFormatText} from "../Chatbot/RenderFormatText.tsx";
+import {getByteLength} from "../../utils/getByteLength.ts";
 
 interface Step4Props {
   currentStep: number;
@@ -19,15 +20,43 @@ export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
   const message = useProjectStore(state => state.chatMessage)
   const formattedText = useProjectStore(state => state.formattedTexts)
   const chatbotMessages = useMemo(() => {
-    return message.filter(msg => msg.role === 'ai').map((msg,idx) => {
-      return {id: idx, role: msg.role, content: msg.content, timeStamp: ''}
+    return message.filter(msg => msg.role === 'ai').map((msg, idx) => {
+      return {id: idx, role: msg.role, content: msg.content, timeStamp: '', isValid: false}
     })
   }, [message])
-  // const {updateChatMessage} = useProjectStore()
-  const [selectChatMsg, setSelectChagMsg] = useState<selectChatMessage>({idx:0, ...chatbotMessages[0]});
+  
+  
+  const [selectChatMsg, setSelectChatMsg] = useState<selectChatMessage>({idx: 0, ...chatbotMessages[0]});
+  const [isEditable, setIsEditable] = useState(false)
+  const [editMessage, setEditMessage] = useState('')
   const handleSelectAnswer = (idx: number) => {
-    setSelectChagMsg({idx, ...chatbotMessages[idx]})
+    console.log(chatbotMessages[idx])
+    setSelectChatMsg({idx, ...chatbotMessages[idx]})
   }
+  
+  const handleIsValid = () => {
+    setSelectChatMsg(prev => ({...prev, isValid: true}))
+    chatbotMessages.map((chat, idx) => {
+      if (idx === selectChatMsg.idx) {
+        chat.isValid = true
+      }
+    })
+  }
+  
+  const handleEditAnswer = () => {
+    console.log(`${isEditable}`)
+    
+    const updatedChatMsg = {...selectChatMsg, content: editMessage};
+    setSelectChatMsg(updatedChatMsg)
+    chatbotMessages.map((chat, idx) => {
+      if (idx === selectChatMsg.idx) {
+        chat.content = selectChatMsg.content
+      }
+    })
+    setEditMessage(updatedChatMsg.content);
+    setIsEditable(!isEditable)
+  }
+  
   return (
     <div>
       <div className={'flex-col text-left'}>
@@ -37,37 +66,50 @@ export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
       <div>
         <ProgressBar currentStep={currentStep} totalStep={5}/>
       </div>
-      <div className={'flex-col border border-black/30 rounded-3xl'}>
-        {JSON.stringify(chatbotMessages)}{'123'}{JSON.stringify(message)}{JSON.stringify(formattedText)}{JSON.stringify(selectChatMsg)}
+      <div className={'flex-col rounded-3xl'}>
+        {/*{JSON.stringify(chatbotMessages)}{'123'}{JSON.stringify(message)}{JSON.stringify(formattedText)}{JSON.stringify(selectChatMsg)}*/}
         <div>
           <ValidCardCarousel cardList={chatbotMessages} itemsPerPage={3} label={'수집한 정보'} onClick={handleSelectAnswer}/>
         </div>
-        <div className={'flex flex-col gap-5 text-left p-10'}>
-          <p>정보 검증</p>
+        <div className={'flex flex-col gap-5 text-left p-5'}>
+          <p className={'font-bold text-[24px]'}>정보 검증</p>
           <div>
-            <div className={'font-bold text-[24px]'}>질문</div>
+            <div className={'font-bold text-[20px]'}>질문</div>
             <div className={'border border-black rounded-2xl p-4 mt-3'}>
-              <p>{message[selectChatMsg.idx*2].content}</p>
+              {/* message is question and answer array , answer index is even */}
+              <p>{message[selectChatMsg.idx * 2].content}</p>
             </div>
           </div>
           <div>
-            <div className={'font-bold text-[24px]'}>
+            <div className={'font-bold text-[20px]'}>
               대답
             </div>
+            <p className={'text-right text-[#AAA] text-[14px]'}><span
+              className={'text-[#111]'}>{`${getByteLength(selectChatMsg.content)}`}</span>{`/3000`}</p>
             <div className={'border border-black rounded-2xl p-4 mt-3'}>
-            <p className={'flex-wrap'}>
-              {formattedText.map((_, idx) => {
-                console.log("test, idx", idx, ((idx+1)*2).toString())
-                return <RenderFormatText text={selectChatMsg.content} messageId={((idx+1)*2).toString()} textFormats={formattedText}/>
-              })}
-            </p>
+              <p className={'flex-wrap'}>
+                {
+                  isEditable
+                    ? <textarea className={'w-full h-full resize-none p-0'}
+                                defaultValue={editMessage}
+                                onChange={(e) => setEditMessage(e.target.value)}/>
+                    :
+                    <RenderFormatText text={selectChatMsg.content} messageId={((selectChatMsg.idx + 1) * 2).toString()}
+                                      textFormats={formattedText}/>
+                }
+              </p>
             </div>
           </div>
           
           <div className={'flex gap-2 py-4 justify-center'}>
-            <button className={'flex-1 border border-black/30 rounded-2xl p-4'}>검중하기</button>
-            <button className={'flex-1 border border-black/30 rounded-2xl p-4'}>수정하기</button>
-            <button className={'flex-1 border border-black/30 rounded-2xl p-4'}>검증완료</button>
+            <button className={'flex-1 border border-black/30 rounded-2xl p-4'}
+                    onClick={() => window.open(`https://www.google.co.kr/search?q=${message[selectChatMsg.idx * 2].content}`)}>검중하기
+            </button>
+            <button className={'flex-1 border border-black/30 rounded-2xl p-4'}
+                    onClick={handleEditAnswer}>
+              {`${isEditable ? '수정완료' : '수정하기'} `}
+            </button>
+            <button className={'flex-1 border border-black/30 rounded-2xl p-4'} onClick={handleIsValid}>검증완료</button>
           </div>
         </div>
       </div>
