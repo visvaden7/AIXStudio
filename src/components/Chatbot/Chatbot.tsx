@@ -31,26 +31,27 @@ export const Chatbot: FunctionComponent<Props> = ({data, onCount, questionCount,
   const [messages, setMessages] = useState<ChatMessage[]>(defaultMessage);
   
   const chatHistory = useMemo(() => new ChatMessageHistory(), []);
-  const ChatPromptTemplates = ChatPromptTemplate.fromMessages([
-    ["system", "너는 {major} 전공을 한 전문가야. 대화 맥락에서 자기소개를 이미 했다면, 자기 소개를 다시 하지 마. 말투는 친근하게 유지하고, 두 가지 질문(너는 누구인지, 전공은 무엇인지)을 포함하되 반복하지 않도록 주의해."],
+  const ChatPromptTemplates = useMemo(() => ChatPromptTemplate.fromMessages([
+    ["system", "너는 {major} 전공을 한 전문가야. 대화 중 이미 자기소개를 마친 상태라면, 굳이 자기 소개를 다시 하지말고. 말투는 친근하게 유지하면서 자연스러운 대화가 오고가도록, 사용자의 답변에 맞는 대답을 하도록 해주세요, 만약에 위반될만한 내용의 질문을 한다면, 그런 질문을 하면 안된다는 내용이 골자로 유머러스하게 반응해주면 좋을 것 같아"],
     ['system', '{history}'],
     ["user", "{text}"],
-  ]);
+  ]), []);
   
-  const chain = RunnableSequence.from([ChatPromptTemplates, model]);
+  const chain = useMemo(() => RunnableSequence.from([ChatPromptTemplates, model]), [ChatPromptTemplates]);
   
   const handleInput = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     const maxByte = 200
     if (getByteLength(e.target.value) > maxByte) {
-      alert('입력자수를 넘기셨습니다.')
+      alert('입력자수를 넘기셨습니다.') //TODO: 요 부분은 후에 UI 에서 수정
       return;
     }
     setInput(e.target.value)
   }, [])
   
+  const userMessageCount = useMemo(() => messages.filter(msg => msg.role === 'user').length, [messages])
   const handleSubmit = useCallback(async (e: FormEvent) => {
     e.preventDefault();
-    if (messages.filter(msg => msg.role === 'user').length > questionCount) {
+    if (userMessageCount >= questionCount) {
       setInput("");
       return;
     }
@@ -82,16 +83,16 @@ export const Chatbot: FunctionComponent<Props> = ({data, onCount, questionCount,
     setTimeout(() => {
       setInput("");
     }, 100)
-  }, [data, onCount, questionCount, messages, chatHistory, chain, input])
+  }, [userMessageCount, questionCount, chatHistory, input, data, chain, onCount, messages])
   
   const {formattedTexts, handleTextSelect, registerFormatContainerRef} = useTextFormatter()
   
   useEffect(() => {
     console.log(messages.length, messages, "check")
-    if(messages.length > 1) {
-      updateChatMessage(messages.slice(1,messages.length))
+    if (messages.length > 1) {
+      updateChatMessage(messages.slice(1, messages.length))
     }
-  },[messages, updateChatMessage])
+  }, [messages, updateChatMessage])
   
   useEffect(() => {
     updateChatFormattedTexts(formattedTexts)
@@ -100,11 +101,11 @@ export const Chatbot: FunctionComponent<Props> = ({data, onCount, questionCount,
   
   const chatbotContainer = useRef<HTMLDivElement>(null)
   useEffect(() => {
-    if(chatbotContainer.current){
-      // chatbotContainer.current.scrollTop = chatbotContainer.current.scrollHeight
+    if (messages.length > 1 && chatbotContainer.current) {
+      chatbotContainer.current.scrollTop = chatbotContainer.current.scrollHeight
       chatbotContainer.current.scrollIntoView({behavior: "smooth"})
     }
-  }, [messages]);
+  }, [messages.length]);
   
   return (
     <div className={'h-full'}>
@@ -136,14 +137,15 @@ export const Chatbot: FunctionComponent<Props> = ({data, onCount, questionCount,
               type="text"
               value={input}
               onChange={(e) => handleInput(e)}
-              placeholder="질문을 입력하세요"
+              placeholder={`${messages.filter(msg => msg.role === 'user').length >= questionCount ? "모든 질문을 사용하셨습니다" : "질문을 입력하세요"}`}
               className={'flex-1 h-10 p-4 bg-transparent rounded-3xl'}
+              readOnly={messages.filter(msg => msg.role === 'user').length >= questionCount}
             />
             <div className={'w-20 flex-grow-0 right-4 block'}>{getByteLength(input)} /200</div>
           </div>
         </div>
         <button type="submit" disabled={input.length === 0}>
-          <img src={SendBtn2} alt={'test'}
+          <img src={SendBtn2} alt={'send-button'}
                className={`flex w-10 ${input.length > 0 ? 'bg-[#EF4A60]' : 'bg-[#CBCCCE]'} p-2 rounded-full items-center justify-center`}
                loading={"lazy"}/>
         </button>
