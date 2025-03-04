@@ -1,5 +1,5 @@
 import {Portfolio, Project, ValidText} from "../../@types/domain.ts";
-import {FunctionComponent, useEffect, useMemo, useReducer, useState} from "react";
+import {FunctionComponent, useEffect, useMemo, useReducer, useState, useRef, TouchEvent} from "react";
 import {pageReducer} from "../../reducer/reducer.ts";
 import {ProjectModal} from "../Modal/ProjectModal.tsx";
 import {ProjectCard} from "./ProjectCard.tsx";
@@ -9,6 +9,7 @@ import upArrow_black from '../../assets/pages/aixLab/arrow_black.svg'
 import bang from '../../assets/pages/aixLab/bang.gif'
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {ValidCard} from "./ValidCard.tsx";
+import {calculateMaxPage} from "../../utils/calculateMaxPage.ts";
 
 interface Props {
   cardList: Project[] | Portfolio[] | ValidText[];
@@ -31,21 +32,44 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
     type: '',
     story: '',
     isSurvey: false,
-    surveyUrl:'',
+    surveyUrl: '',
     timeStamp: ''
   });
+  
+  const carouselRef = useRef<HTMLDivElement>(null);
+  
+  const handleTouchStart = useRef<number>(0);
+  const handleTouchEnd = useRef<number>(0);
+  
+  const handleTouchMove = (e: TouchEvent) => {
+    handleTouchEnd.current = e.changedTouches[0].clientX;
+    console.log(handleTouchEnd.current)
+  };
+  
+  const handleTouchStartEvent = (e: TouchEvent) => {
+    handleTouchStart.current = e.touches[0].clientX;
+    console.log(handleTouchStart.current)
+  };
+  
+  const handleTouchEndEvent = () => {
+    if (handleTouchStart.current - handleTouchEnd.current > 50) {
+      dispatch({type: 'NEXTPAGE', maxPage});
+    } else if (handleTouchStart.current - handleTouchEnd.current < -50) {
+      dispatch({type: 'PREVPAGE', maxPage});
+    }
+  };
   
   const arrowStyle = 'absolute top-1/4 rounded-full p-4 transition duration-100 ease-in-out transform'
   const sortedData = useMemo(() => {
     let filtered = [...cardList];
-    if(cardList.length > 0 && !isValidText(cardList[0])){
+    if (cardList.length > 0 && !isValidText(cardList[0])) {
       filtered = (filtered as (Project | Portfolio)[]).sort((a, b) => new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime())
     }
     return filtered;
   }, [cardList])
   
   const maxPage = useMemo(() => {
-    return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
+    return calculateMaxPage(sortedData, itemsPerPage)
   }, [sortedData, itemsPerPage])
   
   const visiblePages = useMemo(() => {
@@ -99,15 +123,18 @@ export const CardCarousel: FunctionComponent<Props> = ({cardList, label, itemsPe
       </div>
       {/*컨텐츠*/}
       {pagedData.length !== 0 ?
-        <div className={'project'}>
-          <div className={'relative flex gap-5 flex-wrap justify-start sm:justify-between items-start'}>
-            {pagedData.map((project,idx) => {
+        <div className={'project'} ref={carouselRef} onTouchStart={handleTouchStartEvent} onTouchMove={handleTouchMove}
+             onTouchEnd={handleTouchEndEvent}>
+          <div className={'relative flex gap-5 flex-wrap justify-between sm:justify-start items-start'}>
+            {pagedData.map((project, idx) => {
               if (isProject(project)) {
-                return <ProjectCard key={`project-${idx}`} project={project} onClick={() => handleSelectProject(project)} hasSurvey={true}/>
+                return <ProjectCard key={`project-${idx}`} project={project}
+                                    onClick={() => handleSelectProject(project)} hasSurvey={true}/>
               } else if (isPortfolio(project)) {
                 return <PortfolioCard key={`portfolio-${idx}`} portfolio={project}/>
               } else if (isValidText(project)) {
-                return <ValidCard key={`valid-${idx}`} validText={project} isValid={false} onClick={() => {}}/>
+                return <ValidCard key={`valid-${idx}`} validText={project} isValid={false} onClick={() => {
+                }}/>
               }
             })}
             {selectProject &&
