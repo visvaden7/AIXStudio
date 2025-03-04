@@ -1,47 +1,58 @@
-import {FunctionComponent, useState} from "react";
+import {cloneElement, FunctionComponent, useMemo, useState} from "react";
 import {ProjectStep} from "./ProjectStep.tsx";
 import {ProjectStep2} from "./ProjectStep2.tsx";
 import {ProjectStep3} from "./ProjectStep3.tsx";
 import {ProjectLayout} from "../Layout/ProjectLayout.tsx";
 import {ProjectStep4} from "./ProjectStep4.tsx";
+import {ProjectStep5} from "./ProjectStep5.tsx";
+import {useLocation} from "react-router-dom";
+import {useProjectStore} from "../../store/useProjectStore.ts";
 
 
 export const Projects:FunctionComponent = () => {
-  // const {id} = useParams();
-  const [currentStep, setCurrentStep] = useState(1)
-  const totalStep = 5;
+  const {project} = useLocation().state
   const [category, setCategory] = useState<string>('우주 로봇 개발');
+  const currentStep = useProjectStore(state => state.currentStep)
   // const [project, setProject] = useState<Project>();
-  // mockupData
-  const titleKo = '화성탐사'
-  const tags = ['#화성콜로니','#화성주거','#화성건축','#우주개척자','#화성생활','#화성환경','#우주건축']
-  const imgUrl = 'https://mng.aixstudio.kr/images/uploads/project/project_main_.jpg'
-  const story = '화성탐사를 위해서는 다양한 측정기구들과 테라포밍을 위한 장치들이 필요합니다. 이런 상황에서 타개책이 필요합니다.'
-  //서버에 진행상황 업데이트
-  const handleNextStep = () => {
-    const nextStep = currentStep + 1;
-    if(nextStep <= totalStep) setCurrentStep(nextStep)
-  }
   
-  const handlePrevStep = () => {
-    const prevStep = currentStep - 1;
-    if(prevStep > 0) setCurrentStep(prevStep)
-  }
-  
+  const titleKo = project.titleKo;
+  const tags = project.hash;
+  const imgUrl = project.imgUrl;
+  const story = project.story;
+
+  const {nextStep, prevStep} = useProjectStore()
+
   const handleSelectCategory = (selectedCategory: string) => {
     setCategory(selectedCategory)
   }
+  
+  const ProjectModule = useMemo(() => new Map<number, JSX.Element>([
+    [1, <ProjectStep imgUrl={imgUrl} titleKo={titleKo} story={story}/>],
+    [2, <ProjectStep2 onSelect={handleSelectCategory}/>],
+    [3, <ProjectStep3 category={category}/>],
+    [4, <ProjectStep4/>],
+    [5, <ProjectStep5/>],
+  ]),[imgUrl, titleKo, story, category]);
+  
+  const modulesOrder = [1, 2, 3, 4, 5]; // Sample data from backend
+  const renderedModules = useMemo(() => {
+    return modulesOrder.map((order, idx) => {
+      if(currentStep === idx + 1){
+        const element = ProjectModule.get(order);
+        return element ? cloneElement(element, {key: order}) : null
+      }
+    });
+  }, [ProjectModule, currentStep, modulesOrder]);
+  
   return (
     <ProjectLayout titleKo={titleKo} tags={tags}>
       {/*컨텐츠*/}
       {/*해당 내용 진행 정도에 따라 변경*/}
-      {currentStep === 1 && <ProjectStep imgUrl={imgUrl} titleKo={titleKo} currentStep={currentStep} story={story}/>}
-      {currentStep === 2 && <ProjectStep2 currentStep={currentStep} onSelect={handleSelectCategory}/>}
-      {currentStep === 3 && <ProjectStep3 category={category} currentStep={currentStep}/>}
-      {currentStep === 4 && <ProjectStep4 currentStep={currentStep}/>}
+      {/**/}
+      {renderedModules}
       <div className={`flex w-full gap-5 mt-5 mb-20 ${currentStep === 1 ? 'justify-end': 'justify-between'} `}>
-        {currentStep > 1 && <button className={'w-[20%] bg-[#E9E9E9] p-4 my-4 rounded-xl'} onClick={handlePrevStep}>이전</button>}
-        <button className={`w-[20%] bg-[#FFE552] p-4 my-4 rounded-xl`} onClick={handleNextStep}>다음</button>
+        {currentStep > 1 && <button className={'w-[20%] bg-[#E9E9E9] p-4 my-4 rounded-xl'} onClick={prevStep}>이전</button>}
+        <button className={`w-[20%] bg-[#FFE552] p-4 my-4 rounded-xl`} onClick={nextStep}>다음</button>
       </div>
     </ProjectLayout>
   )

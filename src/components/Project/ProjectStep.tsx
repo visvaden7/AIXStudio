@@ -1,16 +1,17 @@
 import {ProgressBar} from "../ProgressBar.tsx";
 import {FunctionComponent} from "react";
 import {subjectClass, titleClass} from "../../const/const.ts";
+import {useProjectStore} from "../../store/useProjectStore.ts";
 
 
 interface Step1Props {
   imgUrl: string;
   titleKo: string;
-  currentStep: number;
   story: string;
 }
 
-export const ProjectStep: FunctionComponent<Step1Props> = ({imgUrl, titleKo, currentStep, story}) => {
+export const ProjectStep: FunctionComponent<Step1Props> = ({imgUrl, titleKo, story}) => {
+  const currentStep = useProjectStore(state => state.currentStep)
   return (
     <div>
       <div className={'flex-col text-left font-nanumSquareRound'}>

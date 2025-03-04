@@ -2,15 +2,16 @@ import {FunctionComponent} from "react";
 import {subjectClass, titleClass} from "../../const/const.ts";
 import {ProgressBar} from "../ProgressBar.tsx";
 import {ProjectChatbot} from "../Chatbot/ProjectChatbot.tsx";
+import {useProjectStore} from "../../store/useProjectStore.ts";
 
 interface Step3Props {
-  currentStep: number;
   category: string;
 }
 
 
 
-export const ProjectStep3: FunctionComponent<Step3Props> = ({currentStep, category}) => {
+export const ProjectStep3: FunctionComponent<Step3Props> = ({category}) => {
+  const currentStep = useProjectStore(state => state.currentStep)
   return (
     <div>
       <div className={'flex-col text-left'}>

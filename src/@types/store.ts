@@ -1,4 +1,4 @@
-import {ChatMessage, MessageFormat} from "./domain.ts";
+import {ChatMessage, MessageFormat, ValidText} from "./domain.ts";
 
 export interface User {
   id: string;
@@ -16,8 +16,15 @@ export interface UserStore {
 
 export interface ProjectStore {
   currentStep: number;
+  nextStep: () => void;
+  prevStep: () => void;
+  topic: string;
+  updateTopic: (topic: string) => void;
   chatMessage: ChatMessage[];
   updateChatMessage: (messages: ChatMessage[]) => void;
   formattedTexts: MessageFormat[]
   updateChatFormattedTexts: (formattedTexts: MessageFormat[]) => void;
+  validData: ValidText[];
+  addValidData: (validData: ValidText) => void;
+  removeValidData: (dataToRemove: ValidText) => void;
 }

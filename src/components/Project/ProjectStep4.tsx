@@ -7,54 +7,78 @@ import {ChatMessage} from "../../@types/domain.ts";
 import {RenderFormatText} from "../Chatbot/RenderFormatText.tsx";
 import {getByteLength} from "../../utils/getByteLength.ts";
 
-interface Step4Props {
-  currentStep: number;
-}
-
 interface selectChatMessage extends ChatMessage {
   idx: number;
+  timeStamp: string;
+  isValid: boolean;
 }
 
-export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
-  // const currentSteps = useProjectStore(state => state.currentStep)
+export const ProjectStep4: FunctionComponent = () => {
+  const currentStep = useProjectStore(state => state.currentStep)
   const message = useProjectStore(state => state.chatMessage)
   const formattedText = useProjectStore(state => state.formattedTexts)
+  const {addValidData} = useProjectStore()
   const chatbotMessages = useMemo(() => {
     return message.filter(msg => msg.role === 'ai').map((msg, idx) => {
       return {id: idx, role: msg.role, content: msg.content, timeStamp: '', isValid: false}
     })
   }, [message])
+  const [chatbotData, setChatbotData] = useState(chatbotMessages);
+  //TODO: change message's property 'isValid''s status
   
+  // const isValidChatbotMessage = useMemo(() => {
+  //   return chatbotData.filter(msg => msg.isValid)
+  // },[chatbotData])
   
-  const [selectChatMsg, setSelectChatMsg] = useState<selectChatMessage>({idx: 0, ...chatbotMessages[0]});
+  const initialChatMsg = chatbotMessages.length > 0 ? {idx: 0, ...chatbotMessages[0]} : {
+    idx: 0,
+    role: 'ai',
+    content: '',
+    timeStamp: '',
+    isValid: false
+  }
+  const [selectChatMsg, setSelectChatMsg] = useState<selectChatMessage>(initialChatMsg);
   const [isEditable, setIsEditable] = useState(false)
-  const [editMessage, setEditMessage] = useState('')
+  const [editMessage, setEditMessage] = useState(selectChatMsg.content)
   const handleSelectAnswer = (idx: number) => {
-    console.log(chatbotMessages[idx])
-    setSelectChatMsg({idx, ...chatbotMessages[idx]})
+    setSelectChatMsg({idx, ...chatbotData[idx]})
+    setEditMessage(chatbotData[idx].content)
+    setIsEditable(false);
   }
   
-  const handleIsValid = () => {
-    setSelectChatMsg(prev => ({...prev, isValid: true}))
-    chatbotMessages.map((chat, idx) => {
-      if (idx === selectChatMsg.idx) {
-        chat.isValid = true
-      }
-    })
-  }
-  
-  const handleEditAnswer = () => {
-    console.log(`${isEditable}`)
+  //검증하기
+  const handleOpenValid = () => {
+    if (!selectChatMsg.isValid) {
+      window.open(`https://www.google.co.kr/search?q=${message[selectChatMsg.idx * 2].content}`)
+    } else {
+      alert('검증된 데이터 입니다.')
+    }
     
-    const updatedChatMsg = {...selectChatMsg, content: editMessage};
-    setSelectChatMsg(updatedChatMsg)
-    chatbotMessages.map((chat, idx) => {
-      if (idx === selectChatMsg.idx) {
-        chat.content = selectChatMsg.content
-      }
+  }
+  //수정하기
+  const handleEditAnswer = () => {
+    const updatedSelectChatMessage = {...selectChatMsg, content: editMessage};
+    setSelectChatMsg(updatedSelectChatMessage);
+    setEditMessage(updatedSelectChatMessage.content);
+    const updatedMessages = chatbotData.map((chat, index) =>
+      index === selectChatMsg.idx ? {...chat, content: updatedSelectChatMessage.content} : chat
+    );
+    setChatbotData(updatedMessages)
+    if (selectChatMsg.isValid) {
+      alert('검증된 데이터 입니다.')
+    } else {
+      setIsEditable(prev => !prev);
+    }
+  }
+  
+  //검증완료
+  const handleValidData = () => {
+    setSelectChatMsg(prev => ({...prev, isValid: true}))
+    const updatedChatbotMsg = chatbotData.map((chat, idx) => {
+      return idx === selectChatMsg.idx ? {...chat, isValid: true} : chat
     })
-    setEditMessage(updatedChatMsg.content);
-    setIsEditable(!isEditable)
+    addValidData({id: selectChatMsg.idx, content: selectChatMsg.content, role: 'ai', isValid: selectChatMsg.isValid})
+    setChatbotData(updatedChatbotMsg)
   }
   
   return (
@@ -67,9 +91,8 @@ export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
         <ProgressBar currentStep={currentStep} totalStep={5}/>
       </div>
       <div className={'flex-col rounded-3xl'}>
-        {/*{JSON.stringify(chatbotMessages)}{'123'}{JSON.stringify(message)}{JSON.stringify(formattedText)}{JSON.stringify(selectChatMsg)}*/}
         <div>
-          <ValidCardCarousel cardList={chatbotMessages} itemsPerPage={3} label={'수집한 정보'} onClick={handleSelectAnswer}/>
+          <ValidCardCarousel cardList={chatbotData} itemsPerPage={3} label={'수집한 정보'} onClick={handleSelectAnswer}/>
         </div>
         <div className={'flex flex-col gap-5 text-left p-5'}>
           <p className={'font-bold text-[24px]'}>정보 검증</p>
@@ -91,7 +114,7 @@ export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
                 {
                   isEditable
                     ? <textarea className={'w-full h-full resize-none p-0'}
-                                defaultValue={editMessage}
+                                value={editMessage}
                                 onChange={(e) => setEditMessage(e.target.value)}/>
                     :
                     <RenderFormatText text={selectChatMsg.content} messageId={((selectChatMsg.idx + 1) * 2).toString()}
@@ -100,16 +123,16 @@ export const ProjectStep4: FunctionComponent<Step4Props> = ({currentStep}) => {
               </p>
             </div>
           </div>
-          
           <div className={'flex gap-2 py-4 justify-center'}>
             <button className={'flex-1 border border-black/30 rounded-2xl p-4'}
-                    onClick={() => window.open(`https://www.google.co.kr/search?q=${message[selectChatMsg.idx * 2].content}`)}>검중하기
+                    onClick={handleOpenValid}>검중하기
             </button>
             <button className={'flex-1 border border-black/30 rounded-2xl p-4'}
                     onClick={handleEditAnswer}>
               {`${isEditable ? '수정완료' : '수정하기'} `}
             </button>
-            <button className={'flex-1 border border-black/30 rounded-2xl p-4'} onClick={handleIsValid}>검증완료</button>
+            <button className={'flex-1 border border-black/30 rounded-2xl p-4'}
+                    onClick={handleValidData}>{'검증완료'}</button>
           </div>
         </div>
       </div>
