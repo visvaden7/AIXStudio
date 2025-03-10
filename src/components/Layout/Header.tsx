@@ -134,7 +134,5 @@ export const Header: FunctionComponent = () => {
           </div>
       </div>}
     </header>
-  
-  
   )
 }

@@ -3,7 +3,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* TODO: 추후 폰트 사이즈 변경 및 적용*/
 
 @layer utilities {
     /*main*/
@@ -65,7 +64,20 @@
         @apply absolute bottom-[5%] right-0
     }
     /*--section3*/
+    .mainSection3-index {
+        @apply flex gap-[10%] relative w-full h-screen justify-center items-start
+    }
 
+    .mainSection3-text-box {
+        @apply flex flex-col gap-5 w-[20%] text-center items-start mt-[8%] ml-[10%]
+    }
+    .mainSection3-scroll {
+        @apply absolute top-[45%] left-[3%] flex flex-col h-screen justify-start items-start
+    }
+
+    .mainSection3-video {
+        @apply flex w-[42.74%] aspect-[880/596] rounded-[54px] mt-[13%] overflow-hidden shadow-[0_0_30px_10px_rgba(0,0,0,0.3)]
+    }
     /*---image*/
     .mainSection3-img-robot {
         @apply absolute bottom-[13%] left-[20%] animate-float-robot-5s
@@ -85,6 +97,28 @@
 
     .mainSection3-img-bubble {
         @apply absolute bottom-[35%] left-[33%]  animate-float-robot-3s
+    }
+
+    /*--section4*/
+    /*--image*/
+    .mainSection4-img-asterisk {
+        @apply absolute bottom-0 left-[5%];
+    }
+    .mainSection4-img-idea {
+        @apply absolute bottom-[11%] right-[7%];
+    }
+
+    .mainSection4-img-people {
+        @apply absolute bottom-[10%] right-[19.5%];
+    }
+    .mainSection4-img-chatbot {
+        @apply absolute bottom-[20%] right-[31.5%] animate-float-robot-3s;
+    }
+    .mainSection4-img-cloud1 {
+        @apply absolute top-[5%] right-[40%] animate-float-robot-5s;
+    }
+    .mainSection4-img-cloud2 {
+        @apply absolute bottom-[43%] right-[3%] animate-float-robot-5s;
     }
 
     /*about*/
@@ -181,25 +215,44 @@
             @apply absolute w-[40%] top-[49%] right-0
         }
         /*--section3*/
+        .mainSection3-introduction {
+            @apply absolute top-[10%] left-[25%] flex-col gap-10 -translate-x-1/2 w-[20%] text-center
+        }
+
+        .mainSection3-index {
+            @apply flex flex-col gap-[5%] relative w-full h-screen justify-center items-start
+        }
+
+        .mainSection3-text-box {
+            @apply flex flex-col gap-5 w-[100%] text-center items-center m-[0%]
+        }
+        .mainSection3-scroll {
+            @apply absolute top-[90%] left-1/2 -translate-x-1/2 flex flex-row gap-5 h-[7%] justify-center items-center
+        }
+
+        .mainSection3-video {
+            @apply flex w-[85%] aspect-[880/596] rounded-[12px] m-[0_auto] overflow-hidden shadow-[0_0_15px_1px_rgba(0,0,0,0.3)]
+        }
+
         /*--img*/
         .mainSection3-img-robot {
-            @apply absolute bottom-[13%] left-[20%] animate-float-robot-5s
+            @apply hidden
         }
 
         .mainSection3-img-sparkle {
-            @apply absolute bottom-[0%] left-[20%] transform -translate-x-1/2
+            @apply hidden
         }
 
         .mainSection3-img-spring {
-            @apply absolute bottom-[13%] left-[13%] animate-float-robot-3s
+            @apply hidden
         }
 
         .mainSection3-img-y{
-            @apply absolute top-0 right-0 transform -translate-x-1/2
+            @apply hidden
         }
 
         .mainSection3-img-bubble {
-            @apply absolute bottom-[35%] left-[33%]  animate-float-robot-3s
+            @apply hidden
         }
 
         /*about*/
@@ -301,6 +354,40 @@
         }
 
         /*--section3*/
+
+        .mainSection3-index {
+            @apply flex gap-[5%] relative w-full h-screen justify-center items-start
+        }
+
+        .mainSection3-text-box {
+            @apply flex flex-col gap-5 w-[50%] text-center items-start m-[0_0_0_6%]
+        }
+        .mainSection3-scroll {
+            @apply absolute top-[90%] left-1/2 -translate-x-1/2 flex flex-row gap-5 h-[7%] justify-center items-center;
+        }
+
+        .mainSection3-video {
+            @apply flex w-[85%] aspect-[880/596] rounded-[30px] m-[0_auto] overflow-hidden shadow-[0_0_15px_1px_rgba(0,0,0,0.3)];
+        }
+        /*---image*/
+        .mainSection3-img-robot {
+            @apply flex absolute top-[17%] left-[65%] w-[25%] scale-x-[-1];
+            transform: scaleX(-1) !important;
+
+        }
+        .mainSection3-img-spring {
+            @apply flex absolute top-[35%] left-[90%] w-[10%];
+            transform: scaleY(-1) rotate(180deg) !important;
+        }
+
+        .mainSection3-img-sparkle {
+            @apply absolute flex top-[10%] left-[80%] w-[80%];
+        }
+
+        .mainSection3-img-bubble {
+            @apply flex absolute top-[13%] left-[55%] w-[10%];
+        }
+
         /*--section4*/
         /*--section5*/
         /*about*/
@@ -401,6 +488,66 @@
             @apply w-[20%] absolute top-[50%] right-0
         }
         /*--section3*/
+        .mainSection3-index {
+            @apply flex flex-row gap-[10%] relative w-full h-screen justify-center items-start
+        }
+
+        .mainSection3-text-box {
+            @apply flex flex-col gap-5 xl:w-[30%] w-[20%] text-center items-start m-[8%_0_0_5%]
+        }
+        .mainSection3-scroll {
+            @apply absolute top-[45%] left-[3%] flex flex-col h-screen justify-start items-start
+        }
+
+        .mainSection3-video {
+            @apply flex w-[42.74%] aspect-[880/596] rounded-[36px] m-[13%_0_0_0] overflow-hidden shadow-[0_0_30px_10px_rgba(0,0,0,0.3)]
+        }
+
+        /*---image*/
+        .mainSection3-img-robot {
+            @apply flex absolute w-[15%] top-[60%] left-[20%] animate-float-robot-5s;
+            transform: none !important;
+        }
+
+        .mainSection3-img-sparkle {
+            @apply flex absolute w-[30%] top-[55%] left-[23%] transform -translate-x-1/2
+        }
+
+        .mainSection3-img-spring {
+            @apply flex absolute w-[5%] top-[80%] left-[15%] animate-float-robot-3s;
+            transform: none !important;
+        }
+
+        .mainSection3-img-y{
+            @apply flex absolute w-[45%] top-0 left-[65%] transform -translate-x-1/2
+        }
+
+        .mainSection3-img-bubble {
+            @apply flex absolute w-[7%] top-[55%] left-[33%]  animate-float-robot-3s
+        }
+
+        /*////*/
+
+
+
+
+
+
+
+        /*---image*/
+
+        /*.mainSection3-img-spring {*/
+        /*    @apply flex absolute top-[35%] left-[90%] w-[10%];*/
+        /*    transform: scaleY(-1) rotate(180deg) !important;*/
+        /*}*/
+
+        /*.mainSection3-img-sparkle {*/
+        /*    @apply absolute flex top-[10%] left-[80%] w-[80%];*/
+        /*}*/
+
+        /*.mainSection3-img-bubble {*/
+        /*    @apply flex absolute top-[13%] left-[55%] w-[10%];*/
+        /*}*/
         /*--section4*/
         /*--section5*/
         /*about*/
@@ -494,25 +641,39 @@
             @apply w-[20%] absolute top-[40%] right-0
         }
         /*--section3*/
+        .mainSection3-index {
+            @apply flex flex-row gap-[10%] relative w-full h-screen justify-center items-start
+        }
+
+        .mainSection3-text-box {
+            @apply flex flex-col gap-5 w-[20%] text-center items-start mt-[8%] ml-[10%]
+        }
+        .mainSection3-scroll {
+            @apply absolute top-[45%] left-[3%] flex flex-col h-screen justify-start items-start
+        }
+        .mainSection3-video {
+            @apply flex w-[42.74%] aspect-[880/596] rounded-[54px] m-[13%_0_0_0] overflow-hidden shadow-[0_0_30px_10px_rgba(0,0,0,0.3)]
+        }
+
         /*---image*/
         .mainSection3-img-robot {
-            @apply absolute bottom-[13%] left-[20%] animate-float-robot-5s
+            @apply flex absolute bottom-[13%] left-[20%] animate-float-robot-5s
         }
 
         .mainSection3-img-sparkle {
-            @apply absolute bottom-[0%] left-[20%] transform -translate-x-1/2
+            @apply flex absolute bottom-[0%] left-[20%] transform -translate-x-1/2
         }
 
         .mainSection3-img-spring {
-            @apply absolute bottom-[13%] left-[13%] animate-float-robot-3s
+            @apply flex absolute bottom-[13%] left-[13%] animate-float-robot-3s
         }
 
         .mainSection3-img-y{
-            @apply absolute top-0 right-0 transform -translate-x-1/2
+            @apply flex absolute top-0 right-0 transform -translate-x-1/2
         }
 
         .mainSection3-img-bubble {
-            @apply absolute bottom-[35%] left-[33%]  animate-float-robot-3s
+            @apply flex absolute bottom-[35%] left-[33%]  animate-float-robot-3s
         }
 
         /*about*/
@@ -589,3 +750,5 @@ body::-webkit-scrollbar {
         scrollbar-width: none; /* Firefox */
     }
 }
+
+
