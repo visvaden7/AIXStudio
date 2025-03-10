@@ -1,15 +1,21 @@
-import {FunctionComponent} from "react";
+import {FunctionComponent, ReactNode, useEffect} from "react";
 import projectTitleIco from '../../assets/pages/project/ico_img.svg'
+import {useProjectStore} from "../../store/useProjectStore.ts";
 
 interface ProjectLayoutProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   titleKo: string;
   tags: string[];
 }
 
 export const ProjectLayout:FunctionComponent<ProjectLayoutProps> = ({ children, titleKo, tags }) => {
+  const {currentStep} = useProjectStore()
+  const scrollTop = () => window.scrollTo(0,0)
+  useEffect(() => {
+    scrollTop()
+  }, [currentStep]);
   return (
-    <div className={'project flex-col font-pretendard justify-center'}>
+    <div className={'project flex-col h-screen font-pretendard justify-center'}>
       <div className={'flex gap-5 items-center py-[20px]'}>
         <div className={'flex items-center'}>
           <div>

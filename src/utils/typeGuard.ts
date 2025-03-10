@@ -21,14 +21,14 @@ export const isProject = (value: unknown): value is Project => {
 
 export const isPortfolio = (value: unknown): value is Portfolio => {
   const keys:(keyof Portfolio)[] = [
-    'idx', "imgUrl", "title", "subtitle", "type", 'user', "timeStamp", 'heartRate'
+    'idx', "imgUrl", "projectTitle", "title", "type", 'user', "timeStamp", 'heartRate','showRate'
   ];
   return isOfType<Portfolio>(value, keys)
 }
 
 export const isValidText = (value: unknown): value is ValidText => {
   const keys:(keyof ValidText)[] = [
-    'id', 'role', 'content'
+    'id', 'role', 'content', "isValid"
   ];
   return isOfType<ValidText>(value, keys)
 }

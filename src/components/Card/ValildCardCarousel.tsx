@@ -4,6 +4,7 @@ import {isValidText} from "../../utils/typeGuard.ts";
 import {FiChevronLeft, FiChevronRight} from "react-icons/fi";
 import {ValidCard} from "./ValidCard.tsx";
 import {ValidText} from "../../@types/domain.ts";
+import {calculateMaxPage} from "../../utils/calculateMaxPage.ts";
 
 interface Props {
   cardList: ValidText[];
@@ -21,7 +22,7 @@ export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, it
   }, [cardList])
   
   const maxPage = useMemo(() => {
-    return Math.max(1, Math.ceil(sortedData.length / itemsPerPage))
+    return calculateMaxPage(sortedData, itemsPerPage)
   }, [sortedData, itemsPerPage])
   
   const visiblePages = useMemo(() => {
@@ -63,11 +64,11 @@ export const ValidCardCarousel: FunctionComponent<Props> = ({cardList, label, it
       </div>
       {/*컨텐츠*/}
       <div className={'project'}>
-        <div className={'relative flex gap-5 flex-wrap justify-start sm:justify-between items-start'}>
+        <div className={'relative flex gap-5 flex-wrap justify-between sm:justify-start items-start'}>
           {pagedData.map(validText => {
-            console.log(validText)
+            console.log(validText, validText.isValid)
             if (isValidText(validText)) {
-              return <ValidCard key={validText.id} validText={validText} isValid={false} onClick={() => onClick?.(validText.id)}/>
+              return <ValidCard key={validText.id} validText={validText} isValid={validText.isValid} onClick={() => onClick?.(validText.id)}/>
             }
           })}
           {/*추후 모달 설정시 할 자리*/}

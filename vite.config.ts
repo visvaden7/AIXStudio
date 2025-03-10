@@ -10,7 +10,12 @@ export default defineConfig({
   server: {
     proxy:{
       "/api": {
-        target: 'https://new.aixstudio.kr', //TODO: 추후 알맞는 API 서버로 수정
+        target: 'https://newmng.aixstudio.kr/elementary_api',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+      "/api-ai": {
+        target: 'https://new.aixstudio.kr/api',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       }

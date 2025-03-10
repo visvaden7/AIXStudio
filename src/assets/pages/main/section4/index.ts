@@ -1,0 +1,6 @@
+export {default as asterisk} from './bg_b.png'
+export {default as chatRobot} from './chat_img.png'
+export {default as cloud} from './cloud1.png'
+export {default as idea} from './idea.png'
+export {default as people} from './people4.png'
+export {default as highlight} from './highlight.png'

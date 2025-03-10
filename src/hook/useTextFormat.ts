@@ -12,7 +12,6 @@ export const useTextFormatter = () => {
     
     const selectedText = selection.toString();
     const range = selection.getRangeAt(0); // 선택 영역의 범위
-    console.log('test', formatType)
     const container = containerRef.current.get(messageId); // 메시지 컨테이너 참조
     if (!container) return;
     

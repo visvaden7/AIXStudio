@@ -4,9 +4,9 @@ import {subjectClass, titleClass} from "../../const/const.ts";
 import {ProgressBar} from "../ProgressBar.tsx";
 import {FaRegCircleQuestion} from "react-icons/fa6";
 import {RiErrorWarningLine} from "react-icons/ri";
+import {useProjectStore} from "../../store/useProjectStore.ts";
 
 interface Step2Props {
-  currentStep: number;
   onSelect: (category: string) => void
 }
 
@@ -36,11 +36,13 @@ const stepContents = {
   ]
 }
 
-export const ProjectStep2: FunctionComponent<Step2Props> = ({currentStep, onSelect}) => {
+export const ProjectStep2: FunctionComponent<Step2Props> = ({onSelect}) => {
+  const currentStep = useProjectStore(state => state.currentStep)
   const [selectKeywords, setSelectKeywords] = useState<Keywords>({name: '', showStory: false})
   const [selectContents, setSelectContents] = useState<number>();
   const [isHovering, setIsHovering] = useState(false)
   const [isShowContents, setIsShowContents] = useState(false)
+  const {updateTopic} = useProjectStore()
   const handleMouseOver = (idx: number) => {
     setIsHovering(true);
     setSelectContents(idx)
@@ -53,6 +55,7 @@ export const ProjectStep2: FunctionComponent<Step2Props> = ({currentStep, onSele
   const handleShowContents = (idx: number, name: string) => {
     setIsShowContents(true)
     setSelectKeywords({idx: idx, name: name, showStory: true})
+    updateTopic(name)
     onSelect(name)
   }
   return (

@@ -1,8 +1,8 @@
 export type Nullable<T> = T | null;
 
-export type ProjectType = '' | '문제해결 체험' | '상상 더하기 체험' | '웹툰 생성 체험' | 'AI 간편 체험'
+export type ProjectType = '' | '문제해결 체험' | '상상 더하기 체험' | '웹툰 생성 체험' | 'AI 간편 체험' | '카드뉴스'
 
-export type Project = { //TODO: 타입정리 및 정리
+export type Project = {
   idx: number;
   titleKo: string;
   titleEn: string;
@@ -19,12 +19,13 @@ export type Project = { //TODO: 타입정리 및 정리
 export type Portfolio = {
   idx: number,
   imgUrl: string,
+  projectTitle: string,
   title: string,
-  subtitle: string,
   type: ProjectType,
   user: string,
   timeStamp: string,
-  heartRate: number
+  heartRate: number,
+  showRate: number,
 }
 
 export type PageReducerType = {
@@ -65,7 +66,8 @@ export interface ChatMessage {
 export type ValidText = {
   id: number;
   role: string;
-  content: string
+  content: string;
+  isValid: boolean;
 }
 
 export interface CopyType {
@@ -78,4 +80,12 @@ export interface IntroductionText {
   title: string;
   content: string;
   videoUrl: string;
+}
+
+export interface FormData {
+  name: string;
+  school: string;
+  phone: string;
+  email: string;
+  agree: false;
 }

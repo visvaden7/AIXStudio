@@ -2,14 +2,14 @@ import {plugins} from "./postcss.config.cjs";
 
 export default {
   content: [
-      './src/**/*.{html,js,jsx,ts,tsx}'
+      './src/**/*.{html,js,jsx,ts,tsx,css}'
   ],
   theme: {
     screens: {
-      sm: '320px',
-      md: '768px',
-      lg: '1024px',
-      xl: '1280px',
+      'sm': '320px',
+      'md': '768px',
+      'lg': '1024px',
+      'xl': '1280px',
       '2xl': '1920px',
     },
     extend: {
