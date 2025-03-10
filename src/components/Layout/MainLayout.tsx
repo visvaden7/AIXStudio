@@ -21,11 +21,11 @@ const MainLayout: FunctionComponent = () => {
   }, []);
   
   return (
-    <div className={`flex flex-col w-full min-h-[${vh * 100}px] no-scrollbar`}>
+    <div className={`flex flex-col w-screen min-h-[${vh * 100}px] no-scrollbar`}>
       <Header/>
-      <main className={`font-nanumSquareRound flex-1 w-full ${bgClass} pt-20`}>
+        <main className={`font-nanumSquareRound flex-1 w-full ${bgClass} pt-20`}>
         <div
-          className="container relative w-[70%] mx-auto sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+          className="container relative w-[70%] mx-auto">
           {bgUrl && <div className={'absolute top-10 left-[50%]'}>
               <img src={bgUrl} alt={'polygon'} className={''}/>
           </div>}
