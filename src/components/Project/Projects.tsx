@@ -7,6 +7,7 @@ import {ProjectStep4} from "./ProjectStep4.tsx";
 import {ProjectStep5} from "./ProjectStep5.tsx";
 import {useLocation} from "react-router-dom";
 import {useProjectStore} from "../../store/useProjectStore.ts";
+import {ProjectStep6} from "./ProjectStep6.tsx";
 
 
 export const Projects:FunctionComponent = () => {
@@ -32,9 +33,10 @@ export const Projects:FunctionComponent = () => {
     [3, <ProjectStep3 category={category}/>],
     [4, <ProjectStep4/>],
     [5, <ProjectStep5/>],
+    [6, <ProjectStep6/>],
   ]),[imgUrl, titleKo, story, category]);
   
-  const modulesOrder = [1, 2, 3, 4, 5]; // Sample data from backend
+  const modulesOrder = [1, 2, 3, 4, 5, 6]; // Sample data from backend
   const renderedModules = useMemo(() => {
     return modulesOrder.map((order, idx) => {
       if(currentStep === idx + 1){
